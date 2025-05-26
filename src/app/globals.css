@@ -2,20 +2,86 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 0 0% 96%; /* #F5F5F5 */
+    --foreground: 0 0% 13%; /* #212121 */
+
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 0 0% 13%; /* #212121 */
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 13%;
+
+    --primary: 180 100% 25%; /* #008080 */
+    --primary-foreground: 0 0% 100%; /* #FFFFFF */
+
+    --secondary: 30 100% 50%; /* #FF6200 */
+    --secondary-foreground: 0 0% 100%; /* #FFFFFF */
+
+    --accent: 180 40% 96%;
+    --accent-foreground: 180 40% 35%;
+
+    --muted: 0 0% 80%; /* #CCCCCC */
+    --muted-foreground: 0 0% 33%; /* #555555 */
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 88%; /* #E0E0E0 */
+    --input: 0 0% 100%;
+    --ring: 180 100% 25%;
+
+    --chart-1: 180 100% 25%; /* #008080 */
+    --chart-2: 30 100% 50%; /* #FF6200 */
+    --chart-3: 0 0% 33%;
+    --chart-4: 0 0% 60%;
+    --chart-5: 0 0% 80%;
+
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 0 0% 7%; /* #121212 */
+    --foreground: 0 0% 100%; /* #FFFFFF */
+
+    --card: 0 0% 12%; /* #1E1E1E */
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 180 100% 40%; /* #00b3b3 */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 30 100% 61%; /* #FF812C */
+    --secondary-foreground: 0 0% 100%;
+
+    --accent: 180 25% 20%;
+    --accent-foreground: 180 40% 90%;
+
+    --muted: 0 0% 40%; /* #666666 */
+    --muted-foreground: 0 0% 75%; /* #BBBBBB */
+
+    --destructive: 0 100% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 16%; /* #2A2A2A */
+    --input: 0 0% 20%;
+    --ring: 180 100% 40%;
+
+    --chart-1: 180 100% 40%;
+    --chart-2: 30 100% 61%;
+    --chart-3: 0 0% 80%;
+    --chart-4: 0 0% 60%;
+    --chart-5: 0 0% 40%;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
