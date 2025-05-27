@@ -16,7 +16,7 @@ const Footer = () => {
                 alt="logo"
                 width={100}
                 height={100}
-                className="w-[35px]"
+                className="w-[40px]"
               />
               <span className="text-xl font-bold">SureHired</span>
             </div>
