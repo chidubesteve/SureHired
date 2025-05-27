@@ -5,11 +5,11 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#E6F2F2] py-12">
+    <footer className="bg-neutral-900 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 lg:grid-cols-4">
           {/* div for logo and slogan */}
-          <div>
+          <div className="text-card">
             <div className="flex items-center gap-2">
               <Image
                 src={"/logo.png"}
@@ -20,7 +20,7 @@ const Footer = () => {
               />
               <span className="text-xl font-bold">SureHired</span>
             </div>
-            <p className="text-muted-foreground mt-2 font-medium">
+            <p className="text-muted mt-2 font-medium">
               Connecting the best talent with the best opportunities worldwide.
             </p>
           </div>
@@ -28,13 +28,13 @@ const Footer = () => {
           {/* Quick Links */}
           {Object.values(FOOTER_LINKS).map((section) => (
             <div key={section.title}>
-              <h3 className="font-semibold mb-4">{section.title}</h3>
+              <h3 className="font-semibold mb-4 text-card">{section.title}</h3>
               <ul className="space-y-2 font-medium">
                 {section.links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="hover:text-foreground transition-colors text-muted-foreground"
+                      className="hover:text-card transition-colors text-muted-foreground"
                     >
                       {link.label}
                     </Link>
@@ -43,7 +43,6 @@ const Footer = () => {
               </ul>
             </div>
           ))}
-     
         </div>
       </div>
     </footer>
