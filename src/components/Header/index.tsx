@@ -47,7 +47,7 @@ const Header = () => {
               Post a Job
             </Link>
             <Link
-              href="/salary"
+              href="/salary-guide"
               className="text-muted-foreground hover:text-foreground font-medium transition-colors"
             >
               Salary Guide
@@ -103,7 +103,7 @@ const Header = () => {
                   </Link>
                 </li>
                 <li className="text-muted-foreground font-medium">
-                  <Link href={"/salary"} className="cursor-pointer">
+                  <Link href={"/salary-guide"} className="cursor-pointer">
                     Salary Guide
                   </Link>
                 </li>
