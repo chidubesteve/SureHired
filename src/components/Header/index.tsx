@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { NAV_LINKS } from "@/config/nav-links";
 
 const Header = () => {
   type UserType = "candidate" | "employer" | null;
@@ -28,30 +29,15 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-4">
-            <Link
-              href="/jobs"
-              className="text-muted-foreground hover:text-foreground font-medium transition-colors"
-            >
-              Find Jobs
-            </Link>
-            <Link
-              href="/companies"
-              className="text-muted-foreground hover:text-foreground font-medium transition-colors"
-            >
-              Companies
-            </Link>
-            <Link
-              href="/post-job"
-              className="text-muted-foreground hover:text-foreground font-medium transition-colors"
-            >
-              Post a Job
-            </Link>
-            <Link
-              href="/salary-guide"
-              className="text-muted-foreground hover:text-foreground font-medium transition-colors"
-            >
-              Salary Guide
-            </Link>
+            {NAV_LINKS.map((link, id) => (
+              <Link
+                key={id}
+                href={link.href}
+                className="text-muted-foreground hover:text-foreground font-medium transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
           </nav>
 
           {/* Auth buttons */}
@@ -60,7 +46,9 @@ const Header = () => {
             {!userType && (
               <>
                 <Link href="/sign-in">
-                  <Button variant="outline" className="hover:text-foreground">Login</Button>
+                  <Button variant="outline" className="hover:text-foreground">
+                    Login
+                  </Button>
                 </Link>
                 <Link href="/sign-up">
                   <Button>Get Started</Button>
@@ -87,26 +75,16 @@ const Header = () => {
             <div className="md:hidden w-full bg-card p-4 border-neutral-200 absolute top-16 right-0 rounded-b-2xl inline shadow">
               <hr className="border-neutral-200" />
               <ul className="list-none flex flex-col space-y-4 my-4">
-                <li className="text-muted-foreground font-medium">
-                  <Link href={"/jobs"} className="cursor-pointer">
-                    Find Jobs
-                  </Link>
-                </li>
-                <li className="text-muted-foreground font-medium">
-                  <Link href={"/companies"} className="cursor-pointer">
-                    Companies
-                  </Link>
-                </li>
-                <li className="text-muted-foreground font-medium">
-                  <Link href={"/post-job"} className="cursor-pointer">
-                    Post a Job
-                  </Link>
-                </li>
-                <li className="text-muted-foreground font-medium">
-                  <Link href={"/salary-guide"} className="cursor-pointer">
-                    Salary Guide
-                  </Link>
-                </li>
+                {NAV_LINKS.map((link) => (
+                  <li
+                    key={link.href}
+                    className="text-muted-foreground font-medium"
+                  >
+                    <Link href={link.href} className="cursor-pointer">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
               <hr className="border-neutral-200" />
               <div className="pt-4 flex w-full justify-around items-center">
