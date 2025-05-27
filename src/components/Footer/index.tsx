@@ -20,7 +20,7 @@ const Footer = () => {
               />
               <span className="text-xl font-bold">SureHired</span>
             </div>
-            <p className="text-muted mt-2 font-medium">
+            <p className="text-neutral-400 mt-2 font-medium">
               Connecting the best talent with the best opportunities worldwide.
             </p>
           </div>
@@ -29,12 +29,12 @@ const Footer = () => {
           {Object.values(FOOTER_LINKS).map((section) => (
             <div key={section.title}>
               <h3 className="font-semibold mb-4 text-card">{section.title}</h3>
-              <ul className="space-y-2 font-medium">
+              <ul className="space-y-2">
                 {section.links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="hover:text-card transition-colors text-muted-foreground"
+                      className="hover:text-card transition-colors text-neutral-400"
                     >
                       {link.label}
                     </Link>
