@@ -144,7 +144,7 @@ export default {
       },
 
       screens: {
-        compact: { raw: "(min-width: 769px) and (max-width: 901px)" },
+        compact: { raw: "(min-width: 769px) and (max-width: 1023px)" },
       },
     },
   },
