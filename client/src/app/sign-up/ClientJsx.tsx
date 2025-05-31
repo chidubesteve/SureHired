@@ -5,6 +5,9 @@ import { FaGoogle, FaLinkedin } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { formSchema, FormSchemaType } from "./validationSchema";
 
 const ClientGoBackButtonJsx = () => {
   const router = useRouter();
@@ -21,45 +24,39 @@ const ClientGoBackButtonJsx = () => {
   );
 };
 
-type UserType = "candidate" | "employer";
-
-type FormData = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  company: string;
-  agreeToTerms: boolean;
-  userType: UserType;
-};
-
-const initialFormData: FormData = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
-  company: "",
-  userType: "candidate",
-  agreeToTerms: false,
-};
 
 const ClientFormJsx = () => {
-  const [formData, setFormData] = useState(initialFormData);
   const [showPassword, setShowPassword] = useState(false);
+  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<FormSchemaType>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      company: "",
+      userType: "candidate",
+      agreeToTerms: false,
+    },
+  });
 
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Sign up form data: ", formData);
+  const userType = watch("userType");
+
+  const onSubmit = (data: FormSchemaType) => {
+    console.log("Form data:", data);
+    // Handle submission here
   };
+
   return (
     <>
       {/* User Type Toggle */}
       <div className="p-1 bg-white rounded-lg border border-neutral-200">
         <div className="grid grid-cols-2 gap-1">
           <button
-            onClick={() => setFormData({ ...formData, userType: "candidate" })}
+            type="button"
+            onClick={() => setValue("userType", "candidate")}
             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-              formData.userType === "candidate"
+              userType === "candidate"
                 ? "bg-brand-600 text-white"
                 : "bg-white text-neutral-600 hover:text-neutral-900"
             }`}
@@ -67,9 +64,10 @@ const ClientFormJsx = () => {
             Job Seeker
           </button>
           <button
-            onClick={() => setFormData({ ...formData, userType: "employer" })}
+            type="button"
+            onClick={() => setValue("userType", "employer")}
             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-              formData.userType === "employer"
+              userType === "employer"
                 ? "bg-brand-600 text-white"
                 : "bg-white text-neutral-600 hover:text-neutral-900"
             }`}
@@ -79,7 +77,7 @@ const ClientFormJsx = () => {
         </div>
       </div>
 
-      <form onSubmit={handleFormSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label
@@ -90,15 +88,13 @@ const ClientFormJsx = () => {
             </label>
             <input
               type="text"
-              required
-              name="firstName"
               className="search-input"
-              value={formData.firstName}
               id="firstName"
-              onChange={(e) =>
-                setFormData({ ...formData, firstName: e.target.value })
-              }
+              {...register("firstName")}
             />
+            {errors.firstName && (
+              <p className="text-sm text-red-500">{errors.firstName.message}</p>
+            )}
           </div>
           <div>
             <label
@@ -110,15 +106,13 @@ const ClientFormJsx = () => {
             <input
               id="lastName"
               type="text"
-              name="lastName"
-              required
+              {...register("lastName")}
               className="search-input"
-              value={formData.lastName}
-              onChange={(e) =>
-                setFormData({ ...formData, lastName: e.target.value })
-              }
             />
           </div>
+          {errors.lastName && (
+            <p className="text-sm text-red-500">{errors.lastName.message}</p>
+          )}
         </div>
 
         <div>
@@ -131,17 +125,15 @@ const ClientFormJsx = () => {
           <input
             id="email"
             type="email"
-            name="email"
-            required
+            {...register("email")}
             className="search-input"
-            value={formData.email}
-            onChange={(e) =>
-              setFormData({ ...formData, email: e.target.value })
-            }
           />
+          {errors.email && (
+            <p className="text-sm text-red-500">{errors.email.message}</p>
+          )}
         </div>
 
-        {formData.userType === "employer" && (
+        {userType === "employer" && (
           <div>
             <label
               htmlFor="company"
@@ -152,14 +144,12 @@ const ClientFormJsx = () => {
             <input
               id="company"
               type="text"
-              name="company"
-              required
               className="search-input"
-              value={formData.company}
-              onChange={(e) =>
-                setFormData({ ...formData, company: e.target.value })
-              }
+              {...register("company")}
             />
+            {errors.company && (
+              <p className="text-sm text-red-500">{errors.company.message}</p>
+            )}
           </div>
         )}
 
@@ -173,7 +163,7 @@ const ClientFormJsx = () => {
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
-              name="password"
+              {...register("password")}
               id="password"
               className="search-input pr-10"
             />
@@ -190,22 +180,18 @@ const ClientFormJsx = () => {
               )}
             </button>
           </div>
+          {errors.password && (
+            <p className="text-sm text-red-500">{errors.password.message}</p>
+          )}
         </div>
 
         {/* terms */}
         <div className="flex items-center">
           <input
             id="terms"
-            name="terms"
             type="checkbox"
             className="h-4 w-4 text-brand-600 focus:ring-brand-500 border-neutral-300 rounded"
-            checked={formData.agreeToTerms}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                agreeToTerms: e.target.checked,
-              })
-            }
+            {...register("agreeToTerms", { required: true })} // Add required validation
           />
           <label
             htmlFor="terms"
@@ -223,6 +209,11 @@ const ClientFormJsx = () => {
               Privacy Policy
             </Link>
           </label>
+          {errors.agreeToTerms && (
+            <p className="text-sm text-red-500">
+              {errors.agreeToTerms.message}
+            </p>
+          )}
         </div>
         <Button
           type="submit"
