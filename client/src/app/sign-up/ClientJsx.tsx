@@ -27,8 +27,10 @@ const ClientGoBackButtonJsx = () => {
 
 const ClientFormJsx = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<FormSchemaType>({
+  const [submitted, setSubmitted] = useState(false);
+  const { register, handleSubmit, watch, setValue, reset, formState: { errors, isValid, isSubmitting } } = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
+    mode: "onChange",
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -42,9 +44,14 @@ const ClientFormJsx = () => {
 
   const userType = watch("userType");
 
-  const onSubmit = (data: FormSchemaType) => {
+  const onSubmit = async (data: FormSchemaType) => {
     console.log("Form data:", data);
     // Handle submission here
+    setSubmitted(true); // trigger submit message
+    // simulate api call
+    await new Promise((res) => setTimeout(res, 3000));
+    setSubmitted(false);
+    reset(); // This resets the form to defaultValues
   };
 
   return (
@@ -218,8 +225,9 @@ const ClientFormJsx = () => {
         <Button
           type="submit"
           className="w-full font-semibold py-3 text-lg bg-brand-600 hover:bg-brand-700"
+          disabled={!isValid || isSubmitting}
         >
-          Create Account
+          {isSubmitting ? "Submitting..." : "Create Account"}
         </Button>
       </form>
 
