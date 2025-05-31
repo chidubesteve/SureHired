@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Briefcase, MapPin, Search } from "lucide-react";
+import { LuBriefcase, LuMapPin, LuSearch } from "react-icons/lu";
 import { JOB_CATEGORIES } from "@/config/job-categories";
 import { Button } from "../ui/button";
 import {
@@ -23,7 +23,7 @@ const ClientJsx = () => {
     <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-6 border border-neutral-200 animate-slide-up">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-5 h-5" />
+          <LuSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-5 h-5" />
           <input
             type="text"
             placeholder="Job title, keywords, or company"
@@ -33,7 +33,7 @@ const ClientJsx = () => {
           />
         </div>
         <div className="relative">
-          <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-5 h-5" />
+          <LuMapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-5 h-5" />
           <input
             type="text"
             placeholder="City, state, or remote"
@@ -43,7 +43,7 @@ const ClientJsx = () => {
           />
         </div>
         <div className="relative flex items-center">
-          <Briefcase className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-5 h-5" />
+          <LuBriefcase className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-5 h-5" />
           <Select value={category} onValueChange={(value) => setCategory(value)}>
             <SelectTrigger className="md:w-[280px] w-full pl-10">
               <SelectValue placeholder="Select a category" />

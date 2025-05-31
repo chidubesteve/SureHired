@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 import { Button } from '../ui/button';
-import { Bookmark, BookmarkCheck } from 'lucide-react';
+import { LuBookmark, LuBookmarkCheck } from 'react-icons/lu';
 
 
 export const ClientSaveButtonJsx = () => {
@@ -18,9 +18,9 @@ export const ClientSaveButtonJsx = () => {
       onClick={handleSaveJob}
     >
       {isJobSaved ? (
-        <BookmarkCheck className="w-4 h-4" />
+        <LuBookmarkCheck className="w-4 h-4" />
       ) : (
-        <Bookmark className="w-4 h-4" />
+        <LuBookmark className="w-4 h-4" />
       )}
     </Button>
   );

@@ -1,4 +1,4 @@
-import { Heart, Search, Shield, Users } from 'lucide-react';
+import { LuHeart, LuSearch, LuShield, LuUsers } from 'react-icons/lu';
 import React from 'react'
 
 
@@ -19,7 +19,7 @@ const Features = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           <div className="text-center p-6">
             <div className="w-16 h-16 bg-brand-100 rounded-xl flex items-center justify-center mx-auto mb-6">
-              <Search className="w-8 h-8 text-brand-600" />
+              <LuSearch className="w-8 h-8 text-brand-600" />
             </div>
             <h3 className="text-xl font-semibold text-neutral-900 mb-4">
               Smart Job Search
@@ -32,7 +32,7 @@ const Features = () => {
 
           <div className="text-center p-6">
             <div className="w-16 h-16 bg-brand-100 rounded-xl flex items-center justify-center mx-auto mb-6">
-              <Users className="w-8 h-8 text-brand-600" />
+              <LuUsers className="w-8 h-8 text-brand-600" />
             </div>
             <h3 className="text-xl font-semibold text-neutral-900 mb-4">
               Top Companies
@@ -45,7 +45,7 @@ const Features = () => {
 
           <div className="text-center p-6">
             <div className="w-16 h-16 bg-brand-100 rounded-xl flex items-center justify-center mx-auto mb-6">
-              <Shield className="w-8 h-8 text-brand-600" />
+              <LuShield className="w-8 h-8 text-brand-600" />
             </div>
             <h3 className="text-xl font-semibold text-neutral-900 mb-4">
               Secure & Private
@@ -58,7 +58,7 @@ const Features = () => {
 
           <div className="text-center p-6">
             <div className="w-16 h-16 bg-brand-100 rounded-xl flex items-center justify-center mx-auto mb-6">
-              <Heart className="w-8 h-8 text-brand-600" />
+              <LuHeart className="w-8 h-8 text-brand-600" />
             </div>
             <h3 className="text-xl font-semibold text-neutral-900 mb-4">
               Easy to Use

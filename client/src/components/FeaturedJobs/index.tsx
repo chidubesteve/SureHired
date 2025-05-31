@@ -2,7 +2,7 @@ import React from "react";
 import { Jobs } from "../../../src/data/Jobs";
 import Image from "next/image";
 import { ClientSaveButtonJsx } from "./ClientJsx";
-import { Clock, DollarSign, MapPin } from "lucide-react";
+import { LuClock, LuDollarSign, LuMapPin } from "react-icons/lu";
 import { formatPostedDate } from "./../../utils/formatDate";
 import Link from "next/link";
 import { Button } from "../ui/button";
@@ -51,17 +51,17 @@ const FeaturedJobs = () => {
 
                 <div className="space-y-2 mb-4">
                   <div className="flex items-center text-neutral-600 text-sm">
-                    <MapPin className="w-4 h-4 mr-2" />
+                    <LuMapPin className="w-4 h-4 mr-2" />
                     {job.location.length > 1
                       ? `${job.location[0]} + ${job.location.length - 1} more`
                       : job.location[0]}
                   </div>
                   <div className="flex items-center text-neutral-600 text-sm">
-                    <Clock className="w-4 h-4 mr-2" />
+                    <LuClock className="w-4 h-4 mr-2" />
                     {job.type} • {formatPostedDate(job.postedDate)}
                   </div>
                   <div className="flex items-center text-neutral-600 text-sm">
-                    <DollarSign className="w-4 h-4 mr-2" />
+                    <LuDollarSign className="w-4 h-4 mr-2" />
                     {job.salary}
                   </div>
                 </div>

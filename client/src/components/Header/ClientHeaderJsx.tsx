@@ -3,7 +3,7 @@
   import Link from "next/link";
   import { useState } from "react";
   import { Button } from "@/components/ui/button";
-  import { Menu, X } from "lucide-react";
+  import { LuMenu, LuX } from "react-icons/lu";
 import { NAV_LINKS } from "@/config/nav-links";
 import {
   DropdownMenu,
@@ -60,9 +60,9 @@ import {
           onClick={() => setIsMenuOpen((prev) => !prev)}
         >
           {isMenuOpen ? (
-            <X className="w-6 h-6" />
+            <LuX className="w-6 h-6" />
           ) : (
-            <Menu className="w-6 h-6" />
+            <LuMenu className="w-6 h-6" />
           )}
         </button>
 
