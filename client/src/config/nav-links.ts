@@ -12,7 +12,7 @@ export const FOOTER_LINKS = {
       { label: "Browse Jobs", href: "/jobs" },
       { label: "Companies", href: "/companies" },
       { label: "Salary Guide", href: "/salary-guide" },
-      { label: "Career Resources", href: "/resources" },
+      { label: "Career Resources", href: "#" },
     ],
   },
   employers: {
