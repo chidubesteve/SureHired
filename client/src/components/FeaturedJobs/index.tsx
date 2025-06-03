@@ -1,5 +1,5 @@
 import React from "react";
-import { Jobs } from "../../../src/data/Jobs";
+import { Jobs } from "../../data/Job";
 import Image from "next/image";
 import { ClientSaveButtonJsx } from "./ClientJsx";
 import { LuClock, LuDollarSign, LuMapPin } from "react-icons/lu";
