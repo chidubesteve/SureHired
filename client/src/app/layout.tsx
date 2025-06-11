@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Toaster } from "sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 
 
@@ -23,7 +25,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col">{children}</body>
+      <body className="min-h-screen flex flex-col">
+        <TooltipProvider>
+
+        {children}
+        </TooltipProvider>
+        <Toaster richColors/>
+      </body>
     </html>
   );
 }
