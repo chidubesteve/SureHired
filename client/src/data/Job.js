@@ -9,7 +9,7 @@ export const Jobs = [
     },
     location: ["San Francisco, CA, USA", "Remote"],
     type: "Full-time",
-    salary: "$120,000 - $160,000",
+    salary: "120,000 - 160,000",
     description:
       "Build scalable web applications using React and Node.js. Collaborate with cross-functional teams to deliver innovative solutions. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem ipsam sed nostrum esse id incidunt, eum impedit aliquid tenetur officiis placeat qui facere, perspiciatis tempore repudiandae tempora est cupiditate. Enim? Error unde in perspiciatis est natus, nemo quis commodi non maxime placeat laborum facilis possimus, dolorum odio reprehenderit autem adipisci doloribus ipsum consequatur? Nobis iste ea sunt adipisci fuga unde. Aliquid, dignissimos voluptatum! Qui dignissimos, inventore eaque soluta at dicta aliquid quae, illo nobis quam neque. Perspiciatis, sint ipsa quis impedit quia eligendi aspernatur ipsam consectetur, adipisci explicabo, optio unde? Facilis, culpa. Nam debitis eaque quaerat. Eaque minus molestiae veniam deleniti. Temporibus consectetur eum id, assumenda nemo iusto qui sed, officiis autem voluptatum fuga obcaecati dicta quaerat commodi ipsam ab! Dolorum itaque non provident molestias architecto saepe ea. Quia unde molestias suscipit voluptatem aperiam necessitatibus laudantium nam quas quae non. Iusto ab natus maxime voluptates officia minima earum qui voluptatem. Neque nam totam eligendi in sint? Similique cupiditate, nesciunt non pariatur rerum sed itaque molestias placeat aperiam natus nisi ab recusandae corrupti omnis necessitatibus in architecto, quisquam aliquam veniam cumque? Omnis voluptas quas nobis accusantium architecto unde quisquam quaerat aliquid. Quos cupiditate soluta incidunt, rem et officia odio magnam deserunt ipsum, fugiat eos eveniet ducimus quia cumque asperiores est provident. Ex dolor in ullam beatae eveniet obcaecati repellat quod tenetur dolore omnis veniam error expedita deserunt aspernatur iure corporis quidem magni, mollitia rem, adipisci animi sed quam? Nemo, dolorum fuga. Accusamus sint, impedit, natus numquam architecto amet cumque deleniti cupiditate vero in qui fugiat nesciunt eius. Impedit enim ab velit voluptas placeat quam, voluptatibus molestiae, alias culpa, deserunt quibusdam eius?  Officiis molestias tempora sapiente amet qui debitis, animi temporibus doloremque nobis ex ipsam blanditiis, itaque sed illo perspiciatis quasi? Praesentium iure deleniti ipsa harum impedit voluptatibus. Dicta debitis voluptatibus nesciunt?",
     requirements: [
@@ -46,6 +46,7 @@ export const Jobs = [
       },
     ],
     isFeatured: true,
+    applications: ["app_001", "app_002"],
     status: "Open",
   },
   {
@@ -58,7 +59,7 @@ export const Jobs = [
     },
     location: ["Remote"],
     type: "Contract",
-    salary: "$50 - $70 per hour",
+    salary: "50 - 70 per hour",
     description:
       "Design intuitive user interfaces for mobile and web platforms. Conduct user research and create wireframes to enhance user experience.   Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem ipsam sed nostrum esse id incidunt, eum impedit aliquid tenetur officiis placeat qui facere, perspiciatis tempore repudiandae tempora est cupiditate. Enim? Error unde in perspiciatis est natus, nemo quis commodi non maxime placeat laborum facilis possimus, dolorum odio reprehenderit autem adipisci doloribus ipsum consequatur? Nobis iste ea sunt adipisci fuga unde. Aliquid, dignissimos voluptatum! Qui dignissimos, inventore eaque soluta at dicta aliquid quae, illo nobis quam neque. Perspiciatis, sint ipsa quis impedit quia eligendi aspernatur ipsam consectetur, adipisci explicabo, optio unde? Facilis, culpa. Nam debitis eaque quaerat. Eaque minus molestiae veniam deleniti. Temporibus consectetur eum id, assumenda nemo iusto qui sed, officiis autem voluptatum fuga obcaecati dicta quaerat commodi ipsam ab! Dolorum itaque non provident molestias architecto saepe ea. Quia unde molestias suscipit voluptatem aperiam necessitatibus laudantium nam quas quae non. Iusto ab natus maxime voluptates officia minima earum qui voluptatem. Neque nam totam eligendi in sint? Similique cupiditate, nesciunt non pariatur rerum sed itaque molestias placeat aperiam natus nisi ab recusandae corrupti omnis necessitatibus in architecto, quisquam aliquam veniam cumque? Omnis voluptas quas nobis accusantium architecto unde quisquam quaerat aliquid. Quos cupiditate soluta incidunt, rem et officia odio magnam deserunt ipsum, fugiat eos eveniet ducimus quia cumque asperiores est provident. Ex dolor in ullam beatae eveniet obcaecati repellat quod tenetur dolore omnis veniam error expedita deserunt aspernatur iure corporis quidem magni, mollitia rem, adipisci animi sed quam? Nemo, dolorum fuga. Accusamus sint, impedit, natus numquam architecto amet cumque deleniti cupiditate vero in qui fugiat nesciunt eius. Impedit enim ab velit voluptas placeat quam, voluptatibus molestiae, alias culpa, deserunt quibusdam eius?  Officiis molestias tempora sapiente amet qui debitis, animi temporibus doloremque nobis ex ipsam blanditiis, itaque sed illo perspiciatis quasi? Praesentium iure deleniti ipsa harum impedit voluptatibus. Dicta debitis voluptatibus nesciunt?",
     requirements: [
@@ -77,6 +78,8 @@ export const Jobs = [
     applicationUrl: "https://company.com/careers/apply/123",
     applicationQuestions: [],
     isFeatured: false,
+    applications: ["app_001", "app_002"],
+
     status: "Open",
   },
   {
@@ -89,7 +92,7 @@ export const Jobs = [
     },
     location: ["London, UK", "Manchester, UK"],
     type: "Part-time",
-    salary: "£30,000 - £40,000",
+    salary: "30,000 - 40,000",
     description:
       "Analyze large datasets to provide actionable insights. Work with SQL and Python to create reports and visualizations.    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem ipsam sed nostrum esse id incidunt, eum impedit aliquid tenetur officiis placeat qui facere, perspiciatis tempore repudiandae tempora est cupiditate. Enim? Error unde in perspiciatis est natus, nemo quis commodi non maxime placeat laborum facilis possimus, dolorum odio reprehenderit autem adipisci doloribus ipsum consequatur? Nobis iste ea sunt adipisci fuga unde. Aliquid, dignissimos voluptatum! Qui dignissimos, inventore eaque soluta at dicta aliquid quae, illo nobis quam neque. Perspiciatis, sint ipsa quis impedit quia eligendi aspernatur ipsam consectetur, adipisci explicabo, optio unde? Facilis, culpa. Nam debitis eaque quaerat. Eaque minus molestiae veniam deleniti. Temporibus consectetur eum id, assumenda nemo iusto qui sed, officiis autem voluptatum fuga obcaecati dicta quaerat commodi ipsam ab! Dolorum itaque non provident molestias architecto saepe ea. Quia unde molestias suscipit voluptatem aperiam necessitatibus laudantium nam quas quae non. Iusto ab natus maxime voluptates officia minima earum qui voluptatem. Neque nam totam eligendi in sint? Similique cupiditate, nesciunt non pariatur rerum sed itaque molestias placeat aperiam natus nisi ab recusandae corrupti omnis necessitatibus in architecto, quisquam aliquam veniam cumque? Omnis voluptas quas nobis accusantium architecto unde quisquam quaerat aliquid. Quos cupiditate soluta incidunt, rem et officia odio magnam deserunt ipsum, fugiat eos eveniet ducimus quia cumque asperiores est provident. Ex dolor in ullam beatae eveniet obcaecati repellat quod tenetur dolore omnis veniam error expedita deserunt aspernatur iure corporis quidem magni, mollitia rem, adipisci animi sed quam? Nemo, dolorum fuga. Accusamus sint, impedit, natus numquam architecto amet cumque deleniti cupiditate vero in qui fugiat nesciunt eius. Impedit enim ab velit voluptas placeat quam, voluptatibus molestiae, alias culpa, deserunt quibusdam eius?  Officiis molestias tempora sapiente amet qui debitis, animi temporibus doloremque nobis ex ipsam blanditiis, itaque sed illo perspiciatis quasi? Praesentium iure deleniti ipsa harum impedit voluptatibus. Dicta debitis voluptatibus nesciunt?",
     requirements: [
@@ -119,6 +122,7 @@ export const Jobs = [
       },
     ],
     isFeatured: false,
+    applications: ["app_001", "app_002"],
     status: "Open",
   },
   {
@@ -131,7 +135,7 @@ export const Jobs = [
     },
     location: ["New York, NY, USA", "Boston, MA, USA"],
     type: "Full-time",
-    salary: "$100,000 - $140,000",
+    salary: "100,000 - 140,000",
     description:
       "Lead product development from ideation to launch. Define roadmaps and KPIs with engineering and design teams.    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem ipsam sed nostrum esse id incidunt, eum impedit aliquid tenetur officiis placeat qui facere, perspiciatis tempore repudiandae tempora est cupiditate. Enim? Error unde in perspiciatis est natus, nemo quis commodi non maxime placeat laborum facilis possimus, dolorum odio reprehenderit autem adipisci doloribus ipsum consequatur? Nobis iste ea sunt adipisci fuga unde. Aliquid, dignissimos voluptatum! Qui dignissimos, inventore eaque soluta at dicta aliquid quae, illo nobis quam neque. Perspiciatis, sint ipsa quis impedit quia eligendi aspernatur ipsam consectetur, adipisci explicabo, optio unde? Facilis, culpa. Nam debitis eaque quaerat. Eaque minus molestiae veniam deleniti. Temporibus consectetur eum id, assumenda nemo iusto qui sed, officiis autem voluptatum fuga obcaecati dicta quaerat commodi ipsam ab! Dolorum itaque non provident molestias architecto saepe ea. Quia unde molestias suscipit voluptatem aperiam necessitatibus laudantium nam quas quae non. Iusto ab natus maxime voluptates officia minima earum qui voluptatem. Neque nam totam eligendi in sint? Similique cupiditate, nesciunt non pariatur rerum sed itaque molestias placeat aperiam natus nisi ab recusandae corrupti omnis necessitatibus in architecto, quisquam aliquam veniam cumque? Omnis voluptas quas nobis accusantium architecto unde quisquam quaerat aliquid. Quos cupiditate soluta incidunt, rem et officia odio magnam deserunt ipsum, fugiat eos eveniet ducimus quia cumque asperiores est provident. Ex dolor in ullam beatae eveniet obcaecati repellat quod tenetur dolore omnis veniam error expedita deserunt aspernatur iure corporis quidem magni, mollitia rem, adipisci animi sed quam? Nemo, dolorum fuga. Accusamus sint, impedit, natus numquam architecto amet cumque deleniti cupiditate vero in qui fugiat nesciunt eius. Impedit enim ab velit voluptas placeat quam, voluptatibus molestiae, alias culpa, deserunt quibusdam eius?  Officiis molestias tempora sapiente amet qui debitis, animi temporibus doloremque nobis ex ipsam blanditiis, itaque sed illo perspiciatis quasi? Praesentium iure deleniti ipsa harum impedit voluptatibus. Dicta debitis voluptatibus nesciunt?",
     requirements: [
@@ -157,6 +161,8 @@ export const Jobs = [
       },
     ],
     isFeatured: true,
+    applications: ["app_001", "app_002"],
+
     status: "Open",
   },
   {
@@ -169,7 +175,7 @@ export const Jobs = [
     },
     location: ["Remote", "Toronto, Canada", "Africa"],
     type: "Full-time",
-    salary: "$110,000 - $150,000",
+    salary: "110,000 - 150,000",
     description:
       "Manage CI/CD pipelines and AWS cloud infrastructure. Ensure high availability and scalability of platforms.    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem ipsam sed nostrum esse id incidunt, eum impedit aliquid tenetur officiis placeat qui facere, perspiciatis tempore repudiandae tempora est cupiditate. Enim? Error unde in perspiciatis est natus, nemo quis commodi non maxime placeat laborum facilis possimus, dolorum odio reprehenderit autem adipisci doloribus ipsum consequatur? Nobis iste ea sunt adipisci fuga unde. Aliquid, dignissimos voluptatum! Qui dignissimos, inventore eaque soluta at dicta aliquid quae, illo nobis quam neque. Perspiciatis, sint ipsa quis impedit quia eligendi aspernatur ipsam consectetur, adipisci explicabo, optio unde? Facilis, culpa. Nam debitis eaque quaerat. Eaque minus molestiae veniam deleniti. Temporibus consectetur eum id, assumenda nemo iusto qui sed, officiis autem voluptatum fuga obcaecati dicta quaerat commodi ipsam ab! Dolorum itaque non provident molestias architecto saepe ea. Quia unde molestias suscipit voluptatem aperiam necessitatibus laudantium nam quas quae non. Iusto ab natus maxime voluptates officia minima earum qui voluptatem. Neque nam totam eligendi in sint? Similique cupiditate, nesciunt non pariatur rerum sed itaque molestias placeat aperiam natus nisi ab recusandae corrupti omnis necessitatibus in architecto, quisquam aliquam veniam cumque? Omnis voluptas quas nobis accusantium architecto unde quisquam quaerat aliquid. Quos cupiditate soluta incidunt, rem et officia odio magnam deserunt ipsum, fugiat eos eveniet ducimus quia cumque asperiores est provident. Ex dolor in ullam beatae eveniet obcaecati repellat quod tenetur dolore omnis veniam error expedita deserunt aspernatur iure corporis quidem magni, mollitia rem, adipisci animi sed quam? Nemo, dolorum fuga. Accusamus sint, impedit, natus numquam architecto amet cumque deleniti cupiditate vero in qui fugiat nesciunt eius. Impedit enim ab velit voluptas placeat quam, voluptatibus molestiae, alias culpa, deserunt quibusdam eius?  Officiis molestias tempora sapiente amet qui debitis, animi temporibus doloremque nobis ex ipsam blanditiis, itaque sed illo perspiciatis quasi? Praesentium iure deleniti ipsa harum impedit voluptatibus. Dicta debitis voluptatibus nesciunt?",
     requirements: [
@@ -184,6 +190,7 @@ export const Jobs = [
     applicationUrl: "https://jobs.techgiant.io/senior-dev",
     applicationQuestions: [],
     isFeatured: false,
+    applications: ["app_001", "app_002"],
     status: "Open",
   },
   {
@@ -196,7 +203,7 @@ export const Jobs = [
     },
     location: ["Seattle, WA, USA", "Remote"],
     type: "Full-time",
-    salary: "$130,000 - $180,000",
+    salary: "130,000 - 180,000",
     description:
       "Develop and deploy machine learning models for predictive analytics. Work with Python and TensorFlow to optimize algorithms.    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem ipsam sed nostrum esse id incidunt, eum impedit aliquid tenetur officiis placeat qui facere, perspiciatis tempore repudiandae tempora est cupiditate. Enim? Error unde in perspiciatis est natus, nemo quis commodi non maxime placeat laborum facilis possimus, dolorum odio reprehenderit autem adipisci doloribus ipsum consequatur? Nobis iste ea sunt adipisci fuga unde. Aliquid, dignissimos voluptatum! Qui dignissimos, inventore eaque soluta at dicta aliquid quae, illo nobis quam neque. Perspiciatis, sint ipsa quis impedit quia eligendi aspernatur ipsam consectetur, adipisci explicabo, optio unde? Facilis, culpa. Nam debitis eaque quaerat. Eaque minus molestiae veniam deleniti. Temporibus consectetur eum id, assumenda nemo iusto qui sed, officiis autem voluptatum fuga obcaecati dicta quaerat commodi ipsam ab! Dolorum itaque non provident molestias architecto saepe ea. Quia unde molestias suscipit voluptatem aperiam necessitatibus laudantium nam quas quae non. Iusto ab natus maxime voluptates officia minima earum qui voluptatem. Neque nam totam eligendi in sint? Similique cupiditate, nesciunt non pariatur rerum sed itaque molestias placeat aperiam natus nisi ab recusandae corrupti omnis necessitatibus in architecto, quisquam aliquam veniam cumque? Omnis voluptas quas nobis accusantium architecto unde quisquam quaerat aliquid. Quos cupiditate soluta incidunt, rem et officia odio magnam deserunt ipsum, fugiat eos eveniet ducimus quia cumque asperiores est provident. Ex dolor in ullam beatae eveniet obcaecati repellat quod tenetur dolore omnis veniam error expedita deserunt aspernatur iure corporis quidem magni, mollitia rem, adipisci animi sed quam? Nemo, dolorum fuga. Accusamus sint, impedit, natus numquam architecto amet cumque deleniti cupiditate vero in qui fugiat nesciunt eius. Impedit enim ab velit voluptas placeat quam, voluptatibus molestiae, alias culpa, deserunt quibusdam eius?  Officiis molestias tempora sapiente amet qui debitis, animi temporibus doloremque nobis ex ipsam blanditiis, itaque sed illo perspiciatis quasi? Praesentium iure deleniti ipsa harum impedit voluptatibus. Dicta debitis voluptatibus nesciunt?",
     requirements: [
@@ -225,6 +232,8 @@ export const Jobs = [
       },
     ],
     isFeatured: true,
+    applications: ["app_001", "app_002"],
+
     status: "Open",
   },
   {
@@ -237,13 +246,17 @@ export const Jobs = [
     },
     location: ["Austin, TX, USA", "Mexico City, Mexico"],
     type: "Full-time",
-    salary: "$90,000 - $120,000",
+    salary: "90,000 - 120,000",
     description:
       "Build responsive web interfaces using React and Tailwind CSS. Collaborate with designers to ensure pixel-perfect UI.   Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem ipsam sed nostrum esse id incidunt, eum impedit aliquid tenetur officiis placeat qui facere, perspiciatis tempore repudiandae tempora est cupiditate. Enim? Error unde in perspiciatis est natus, nemo quis commodi non maxime placeat laborum facilis possimus, dolorum odio reprehenderit autem adipisci doloribus ipsum consequatur? Nobis iste ea sunt adipisci fuga unde. Aliquid, dignissimos voluptatum! Qui dignissimos, inventore eaque soluta at dicta aliquid quae, illo nobis quam neque. Perspiciatis, sint ipsa quis impedit quia eligendi aspernatur ipsam consectetur, adipisci explicabo, optio unde? Facilis, culpa. Nam debitis eaque quaerat. Eaque minus molestiae veniam deleniti. Temporibus consectetur eum id, assumenda nemo iusto qui sed, officiis autem voluptatum fuga obcaecati dicta quaerat commodi ipsam ab! Dolorum itaque non provident molestias architecto saepe ea. Quia unde molestias suscipit voluptatem aperiam necessitatibus laudantium nam quas quae non. Iusto ab natus maxime voluptates officia minima earum qui voluptatem. Neque nam totam eligendi in sint? Similique cupiditate, nesciunt non pariatur rerum sed itaque molestias placeat aperiam natus nisi ab recusandae corrupti omnis necessitatibus in architecto, quisquam aliquam veniam cumque? Omnis voluptas quas nobis accusantium architecto unde quisquam quaerat aliquid. Quos cupiditate soluta incidunt, rem et officia odio magnam deserunt ipsum, fugiat eos eveniet ducimus quia cumque asperiores est provident. Ex dolor in ullam beatae eveniet obcaecati repellat quod tenetur dolore omnis veniam error expedita deserunt aspernatur iure corporis quidem magni, mollitia rem, adipisci animi sed quam? Nemo, dolorum fuga. Accusamus sint, impedit, natus numquam architecto amet cumque deleniti cupiditate vero in qui fugiat nesciunt eius. Impedit enim ab velit voluptas placeat quam, voluptatibus molestiae, alias culpa, deserunt quibusdam eius?  Officiis molestias tempora sapiente amet qui debitis, animi temporibus doloremque nobis ex ipsam blanditiis, itaque sed illo perspiciatis quasi? Praesentium iure deleniti ipsa harum impedit voluptatibus. Dicta debitis voluptatibus nesciunt?",
     requirements: [
-      "2+ years of frontend experience",
+      "5+ years of experience in frontend development",
       "Expertise in React and JavaScript",
-      "Familiarity with Tailwind CSS",
+      "Experience with Next.js and modern build tools",
+      "Strong understanding of responsive design principles",
+      "Experience with state management libraries (Redux, Zustand)",
+      "Knowledge of testing frameworks (Jest, Cypress)",
+      "Excellent communication and collaboration skills",
     ],
     benefits: ["Health insurance", "Flexible hours", "Remote work options"],
     tags: ["React", "JavaScript", "Tailwind CSS", "Frontend"],
@@ -265,6 +278,8 @@ export const Jobs = [
       },
     ],
     isFeatured: false,
+    applications: ["app_001", "app_002"],
+
     status: "Open",
   },
   {
@@ -296,6 +311,8 @@ export const Jobs = [
     applicationUrl: "https://apply.linkedIn.com/job/456",
     applicationQuestions: [],
     isFeatured: false,
+    applications: ["app_001", "app_002"],
+
     status: "Open",
   },
   {
@@ -308,7 +325,7 @@ export const Jobs = [
     },
     location: ["Sydney, Australia", "Melbourne, Australia", "South Africa"],
     type: "Full-time",
-    salary: "AUD 100,000 - 130,000",
+    salary: "100,000 - 130,000",
     description:
       "Monitor and protect systems from cyber threats. Conduct vulnerability assessments and implement security protocols.    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem ipsam sed nostrum esse id incidunt, eum impedit aliquid tenetur officiis placeat qui facere, perspiciatis tempore repudiandae tempora est cupiditate. Enim? Error unde in perspiciatis est natus, nemo quis commodi non maxime placeat laborum facilis possimus, dolorum odio reprehenderit autem adipisci doloribus ipsum consequatur? Nobis iste ea sunt adipisci fuga unde. Aliquid, dignissimos voluptatum! Qui dignissimos, inventore eaque soluta at dicta aliquid quae, illo nobis quam neque. Perspiciatis, sint ipsa quis impedit quia eligendi aspernatur ipsam consectetur, adipisci explicabo, optio unde? Facilis, culpa. Nam debitis eaque quaerat. Eaque minus molestiae veniam deleniti. Temporibus consectetur eum id, assumenda nemo iusto qui sed, officiis autem voluptatum fuga obcaecati dicta quaerat commodi ipsam ab! Dolorum itaque non provident molestias architecto saepe ea. Quia unde molestias suscipit voluptatem aperiam necessitatibus laudantium nam quas quae non. Iusto ab natus maxime voluptates officia minima earum qui voluptatem. Neque nam totam eligendi in sint? Similique cupiditate, nesciunt non pariatur rerum sed itaque molestias placeat aperiam natus nisi ab recusandae corrupti omnis necessitatibus in architecto, quisquam aliquam veniam cumque? Omnis voluptas quas nobis accusantium architecto unde quisquam quaerat aliquid. Quos cupiditate soluta incidunt, rem et officia odio magnam deserunt ipsum, fugiat eos eveniet ducimus quia cumque asperiores est provident. Ex dolor in ullam beatae eveniet obcaecati repellat quod tenetur dolore omnis veniam error expedita deserunt aspernatur iure corporis quidem magni, mollitia rem, adipisci animi sed quam? Nemo, dolorum fuga. Accusamus sint, impedit, natus numquam architecto amet cumque deleniti cupiditate vero in qui fugiat nesciunt eius. Impedit enim ab velit voluptas placeat quam, voluptatibus molestiae, alias culpa, deserunt quibusdam eius?  Officiis molestias tempora sapiente amet qui debitis, animi temporibus doloremque nobis ex ipsam blanditiis, itaque sed illo perspiciatis quasi? Praesentium iure deleniti ipsa harum impedit voluptatibus. Dicta debitis voluptatibus nesciunt?",
     requirements: [
@@ -330,6 +347,8 @@ export const Jobs = [
       },
     ],
     isFeatured: true,
+    applications: ["app_001", "app_002"],
+
     status: "Open",
   },
   {
@@ -342,7 +361,7 @@ export const Jobs = [
     },
     location: ["Chicago, IL, USA", "Toronto, Canada"],
     type: "Part-time",
-    salary: "$25 - $35 per hour",
+    salary: "25 - 35 per hour",
     description:
       "Support marketing campaigns and content creation. Coordinate social media and email marketing efforts.    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem ipsam sed nostrum esse id incidunt, eum impedit aliquid tenetur officiis placeat qui facere, perspiciatis tempore repudiandae tempora est cupiditate. Enim? Error unde in perspiciatis est natus, nemo quis commodi non maxime placeat laborum facilis possimus, dolorum odio reprehenderit autem adipisci doloribus ipsum consequatur? Nobis iste ea sunt adipisci fuga unde. Aliquid, dignissimos voluptatum! Qui dignissimos, inventore eaque soluta at dicta aliquid quae, illo nobis quam neque. Perspiciatis, sint ipsa quis impedit quia eligendi aspernatur ipsam consectetur, adipisci explicabo, optio unde? Facilis, culpa. Nam debitis eaque quaerat. Eaque minus molestiae veniam deleniti. Temporibus consectetur eum id, assumenda nemo iusto qui sed, officiis autem voluptatum fuga obcaecati dicta quaerat commodi ipsam ab! Dolorum itaque non provident molestias architecto saepe ea. Quia unde molestias suscipit voluptatem aperiam necessitatibus laudantium nam quas quae non. Iusto ab natus maxime voluptates officia minima earum qui voluptatem. Neque nam totam eligendi in sint? Similique cupiditate, nesciunt non pariatur rerum sed itaque molestias placeat aperiam natus nisi ab recusandae corrupti omnis necessitatibus in architecto, quisquam aliquam veniam cumque? Omnis voluptas quas nobis accusantium architecto unde quisquam quaerat aliquid. Quos cupiditate soluta incidunt, rem et officia odio magnam deserunt ipsum, fugiat eos eveniet ducimus quia cumque asperiores est provident. Ex dolor in ullam beatae eveniet obcaecati repellat quod tenetur dolore omnis veniam error expedita deserunt aspernatur iure corporis quidem magni, mollitia rem, adipisci animi sed quam? Nemo, dolorum fuga.",
     requirements: [
@@ -371,6 +390,8 @@ export const Jobs = [
       },
     ],
     isFeatured: false,
+    applications: ["app_001", "app_002"],
+
     status: "Open",
   },
 
@@ -384,7 +405,7 @@ export const Jobs = [
     },
     location: ["New York, NY, USA", "Hybrid"],
     type: "Full-time",
-    salary: "$90,000 - $120,000",
+    salary: "90,000 - 120,000",
     description:
       "Design intuitive user interfaces and experiences for web and mobile apps. Collaborate with developers to implement designs. Quia quod, eos inventore nihil exercitationem!",
     requirements: [
@@ -420,6 +441,8 @@ export const Jobs = [
       },
     ],
     isFeatured: false,
+    applications: ["app_001", "app_002"],
+
     status: "Open",
   },
   {
@@ -432,7 +455,7 @@ export const Jobs = [
     },
     location: ["Austin, TX, USA", "Remote"],
     type: "Full-time",
-    salary: "$85,000 - $110,000",
+    salary: "85,000 - 110,000",
     description:
       "Analyze large datasets to provide actionable business insights. Work with SQL, Python, and Tableau. Consequuntur magni dolores eos qui ratione!",
     requirements: [
@@ -447,6 +470,8 @@ export const Jobs = [
     applicationUrl: "https://insightanalytics.apply.com/data-analyst",
     applicationQuestions: [],
     isFeatured: true,
+    applications: ["app_001", "app_002"],
+
     status: "Open",
   },
   {
@@ -459,7 +484,7 @@ export const Jobs = [
     },
     location: ["Seattle, WA, USA"],
     type: "Full-time",
-    salary: "$130,000 - $170,000",
+    salary: "130,000 - 170,000",
     description:
       "Manage CI/CD pipelines and cloud infrastructure using AWS and Docker. Ensure system reliability and scalability. Ipsa quae ab illo inventore!",
     requirements: [
@@ -494,6 +519,8 @@ export const Jobs = [
       },
     ],
     isFeatured: true,
+    applications: ["app_001", "app_002"],
+
     status: "Open",
   },
   {
@@ -506,7 +533,7 @@ export const Jobs = [
     },
     location: ["Los Angeles, CA, USA", "Hybrid"],
     type: "Full-time",
-    salary: "$95,000 - $130,000",
+    salary: "95,000 - 130,000",
     description:
       "Lead marketing campaigns and strategies to boost brand awareness. Collaborate with creative teams. Nemo enim ipsam voluptatem quia!",
     requirements: [
@@ -521,6 +548,8 @@ export const Jobs = [
     applicationUrl: "https://brightvision.apply.com/marketing-manager",
     applicationQuestions: [],
     isFeatured: false,
+    applications: ["app_001", "app_002"],
+
     status: "Open",
   },
   {
@@ -533,7 +562,7 @@ export const Jobs = [
     },
     location: ["Boston, MA, USA", "Remote"],
     type: "Full-time",
-    salary: "$110,000 - $150,000",
+    salary: "110,000 - 150,000",
     description:
       "Define product roadmaps and work with engineering teams to deliver features. Drive user satisfaction. Quis autem vel eum iure!",
     requirements: [
@@ -568,6 +597,8 @@ export const Jobs = [
       },
     ],
     isFeatured: true,
+    applications: ["app_001", "app_002"],
+
     status: "Open",
   },
 ];
