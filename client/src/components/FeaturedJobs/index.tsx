@@ -71,7 +71,7 @@ const FeaturedJobs = () => {
                   {job.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="filter-chip text-xs px-2 py-1 rounded-md font-medium"
+                      className="filter-chip text-xs px-2 py-1 font-medium"
                     >
                       {tag}
                     </span>

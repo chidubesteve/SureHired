@@ -133,7 +133,7 @@ const Page = () => {
                           {job.tags.map((tag, index) => (
                             <span
                               key={index}
-                              className="filter-chip px-2 py-1 text-xs font-medium rounded-md"
+                              className="filter-chip px-2 py-1 text-xs font-medium"
                             >
                               {tag}
                             </span>

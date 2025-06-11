@@ -99,7 +99,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 {job.tags.map((tag, index) => (
                   <span
                     key={index}
-                    className="filter-chip px-3 py-1 text-xs font-medium rounded-md"
+                    className="filter-chip px-3 py-1 text-xs font-medium"
                   >
                     {tag}
                   </span>
