@@ -23,6 +23,8 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import LocationDisplay from "@/components/showLocationTooltip";
+import { formatSalaryRange } from "@/utils/formatSalaryRange";
 
 const Page = () => {
   const pageSize = 5;
@@ -111,11 +113,7 @@ const Page = () => {
                         <div className="flex flex-wrap items-center gap-4 text-sm text-neutral-600 mb-3">
                           <div className="flex items-center">
                             <LuMapPin className="w-4 h-4 mr-1" />
-                            {job.location.length > 1
-                              ? `${job.location[0]} + ${
-                                  job.location.length - 1
-                                } more`
-                              : `${job.location[0]}`}
+                            <LocationDisplay location={job.location} />
                           </div>
                           <div className="flex items-center">
                             <LuClock className="w-4 h-4 mr-1" />
@@ -123,7 +121,7 @@ const Page = () => {
                           </div>
                           <div className="flex items-center">
                             <LuDollarSign className="w-4 h-4 mr-1" />
-                            {job.salary}
+                            {formatSalaryRange(job.salary)}
                           </div>
                         </div>
 
