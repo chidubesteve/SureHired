@@ -1,11 +1,12 @@
 import React from "react";
 import { Jobs } from "../../data/Job";
 import Image from "next/image";
-import { ClientSaveButtonJsx } from "./ClientJsx";
+import { ClientSaveButtonJsx } from "../BookmarkX";
 import { LuClock, LuDollarSign, LuMapPin } from "react-icons/lu";
 import { formatPostedDate } from "./../../utils/formatDate";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import LocationDisplay from "../showLocationTooltip";
 
 const FeaturedJobs = () => {
   const isFeaturedJobs = Jobs.filter((job) => job.isFeatured);
@@ -52,9 +53,7 @@ const FeaturedJobs = () => {
                 <div className="space-y-2 mb-4">
                   <div className="flex items-center text-neutral-600 text-sm">
                     <LuMapPin className="w-4 h-4 mr-2" />
-                    {job.location.length > 1
-                      ? `${job.location[0]} + ${job.location.length - 1} more`
-                      : job.location[0]}
+                    <LocationDisplay location={job.location} />
                   </div>
                   <div className="flex items-center text-neutral-600 text-sm">
                     <LuClock className="w-4 h-4 mr-2" />
