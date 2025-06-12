@@ -17,6 +17,7 @@ import {
   LuDollarSign,
   LuMapPin,
   LuUsers,
+  LuBriefcase,  
 } from "react-icons/lu";
 import LocationDisplay from "@/components/showLocationTooltip";
 import { formatPostedDate } from "@/utils/formatDate";
@@ -29,7 +30,13 @@ const page = ({ params }: { params: { id: string } }) => {
   const job = Jobs.find((job) => job.id === id);
 
   if (!job) {
-    return <div className="text-red-500 text-lg font-bold">Job not found</div>;
+    return (
+      <div className="space-y-2 text-lg font-bold text-center flex flex-col items-center justify-center min-h-screen">
+        <h2 className="text-3xl">404</h2>
+        <LuBriefcase className="w-12 h-12" />
+        <span>Job not found</span>
+      </div>
+    );
   }
 
   console.log("Job ID:", id);
