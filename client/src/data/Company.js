@@ -148,7 +148,7 @@ export const Companies = [
         {
           location: "New York, NY",
           address: "456 Innovation Ave",
-          isHeadquarters: true,}
+          }
     ],
     socials: {
       linkedin: "https://linkedin.com/company/brightvision",
