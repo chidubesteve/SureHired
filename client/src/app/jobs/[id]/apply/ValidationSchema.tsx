@@ -1,15 +1,10 @@
 import { z } from "zod";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
+import { ApplicationQuestion } from "@/types/applicationQuestions";
 
 // Function to validate application questions dynamically
-type Questions = {
-  id: string;
-  question: string;
-  type: "textarea" | "select" | "radio" | "checkbox";
-  required: boolean;
-  options?: string[];
-}
-const validateAnswers = (questions: Questions[]) =>
+
+const validateAnswers = (questions: ApplicationQuestion[]) =>
   z
     .record(z.string(), z.union([z.string(), z.array(z.string())]))
     .superRefine((answers, ctx) => {
@@ -69,9 +64,7 @@ const validateAnswers = (questions: Questions[]) =>
     });
 
 
-    export const createApplicationFormSchema = (
-      questions: Questions[]
-    )=> {
+    export const createApplicationFormSchema = (questions: ApplicationQuestion[]) => {
       return z.object({
         firstName: z.string().min(1, "First name is required"),
         lastName: z.string().min(1, "Last name is required"),
@@ -91,11 +84,12 @@ const validateAnswers = (questions: Questions[]) =>
             "Resume file must be less than 2MB"
           )
           .refine(
-            (file) => [
-              "application/pdf",
-              "application/msword",
-              "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            ].includes(file.type),
+            (file) =>
+              [
+                "application/pdf",
+                "application/msword",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+              ].includes(file.type),
             "Resume must be a PDF, DOC, or DOCX file"
           ),
         coverLetter: z.string().optional(),
