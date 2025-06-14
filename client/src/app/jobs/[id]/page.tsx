@@ -23,8 +23,8 @@ import LocationDisplay from "@/components/showLocationTooltip";
 import { formatPostedDate } from "@/utils/formatDate";
 import { formatSalaryRange } from "@/utils/formatSalaryRange";
 
-const page = ({ params }: { params: { id: string } }) => {
-  const { id } = params;
+const page = async({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
   // dynamic job id, use to fetch job details
   // static data for now
   const job = Jobs.find((job) => job.id === id);

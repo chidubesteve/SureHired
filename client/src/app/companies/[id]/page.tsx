@@ -17,8 +17,8 @@ import {
 } from "react-icons/lu";
 import { CompanySocialLinks, FollowCompanyButton, OpenJobsJsx } from "./ClientJsx";
 
-const page = ({ params }: { params: { id: string } }) => {
-  const { id } = params;
+const page = async({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
   const company = Companies.find((company) => company.id === id);
 
   if (!company) return notFound();
@@ -167,7 +167,7 @@ const page = ({ params }: { params: { id: string } }) => {
                   <span className="text-neutral-600">Offices</span>
                   <span className="font-medium">{company.offices.length}</span>
                 </div>
-               <CompanySocialLinks socials={company.socials} />
+                <CompanySocialLinks socials={company.socials} />
               </div>
             </div>
 
