@@ -88,7 +88,7 @@ export const Companies = [
       {
         location: "Austin, TX",
         address: "789 Data Drive",
-        isHeadquarters: true,
+        isHeadquarters: false,
       },
     ],
     socials: {
