@@ -17,13 +17,13 @@ import {
   LuDollarSign,
   LuMapPin,
   LuUsers,
-  LuBriefcase,  
+  LuBriefcase,
 } from "react-icons/lu";
 import LocationDisplay from "@/components/showLocationTooltip";
 import { formatPostedDate } from "@/utils/formatDate";
 import { formatSalaryRange } from "@/utils/formatSalaryRange";
 
-const page = async({ params }: { params: Promise<{ id: string }> }) => {
+const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   // dynamic job id, use to fetch job details
   // static data for now
@@ -55,7 +55,7 @@ const page = async({ params }: { params: Promise<{ id: string }> }) => {
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-start space-x-4">
                   <Image
-                    className="w-12 h-12 bg-brand-100 rounded-lg flex items-center justify-center text-3xl"
+                    className="w-12 h-12 "
                     src={`https://api.dicebear.com/9.x/initials/svg?seed=${
                       job.company.name
                     }&chars=${
