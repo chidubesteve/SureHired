@@ -9,7 +9,7 @@ import { Applications } from "@/data/Application";
 import LocationDisplay from "@/components/showLocationTooltip";
 import { formatPostedDate } from "@/utils/formatDate";
 
-enum UserApplicationStatus {
+export enum UserApplicationStatus {
   Applied = "applied",
   Interviewing = "interviewing",
   Rejected = "rejected",
