@@ -100,7 +100,6 @@ type Socials = {
   instagram?: string;
   youtube?: string;
   tiktok?: string;
-  website?: string;
   other?: string;
 };
 
@@ -115,6 +114,7 @@ const CompanySocialLinks = ({ socials }: Props) => {
     twitter: <FaXTwitter className="w-5 h-5" />,
     facebook: <FaFacebook className="w-5 h-5" />,
     youtube: <FaYoutube className="w-5 h-5" />,
+    instagram: <FaInstagram className="w-5 h-5" />,
     tiktok: <FaTiktok className="w-5 h-5" />,
     other: <GoLink className="w-5 h-5" />,
   };
