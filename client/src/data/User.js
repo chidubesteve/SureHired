@@ -1,6 +1,6 @@
 export const Users = [
   {
-    id: "usr_550e8400-e29b-41d4-a716-446655440000",
+    id: "550e8400-e29b-41d4-a716-446655440000",
     firstName: "Jane",
     lastName: "Doe",
     email: "jane.doe@example.com",
@@ -17,7 +17,7 @@ export const Users = [
     ],
   },
   {
-    id: "usr_a1b2c3d4-5e6f-4g7h-8i9j-0k1l2m3n4o5p",
+    id: "a1b2c3d4-5e6f-4g7h-8i9j-0k1l2m3n4o5p",
     firstName: "John",
     lastName: "Smith",
     email: "john.smith@example.com",
@@ -33,7 +33,7 @@ export const Users = [
     ],
   },
   {
-    id: "usr_b2c3d4e5-6f7g-8h9i-0j1k-2l3m4n5o6p7q",
+    id: "b2c3d4e5-6f7g-8h9i-0j1k-2l3m4n5o6p7q",
     firstName: "Emily",
     lastName: "Johnson",
     email: "emily.johnson@example.com",
@@ -50,7 +50,7 @@ export const Users = [
     ],
   },
   {
-    id: "usr_c3d4e5f6-7g8h-9i0j-1k2l-3m4n5o6p7q8r",
+    id: "c3d4e5f6-7g8h-9i0j-1k2l-3m4n5o6p7q8r",
     firstName: "Michael",
     lastName: "Brown",
     email: "michael.brown@example.com",
@@ -60,7 +60,7 @@ export const Users = [
     followingCompanies: ["j1eh87i2-cfjj-1049-h9de-7l79i9j0k197"],
   },
   {
-    id: "usr_d4e5f6g7-8h9i-0j1k-2l3m-4n5o6p7q8r9s",
+    id: "d4e5f6g7-8h9i-0j1k-2l3m-4n5o6p7q8r9s",
     firstName: "Sarah",
     lastName: "Davis",
     email: "sarah.davis@example.com",
