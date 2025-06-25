@@ -62,7 +62,7 @@ type FilterValues = {
   workStyle: string[];
 };
 
-const jobTypes = ["Full-time", "Part-time", "Contract"];
+const jobTypes = ["Full-time", "Part-time", "Contract", "Internship"];
 const salaryRanges = ["$0 - $50k", "$50k - $100k", "$100k - $150k", "$150k+"];
 const workStyles = ["Remote", "On-site", "Hybrid"];
 
