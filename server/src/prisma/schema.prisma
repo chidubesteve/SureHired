@@ -1,0 +1,156 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                String        @id @default(uuid())
+  firstName         String // Required for all users
+  lastName          String // Required for all users
+  email             String        @unique
+  profilePicture    String?
+  applications      Application[] // Only for candidates
+  bookmarks         Bookmark[] // Only for candidates
+  followedCompanies Company[]     @relation("UserFollowsCompany")
+  userType          UserTypes     @default(CANDIDATE)
+  company           Company?      @relation("EmployerCompany", fields: [companyId], references: [id])
+  companyId         String?       @unique // Links employer to their company
+}
+
+model Job {
+  id                   String                @id @default(uuid())
+  title                String
+  description          String
+  jobType              String
+  salary               String
+  location             String[]
+  tags                 String[]
+  requirements         String[]
+  benefits             String[]
+  applicationMethods   ApplicationMethods    @default(IN_APP)
+  isFeatured           Boolean               @default(false)
+  postedDate           DateTime              @default(now())
+  applications         Application[]
+  bookmarks            Bookmark[]
+  company              Company               @relation(fields: [companyId], references: [id])
+  status               JobLifeCycle          @default(OPEN)
+  updatedAt            DateTime              @updatedAt
+  applicationUrl       String?
+  applicationQuestions ApplicationQuestion[]
+  companyId            String
+}
+
+model Company {
+  id          String     @id @default(uuid())
+  name        String
+  logo        String?
+  industry    String
+  description String
+  mission     String
+  website     String
+  hqLocation  String
+  size        String
+  founded     Int
+  workStyle   WorkStyles
+  tags        String[]
+  offices     Office[]
+  jobs        Job[]
+  socials     Socials?
+  benefits    String[]
+  values      String[]
+  followedBy  User[]     @relation("UserFollowsCompany")
+  employer    User?      @relation("EmployerCompany")
+}
+
+model Application {
+  id        String            @id @default(uuid())
+  job       Job               @relation(fields: [jobId], references: [id])
+  jobId     String
+  user      User              @relation(fields: [userId], references: [id])
+  userId    String
+  status    ApplicationStatus @default(APPLIED)
+  appliedAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+}
+
+model Bookmark {
+  id      String   @id @default(uuid())
+  user    User     @relation(fields: [userId], references: [id])
+  userId  String
+  job     Job      @relation(fields: [jobId], references: [id])
+  jobId   String
+  savedAt DateTime @default(now())
+}
+
+model Office {
+  id             String   @id @default(uuid())
+  location       String
+  address        String
+  isHeadquarters Boolean
+  Company        Company? @relation(fields: [companyId], references: [id])
+  companyId      String?
+}
+
+model Socials {
+  id        String  @default(uuid())
+  linkedin  String?
+  github    String?
+  facebook  String?
+  youtube   String?
+  twitter   String?
+  instagram String?
+  tiktok    String?
+  other     String?
+  company   Company @relation(fields: [companyId], references: [id])
+  companyId String  @unique
+}
+
+model ApplicationQuestion {
+  id       String       @id @default(uuid())
+  question String
+  type     QuestionType
+  required Boolean
+  options  String[]
+  job      Job          @relation(fields: [jobId], references: [id])
+  jobId    String
+}
+
+enum ApplicationStatus {
+  APPLIED
+  INTERVIEWING
+  REJECTED
+  HIRED
+  WITHDRAWN
+}
+
+enum UserTypes {
+  CANDIDATE
+  EMPLOYER
+}
+
+enum ApplicationMethods {
+  IN_APP
+  EXTERNAL
+}
+
+enum JobLifeCycle {
+  OPEN
+  CLOSED
+}
+
+enum WorkStyles {
+  REMOTE
+  HYBRID
+  ONSITE
+}
+
+enum QuestionType {
+  TEXTAREA
+  SELECT
+  RADIO
+  CHECKBOX
+}
