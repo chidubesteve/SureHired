@@ -84,7 +84,6 @@ const ApplicationQuestionsBuilder = ({ addQuestion }: ApplicationQuestionsBuilde
               className="w-full px-3 py-2 border border-neutral-200 rounded-lg focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none"
             >
               <option value="textarea">Text Area</option>
-              <option value="text">Text Input</option>
               <option value="select">Dropdown</option>
               <option value="radio">Radio Buttons</option>
               <option value="checkbox">Checkboxes</option>
