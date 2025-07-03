@@ -16,28 +16,28 @@ model User {
   applications      Application[] // Only for candidates
   bookmarks         Bookmark[] // Only for candidates
   followedCompanies Company[]     @relation("UserFollowsCompany")
-  userType          UserTypes     @default(CANDIDATE)
+  userType          UserTypes     @default(Candidate)
   company           Company?      @relation("EmployerCompany", fields: [companyId], references: [id])
   companyId         String?       @unique // Links employer to their company
 }
 
 model Job {
   id                   String                @id @default(uuid())
-  title                String
-  description          String
-  jobType              String
+  title                String                @db.VarChar(256)
+  description          String                @db.VarChar(4096)
+  type                 String
   salary               String
   location             String[]
   tags                 String[]
   requirements         String[]
   benefits             String[]
-  applicationMethods   ApplicationMethods    @default(IN_APP)
+  applicationMethod    ApplicationMethods    @default(In_app)
   isFeatured           Boolean               @default(false)
   postedDate           DateTime              @default(now())
   applications         Application[]
   bookmarks            Bookmark[]
   company              Company               @relation(fields: [companyId], references: [id])
-  status               JobLifeCycle          @default(OPEN)
+  status               JobLifeCycle          @default(Open)
   updatedAt            DateTime              @updatedAt
   applicationUrl       String?
   applicationQuestions ApplicationQuestion[]
@@ -72,7 +72,7 @@ model Application {
   jobId     String
   user      User              @relation(fields: [userId], references: [id])
   userId    String
-  status    ApplicationStatus @default(APPLIED)
+  status    ApplicationStatus @default(Applied)
   appliedAt DateTime          @default(now())
   updatedAt DateTime          @updatedAt
 }
@@ -114,43 +114,43 @@ model ApplicationQuestion {
   question String
   type     QuestionType
   required Boolean
-  options  String[]
+  options  String[]     
   job      Job          @relation(fields: [jobId], references: [id])
   jobId    String
 }
 
 enum ApplicationStatus {
-  APPLIED
-  INTERVIEWING
-  REJECTED
-  HIRED
-  WITHDRAWN
+  Applied
+  Interviewing
+  Rejected
+  Hired
+  Withdrawn
 }
 
 enum UserTypes {
-  CANDIDATE
-  EMPLOYER
+  Candidate
+  Employer
 }
 
 enum ApplicationMethods {
-  IN_APP
-  EXTERNAL
+  In_app
+  External
 }
 
 enum JobLifeCycle {
-  OPEN
-  CLOSED
+  Open
+  Closed
 }
 
 enum WorkStyles {
-  REMOTE
-  HYBRID
-  ONSITE
+  Remote
+  Hybrid
+  Onsite
 }
 
 enum QuestionType {
-  TEXTAREA
-  SELECT
-  RADIO
-  CHECKBOX
+  textarea
+  select
+  radio
+  checkbox
 }
