@@ -18,7 +18,7 @@ const FeaturedJobs = () => {
             Featured Jobs
           </h2>
           <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
-            Hand-picked opportunities from top companies looking for talented
+            Hand-picked opportunities from top-searching companies looking for talented
             professionals like you.
           </p>
         </div>
