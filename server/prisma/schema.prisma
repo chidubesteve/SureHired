@@ -8,17 +8,17 @@ generator client {
 }
 
 model User {
-  id                String        @id @default(uuid())
+  id                String              @id @default(uuid())
   firstName         String // Required for all users
   lastName          String // Required for all users
-  email             String        @unique
+  email             String              @unique
   profilePicture    String?
   applications      Application[] // Only for candidates
   bookmarks         Bookmark[] // Only for candidates
-  followedCompanies Company[]     @relation("UserFollowsCompany")
-  userType          UserTypes     @default(Candidate)
-  company           Company?      @relation("EmployerCompany", fields: [companyId], references: [id])
-  companyId         String?       @unique // Links employer to their company
+  userType          UserTypes           @default(CANDIDATE)
+  company           Company?            @relation("EmployerCompany", fields: [companyId], references: [id])
+  companyId         String?             @unique // Links employer to their company
+  followedCompanies UserFollowCompany[]
 }
 
 model Job {
@@ -45,25 +45,25 @@ model Job {
 }
 
 model Company {
-  id          String     @id @default(uuid())
-  name        String
-  logo        String?
-  industry    String
-  description String
-  mission     String
-  website     String
-  hqLocation  String
-  size        String
-  founded     Int
-  workStyle   WorkStyles
-  tags        String[]
-  offices     Office[]
-  jobs        Job[]
-  socials     Socials?
-  benefits    String[]
-  values      String[]
-  followedBy  User[]     @relation("UserFollowsCompany")
-  employer    User?      @relation("EmployerCompany")
+  id                String              @id @default(uuid())
+  name              String
+  logo              String?
+  industry          String
+  description       String
+  mission           String
+  website           String
+  hqLocation        String
+  size              String
+  founded           Int
+  workStyle         WorkStyles
+  tags              String[]
+  offices           Office[]
+  jobs              Job[]
+  socials           Socials?
+  benefits          String[]
+  values            String[]
+  employer          User?               @relation("EmployerCompany")
+  followers UserFollowCompany[]
 }
 
 model Application {
@@ -84,6 +84,8 @@ model Bookmark {
   job     Job      @relation(fields: [jobId], references: [id])
   jobId   String
   savedAt DateTime @default(now())
+
+  @@unique([userId, jobId]) // to prevent duplicate bookmarks
 }
 
 model Office {
@@ -114,9 +116,21 @@ model ApplicationQuestion {
   question String
   type     QuestionType
   required Boolean
-  options  String[]     
+  options  String[]
   job      Job          @relation(fields: [jobId], references: [id])
   jobId    String
+}
+
+model UserFollowCompany {
+  id        String   @id @default(uuid())
+  userId    String
+  companyId String
+  followedAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id])
+  company Company @relation(fields: [companyId], references: [id])
+
+  @@unique([userId, companyId])
 }
 
 enum ApplicationStatus {
@@ -128,8 +142,8 @@ enum ApplicationStatus {
 }
 
 enum UserTypes {
-  Candidate
-  Employer
+  CANDIDATE
+  EMPLOYER
 }
 
 enum ApplicationMethods {
