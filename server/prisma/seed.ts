@@ -3,41 +3,46 @@ dotenv.config();
 import { PrismaClient } from "@prisma/client";
 import fs from "fs";
 import path from "path";
+import { getErrorMessage } from "../src/utils/errorUtils"; 
 
 
 const prisma = new PrismaClient();
 
+
 async function deleteAllData(modelOrder: string[]) {
-  for (const modelName of modelOrder) {
+  // Delete in reverse order to avoid foreign key constraint violations
+  for (const modelName of modelOrder.slice().reverse()) {
     const model = prisma[modelName as keyof typeof prisma];
     try {
       await (model as any).deleteMany({});
+      console.log(`Cleared data from ${modelName}`);
     } catch (error) {
-      console.error(`❌ Failed to clear ${modelName}:`, error)
+      console.error(`❌ Failed to clear ${modelName}:`, error);
     }
   }
 }
 
 async function main() {
-    console.log(__dirname);
-    const seedPath = path.join(__dirname, "seed");
-    console.log(seedPath);
+  const seedPath = path.join(__dirname, "seed");
 
   // Order matters: dependencies first, then dependents
+  // Create independent tables first, then tables that reference them
   const modelOrder = [
-    "Application",
-    "Bookmark",
-    "ApplicationQuestion",
-    "Job",
-    "Office",
-    "Socials",
-    "Company",
-    "User",
+    "Company", // Independent
+    "User", // References Company
+    "Job", // References Company (companyId)
+    "Office", // references Company
+    "Socials", // references Company
+    "ApplicationQuestion", // references Job
+    "Application", // References User and Job
+    "Bookmark", // References User and Job
+    "UserFollowCompany", // References User and Company
   ];
 
   await deleteAllData(modelOrder);
 
-  for (const modelName of modelOrder.reverse()) {
+  // Seed in the correct order (dependencies first)
+  for (const modelName of modelOrder) {
     const filePath = path.join(seedPath, `${modelName}.json`);
 
     if (!fs.existsSync(filePath)) {
@@ -48,26 +53,15 @@ async function main() {
     const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
     for (const item of data) {
       try {
-        if (modelName === "Job" && item.applicationQuestions) {
-          if (item.applicationQuestions.length > 0) {
-            item.applicationQuestions = {
-              create: item.applicationQuestions.map((q: any) => ({
-                ...q,
-              })),
-            };
-          } else {
-            delete item.applicationQuestions; // clean empty arrays
-          }
-        }
-          await (prisma[modelName as keyof typeof prisma] as any).create({
-            data: item,
-          });
+        await (prisma[modelName as keyof typeof prisma] as any).create({
+          data: item,
+        });
       } catch (error) {
-        function getErrorMessage(error: unknown) {
-          if (error instanceof Error) return error.message;
-          return String(error);
-        }
-        console.error(`❌ Failed to seed ${modelName}:`, getErrorMessage(error));
+
+        console.error(
+          `❌ Failed to seed ${modelName}:`,
+          getErrorMessage(error)
+        );
       }
     }
 

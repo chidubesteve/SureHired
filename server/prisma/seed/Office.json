@@ -1,0 +1,191 @@
+[
+  {
+    "id": "a1b2c3d4-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+    "location": "San Francisco, CA",
+    "address": "123 Tech Street",
+    "isHeadquarters": true,
+    "companyId": "c47ac10b-58cc-4372-a567-0e02b2c3d480"
+  },
+  {
+    "id": "b2c3d4e5-6f7g-8h9i-0j1k-2l3m4n5o6p7q",
+    "location": "New York, NY",
+    "address": "456 Innovation Ave, NYC, NY 10001",
+    "isHeadquarters": false,
+    "companyId": "c47ac10b-58cc-4372-a567-0e02b2c3d480"
+  },
+  {
+    "id": "c3d4e5f6-7g8h-9i0j-1k2l-3m4n5o6p7q8r",
+    "location": "Austin, TX",
+    "address": "789 Data Drive",
+    "isHeadquarters": true,
+    "companyId": "d58bd21c-69dd-5483-b678-1f13c3d4e591"
+  },
+  {
+    "id": "d4e5f6g7-8h9i-0j1k-2l3m-4n5o6p7q8r9s",
+    "location": "New York, NY",
+    "address": "456 Innovation Ave",
+    "isHeadquarters": true,
+    "companyId": "e69ce32d-7aee-6594-c789-2g24d4e5f692"
+  },
+  {
+    "id": "e5f6g7h8-9i0j-1k2l-3m4n-5o6p7q8r9s0t",
+    "location": "Austin, TX",
+    "address": "789 Data Drive",
+    "isHeadquarters": false,
+    "companyId": "e69ce32d-7aee-6594-c789-2g24d4e5f692"
+  },
+  {
+    "id": "f6g7h8i9-0j1k-2l3m-4n5o-6p7q8r9s0t1u",
+    "location": "Seattle, WA",
+    "address": "101 Cloud Lane",
+    "isHeadquarters": true,
+    "companyId": "f7adf43e-8bff-7605-d89a-3h35e5f6g793"
+  },
+  {
+    "id": "g7h8i9j0-1k2l-3m4n-5o6p-7q8r9s0t1u2v",
+    "location": "Los Angeles, CA",
+    "address": "222 Media Road",
+    "isHeadquarters": true,
+    "companyId": "g8be54f9-9cgg-8716-e9ab-4i46f6g7h894"
+  },
+  {
+    "id": "h8i9j0k1-2l3m-4n5o-6p7q-8r9s0t1u2v3w",
+    "location": "New York, NY",
+    "address": "456 Innovation Ave",
+    "isHeadquarters": false,
+    "companyId": "g8be54f9-9cgg-8716-e9ab-4i46f6g7h894"
+  },
+  {
+    "id": "i9j0k1l2-3m4n-5o6p-7q8r-9s0t1u2v3w4x",
+    "location": "Boston, MA",
+    "address": "333 Tech Park",
+    "isHeadquarters": true,
+    "companyId": "h9cf65g0-adhh-9827-f9bc-5j57g7h8i995"
+  },
+  {
+    "id": "j0k1l2m3-4n5o-6p7q-8r9s-0t1u2v3w4x5y",
+    "location": "Denver, CO",
+    "address": "444 Green Way",
+    "isHeadquarters": true,
+    "companyId": "i0dg76h1-beii-0938-g9cd-6k68h8i9j096"
+  },
+  {
+    "id": "k1l2m3n4-5o6p-7q8r-9s0t-1u2v3w4x5y6z",
+    "location": "San Francisco, CA",
+    "address": "555 Renewable Blvd",
+    "isHeadquarters": false,
+    "companyId": "i0dg76h1-beii-0938-g9cd-6k68h8i9j096"
+  },
+  {
+    "id": "l2m3n4o5-6p7q-8r9s-0t1u-2v3w4x5y6z7a",
+    "location": "Portland, OR",
+    "address": "555 Fitness Blvd",
+    "isHeadquarters": true,
+    "companyId": "j1eh87i2-cfjj-1049-h9de-7l79i9j0k197"
+  },
+  {
+    "id": "m3n4o5p6-7q8r-9s0t-1u2v-3w4x5y6z7a8b",
+    "location": "Chicago, IL",
+    "address": "666 Security Lane",
+    "isHeadquarters": true,
+    "companyId": "k2fi98j3-dgkk-2150-i9ef-8m80j0k1l298"
+  },
+  {
+    "id": "n4o5p6q7-8r9s-0t1u-2v3w-4x5y6z7a8b9c",
+    "location": "San Francisco, CA",
+    "address": "777 Cybersecurity Blvd",
+    "isHeadquarters": false,
+    "companyId": "k2fi98j3-dgkk-2150-i9ef-8m80j0k1l298"
+  },
+  {
+    "id": "o5p6q7r8-9s0t-1u2v-3w4x-5y6z7a8b9c0d",
+    "location": "Atlanta, GA",
+    "address": "777 Education Rd",
+    "isHeadquarters": true,
+    "companyId": "l3gj09k4-ehll-3261-j9fg-9n91k1l2m399"
+  },
+  {
+    "id": "p6q7r8s9-0t1u-2v3w-4x5y-6z7a8b9c0d1e",
+    "location": "Remote",
+    "address": "Virtual Office",
+    "isHeadquarters": true,
+    "companyId": "m4hk10l5-fimm-4372-j9gh-0o12l2m3n4p5q"
+  },
+  {
+    "id": "q7r8s9t0-1u2v-3w4x-5y6z-7a8b9c0d1e2f",
+    "location": "London, UK",
+    "address": "101 Data Street",
+    "isHeadquarters": true,
+    "companyId": "n5il21m6-gjnn-5483-k9hi-1p23m3n4o5q6r"
+  },
+  {
+    "id": "r8s9t0u1-2v3w-4x5y-6z7a-8b9c0d1e2f3g",
+    "location": "Manchester, UK",
+    "address": "202 Data Lane",
+    "isHeadquarters": false,
+    "companyId": "n5il21m6-gjnn-5483-k9hi-1p23m3n4o5q6r"
+  },
+  {
+    "id": "s9t0u1v2-3w4x-5y6z-7a8b-9c0d1e2f3g4h",
+    "location": "New York, NY",
+    "address": "303 Growth Ave",
+    "isHeadquarters": true,
+    "companyId": "o6jm32n7-hkoo-6594-l9ij-2q34n4o5p6r7s"
+  },
+  {
+    "id": "t0u1v2w3-4x5y-6z7a-8b9c-0d1e2f3g4h5i",
+    "location": "Boston, MA",
+    "address": "404 Growth Lane",
+    "isHeadquarters": false,
+    "companyId": "o6jm32n7-hkoo-6594-l9ij-2q34n4o5p6r7s"
+  },
+  {
+    "id": "u1v2w3x4-5y6z-7a8b-9c0d-1e2f3g4h5i6j",
+    "location": "Toronto, Canada",
+    "address": "505 Cloud Peak Rd",
+    "isHeadquarters": true,
+    "companyId": "p7kn43o8-ilpp-7605-m9jk-3r45o5p6q7s8t"
+  },
+  {
+    "id": "v2w3x4y5-6z7a-8b9c-0d1e-2f3g4h5i6j7k",
+    "location": "Seattle, WA",
+    "address": "606 AI Lane",
+    "isHeadquarters": true,
+    "companyId": "q8lo54p9-jmqq-8716-n9kl-4s56p6q7r8t9u"
+  },
+  {
+    "id": "w3x4y5z6-7a8b-9c0d-1e2f-3g4h5i6j7k8l",
+    "location": "Austin, TX",
+    "address": "707 Web St",
+    "isHeadquarters": true,
+    "companyId": "r9mp65q0-knrr-9827-o9lm-5t67q7r8s9u0v"
+  },
+  {
+    "id": "x4y5z6a7-8b9c-0d1e-2f3g-4h5i6j7k8l9m",
+    "location": "Mexico City, Mexico",
+    "address": "808 Web Ave",
+    "isHeadquarters": false,
+    "companyId": "r9mp65q0-knrr-9827-o9lm-5t67q7r8s9u0v"
+  },
+  {
+    "id": "y5z6a7b8-9c0d-1e2f-3g4h-5i6j7k8l9m0n",
+    "location": "Berlin, Germany",
+    "address": "909 Data Sync Rd",
+    "isHeadquarters": true,
+    "companyId": "s0nq76r1-loss-0938-p9mn-6u78r8s9t0v1w"
+  },
+  {
+    "id": "z6a7b8c9-0d1e-2f3g-4h5i-6j7k8l9m0n1o",
+    "location": "Chicago, IL",
+    "address": "1010 Brand Blvd",
+    "isHeadquarters": true,
+    "companyId": "t1or87s2-mptt-1049-q9no-7v89s9t0u1w2x"
+  },
+  {
+    "id": "a7b8c9d0-1e2f-3g4h-5i6j-7k8l9m0n1o2p",
+    "location": "Toronto, Canada",
+    "address": "1111 Brand Lane",
+    "isHeadquarters": false,
+    "companyId": "t1or87s2-mptt-1049-q9no-7v89s9t0u1w2x"
+  }
+]

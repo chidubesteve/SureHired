@@ -18,29 +18,9 @@
       "Remote work flexibility"
     ],
     "tags": ["React", "Node.js", "TypeScript", "JavaScript"],
-    "postedDate": "2025-05-20T10:00:00Z",
+    "postedDate": "2025-06-20T10:00:00Z",
     "applicationMethod": "In_app",
     "applicationUrl": null,
-    "applicationQuestions": [
-      {
-        "question": "Why are you interested in this position?",
-        "type": "textarea",
-        "required": true,
-        "options": []
-      },
-      {
-        "question": "What's your experience with React?",
-        "type": "textarea",
-        "required": true,
-        "options": []
-      },
-      {
-        "question": "Are you authorized to work in the US?",
-        "type": "select",
-        "options": ["Yes", "No", "Require sponsorship"],
-        "required": true
-      }
-    ],
     "isFeatured": true,
     "status": "Open"
   },
@@ -63,10 +43,9 @@
       "Professional development stipend"
     ],
     "tags": ["Figma", "Sketch", "UX/UI", "Design"],
-    "postedDate": "2025-05-22T14:30:00Z",
+    "postedDate": "2025-06-22T14:30:00Z",
     "applicationMethod": "External",
     "applicationUrl": "https://company.com/careers/apply/123",
-    "applicationQuestions": [],
     "isFeatured": false,
     "status": "Open"
   },
@@ -85,23 +64,10 @@
     ],
     "benefits": ["Pension plan", "Hybrid work model", "Learning opportunities"],
     "tags": ["Python", "SQL", "Tableau", "Data Analysis"],
-    "postedDate": "2025-05-18T09:15:00Z",
+    "postedDate": "2025-06-18T09:15:00Z",
     "applicationMethod": "In_app",
     "applicationUrl": null,
-    "applicationQuestions": [
-      {
-        "question": "Are you legally eligible to work in your country of residence?",
-        "type": "radio",
-        "options": ["Yes", "No"],
-        "required": true
-      },
-      {
-        "question": "Upload your portfolio or resume.",
-        "type": "file",
-        "options": [],
-        "required": false
-      }
-    ],
+
     "isFeatured": false,
     "status": "Open"
   },
@@ -124,17 +90,9 @@
       "Paid time off"
     ],
     "tags": ["Agile", "Product Management", "Leadership"],
-    "postedDate": "2025-05-25T16:45:00Z",
+    "postedDate": "2025-06-25T16:45:00Z",
     "applicationMethod": "In_app",
     "applicationUrl": null,
-    "applicationQuestions": [
-      {
-        "question": "Why do you want to join our company?",
-        "type": "textarea",
-        "options": [],
-        "required": true
-      }
-    ],
     "isFeatured": true,
     "status": "Open"
   },
@@ -153,10 +111,9 @@
     ],
     "benefits": ["Remote work", "Health insurance", "Annual tech stipend"],
     "tags": ["AWS", "Docker", "Kubernetes", "Python", "DevOps"],
-    "postedDate": "2025-05-15T12:00:00Z",
+    "postedDate": "2025-06-15T12:00:00Z",
     "applicationMethod": "External",
     "applicationUrl": "https://jobs.techgiant.io/senior-dev",
-    "applicationQuestions": [],
     "isFeatured": false,
     "status": "Open"
   },
@@ -179,23 +136,10 @@
       "Health and wellness benefits"
     ],
     "tags": ["Python", "TensorFlow", "PyTorch", "Machine Learning"],
-    "postedDate": "2025-05-23T11:20:00Z",
+    "postedDate": "2025-06-23T11:20:00Z",
     "applicationMethod": "In_app",
     "applicationUrl": null,
-    "applicationQuestions": [
-      {
-        "question": "Describe a project where you led a team.",
-        "type": "textarea",
-        "options": [],
-        "required": true
-      },
-      {
-        "question": "What frontend frameworks are you most comfortable with?",
-        "type": "checkbox",
-        "options": ["React", "Vue", "Angular", "Svelte", "Other"],
-        "required": false
-      }
-    ],
+
     "isFeatured": true,
     "status": "Open"
   },
@@ -218,23 +162,9 @@
     ],
     "benefits": ["Health insurance", "Flexible hours", "Remote work options"],
     "tags": ["React", "JavaScript", "Tailwind CSS", "Frontend"],
-    "postedDate": "2025-05-21T08:40:00Z",
+    "postedDate": "2025-06-21T08:40:00Z",
     "applicationMethod": "In_app",
     "applicationUrl": null,
-    "applicationQuestions": [
-      {
-        "question": "What makes you a great fit for this role?",
-        "type": "textarea",
-        "options":[],
-        "required": true
-      },
-      {
-        "question": "How many years have you worked with Node.js?",
-        "type": "textarea",
-        "options":[],
-        "required": true
-      }
-    ],
     "isFeatured": false,
     "status": "Open"
   },
@@ -257,10 +187,9 @@
       "Professional growth opportunities"
     ],
     "tags": ["Node.js", "MongoDB", "API", "Backend"],
-    "postedDate": "2025-05-19T13:10:00Z",
+    "postedDate": "2025-06-19T13:10:00Z",
     "applicationMethod": "External",
     "applicationUrl": "https://apply.linkedIn.com/job/456",
-    "applicationQuestions": [],
     "isFeatured": false,
     "status": "Open"
   },
@@ -279,17 +208,9 @@
     ],
     "benefits": ["Health insurance", "Paid training", "Hybrid work model"],
     "tags": ["Cybersecurity", "SIEM", "Firewalls"],
-    "postedDate": "2025-05-24T15:00:00Z",
+    "postedDate": "2025-06-24T15:00:00Z",
     "applicationMethod": "In_app",
     "applicationUrl": null,
-    "applicationQuestions": [
-      {
-        "question": "Why do you want to join our company?",
-        "type": "textarea",
-        "options": [],
-        "required": true
-      }
-    ],
     "isFeatured": true,
     "status": "Open"
   },
@@ -308,23 +229,9 @@
     ],
     "benefits": ["Flexible hours", "Remote work options", "Team events"],
     "tags": ["Marketing", "Google Analytics", "Social Media"],
-    "postedDate": "2025-05-17T10:30:00Z",
+    "postedDate": "2025-06-17T10:30:00Z",
     "applicationMethod": "In_app",
     "applicationUrl": null,
-    "applicationQuestions": [
-      {
-        "question": "Do you have experience with microservices?",
-        "type": "radio",
-        "options": ["Yes", "No"],
-        "required": true
-      },
-      {
-        "question": "Share a GitHub link to a recent project.",
-        "type": "textarea",
-        "options": [],
-        "required": false
-      }
-    ],
     "isFeatured": false,
     "status": "Open"
   },
@@ -343,29 +250,9 @@
     ],
     "benefits": ["Health insurance", "Paid time off", "Flexible hours"],
     "tags": ["UI/UX", "Figma", "Design", "Adobe XD"],
-    "postedDate": "2025-05-25T14:30:00Z",
+    "postedDate": "2025-06-25T14:30:00Z",
     "applicationMethod": "In_app",
     "applicationUrl": null,
-    "applicationQuestions": [
-      {
-        "question": "Please describe your design process.",
-        "type": "textarea",
-        "required": true,
-        "options": []
-      },
-      {
-        "question": "Which tools do you prefer for UI design?",
-        "type": "select",
-        "options": ["Figma", "Adobe XD", "Sketch", "Other"],
-        "required": true
-      },
-      {
-        "question": "Do you have experience with accessibility standards?",
-        "type": "radio",
-        "options": ["Yes", "No"],
-        "required": true
-      }
-    ],
     "isFeatured": false,
     "status": "Open"
   },
@@ -384,10 +271,9 @@
     ],
     "benefits": ["Health insurance", "Retirement plan", "Remote work"],
     "tags": ["Data Analysis", "SQL", "Python", "Tableau"],
-    "postedDate": "2025-05-28T09:15:00Z",
+    "postedDate": "2025-06-28T09:15:00Z",
     "applicationMethod": "External",
     "applicationUrl": "https://insightanalytics.apply.com/data-analyst",
-    "applicationQuestions": [],
     "isFeatured": true,
     "status": "Open"
   },
@@ -410,29 +296,9 @@
       "Professional development"
     ],
     "tags": ["DevOps", "AWS", "Docker", "Kubernetes"],
-    "postedDate": "2025-05-30T16:45:00Z",
+    "postedDate": "2025-06-30T16:45:00Z",
     "applicationMethod": "In_app",
     "applicationUrl": null,
-    "applicationQuestions": [
-      {
-        "question": "Describe a challenging DevOps project you’ve completed.",
-        "type": "textarea",
-        "required": true,
-        "options": []
-      },
-      {
-        "question": "Which cloud platforms have you worked with?",
-        "type": "checkbox",
-        "options": ["AWS", "Azure", "Google Cloud", "Other"],
-        "required": true
-      },
-      {
-        "question": "How do you manage CI/CD pipelines?",
-        "type": "select",
-        "options": ["AWS CodePipeline", "Jenkins", "Travis CI", "Other"],
-        "required": false
-      }
-    ],
     "isFeatured": true,
     "status": "Open"
   },
@@ -451,10 +317,9 @@
     ],
     "benefits": ["Health insurance", "Bonuses", "Flexible schedule"],
     "tags": ["Marketing", "Digital Marketing", "Campaigns", "Leadership"],
-    "postedDate": "2025-05-27T12:00:00Z",
+    "postedDate": "2025-06-27T12:00:00Z",
     "applicationMethod": "External",
     "applicationUrl": "https://brightvision.apply.com/marketing-manager",
-    "applicationQuestions": [],
     "isFeatured": false,
     "status": "Open"
   },
@@ -473,27 +338,9 @@
     ],
     "benefits": ["Health insurance", "Stock options", "Work-from-home stipend"],
     "tags": ["Product Management", "Agile", "Roadmapping", "Communication"],
-    "postedDate": "2025-05-29T08:30:00Z",
+    "postedDate": "2025-06-29T08:30:00Z",
     "applicationMethod": "In_app",
     "applicationUrl": null,
-    "applicationQuestions": [
-      {
-        "question": "What’s your experience managing product lifecycles?",
-        "type": "textarea",
-        "required": true
-      },
-      {
-        "question": "Which Agile framework do you prefer?",
-        "type": "radio",
-        "options": ["Scrum", "Kanban", "SAFe", "Other"],
-        "required": true
-      },
-      {
-        "question": "List your preferred tools for product management.",
-        "type": "textarea",
-        "required": false
-      }
-    ],
     "isFeatured": true,
     "status": "Open"
   }

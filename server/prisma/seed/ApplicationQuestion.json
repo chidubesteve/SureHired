@@ -1,0 +1,178 @@
+[
+  {
+    "id": "aq1-f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "question": "Why are you interested in this position?",
+    "type": "textarea",
+    "required": true,
+    "options": [],
+    "jobId": "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+  },
+  {
+    "id": "aq2-f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "question": "What's your experience with React?",
+    "type": "textarea",
+    "required": true,
+    "options": [],
+    "jobId": "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+  },
+  {
+    "id": "aq3-f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "question": "Are you authorized to work in the US?",
+    "type": "select",
+    "required": true,
+    "options": ["Yes", "No", "Require sponsorship"],
+    "jobId": "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+  },
+  {
+    "id": "aq1-550e8400-e29b-41d4-a716-446655440000",
+    "question": "Are you legally eligible to work in your country of residence?",
+    "type": "radio",
+    "required": true,
+    "options": ["Yes", "No"],
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
+  },
+  {
+    "id": "aq2-550e8400-e29b-41d4-a716-446655440000",
+    "question": "How do you manage CI/CD pipelines?",
+    "type": "textarea",
+    "required": false,
+    "options": [],
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
+  },
+  {
+    "id": "aq1-8f14e45f-ceea-4f8e-9d6b-4d2b7e2b1c4f",
+    "question": "Why do you want to join our company?",
+    "type": "textarea",
+    "required": true,
+    "options": [],
+    "jobId": "8f14e45f-ceea-4f8e-9d6b-4d2b7e2b1c4f"
+  },
+  {
+    "id": "aq1-b3e7f2d9-8c1a-4e2f-9b8e-2f7c4a9d3e1c",
+    "question": "Describe a project where you led a team.",
+    "type": "textarea",
+    "required": true,
+    "options": [],
+    "jobId": "b3e7f2d9-8c1a-4e2f-9b8e-2f7c4a9d3e1c"
+  },
+  {
+    "id": "aq2-b3e7f2d9-8c1a-4e2f-9b8e-2f7c4a9d3e1c",
+    "question": "What frontend frameworks are you most comfortable with?",
+    "type": "checkbox",
+    "required": false,
+    "options": ["React", "Vue", "Angular", "Svelte", "Other"],
+    "jobId": "b3e7f2d9-8c1a-4e2f-9b8e-2f7c4a9d3e1c"
+  },
+  {
+    "id": "aq1-a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+    "question": "What makes you a great fit for this role?",
+    "type": "textarea",
+    "required": true,
+    "options": [],
+    "jobId": "a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d"
+  },
+  {
+    "id": "aq2-a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+    "question": "How many years have you worked with Node.js?",
+    "type": "textarea",
+    "required": true,
+    "options": [],
+    "jobId": "a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d"
+  },
+  {
+    "id": "aq1-e7f8a9b0-c1d2-2e3f-4a5b-6c7d8e9f0a1b",
+    "question": "Why do you want to join our company?",
+    "type": "textarea",
+    "required": true,
+    "options": [],
+    "jobId": "e7f8a9b0-c1d2-2e3f-4a5b-6c7d8e9f0a1b"
+  },
+  {
+    "id": "aq1-c2d3e4f5-a6b7-8c9d-0e1f-2a3b4c5d6e7f",
+    "question": "Do you have experience with microservices?",
+    "type": "radio",
+    "required": true,
+    "options": ["Yes", "No"],
+    "jobId": "c2d3e4f5-a6b7-8c9d-0e1f-2a3b4c5d6e7f"
+  },
+  {
+    "id": "aq2-c2d3e4f5-a6b7-8c9d-0e1f-2a3b4c5d6e7f",
+    "question": "Share a GitHub link to a recent project.",
+    "type": "textarea",
+    "required": false,
+    "options": [],
+    "jobId": "c2d3e4f5-a6b7-8c9d-0e1f-2a3b4c5d6e7f"
+  },
+  {
+    "id": "aq1-a1b2c3d4-5e6f-4g7h-8i9j-0k1l2m3n4o5p",
+    "question": "Please describe your design process.",
+    "type": "textarea",
+    "required": true,
+    "options": [],
+    "jobId": "a1b2c3d4-5e6f-4g7h-8i9j-0k1l2m3n4o5p"
+  },
+  {
+    "id": "aq2-a1b2c3d4-5e6f-4g7h-8i9j-0k1l2m3n4o5p",
+    "question": "Which tools do you prefer for UI design?",
+    "type": "select",
+    "required": true,
+    "options": ["Figma", "Adobe XD", "Sketch", "Other"],
+    "jobId": "a1b2c3d4-5e6f-4g7h-8i9j-0k1l2m3n4o5p"
+  },
+  {
+    "id": "aq3-a1b2c3d4-5e6f-4g7h-8i9j-0k1l2m3n4o5p",
+    "question": "Do you have experience with accessibility standards?",
+    "type": "radio",
+    "required": true,
+    "options": ["Yes", "No"],
+    "jobId": "a1b2c3d4-5e6f-4g7h-8i9j-0k1l2m3n4o5p"
+  },
+  {
+    "id": "aq1-c3d4e5f6-7g8h-9i0j-1k2l-3m4n5o6p7q8r",
+    "question": "Describe a challenging DevOps project you've completed.",
+    "type": "textarea",
+    "required": true,
+    "options": [],
+    "jobId": "c3d4e5f6-7g8h-9i0j-1k2l-3m4n5o6p7q8r"
+  },
+  {
+    "id": "aq2-c3d4e5f6-7g8h-9i0j-1k2l-3m4n5o6p7q8r",
+    "question": "Which cloud platforms have you worked with?",
+    "type": "checkbox",
+    "required": true,
+    "options": ["AWS", "Azure", "Google Cloud", "Other"],
+    "jobId": "c3d4e5f6-7g8h-9i0j-1k2l-3m4n5o6p7q8r"
+  },
+  {
+    "id": "aq3-c3d4e5f6-7g8h-9i0j-1k2l-3m4n5o6p7q8r",
+    "question": "Which CI/CD tools have you used?",
+    "type": "checkbox",
+    "required": false,
+    "options": ["AWS CodePipeline", "Jenkins", "Travis CI", "Other"],
+    "jobId": "c3d4e5f6-7g8h-9i0j-1k2l-3m4n5o6p7q8r"
+  },
+  {
+    "id": "aq1-e5f6g7h8-9i0j-1k2l-3m4n-5o6p7q8r9s0t",
+    "question": "What's your experience managing product lifecycles?",
+    "type": "textarea",
+    "required": true,
+    "options": [],
+    "jobId": "e5f6g7h8-9i0j-1k2l-3m4n-5o6p7q8r9s0t"
+  },
+  {
+    "id": "aq2-e5f6g7h8-9i0j-1k2l-3m4n-5o6p7q8r9s0t",
+    "question": "Which Agile framework do you prefer?",
+    "type": "radio",
+    "required": true,
+    "options": ["Scrum", "Kanban", "SAFe", "Other"],
+    "jobId": "e5f6g7h8-9i0j-1k2l-3m4n-5o6p7q8r9s0t"
+  },
+  {
+    "id": "aq3-e5f6g7h8-9i0j-1k2l-3m4n-5o6p7q8r9s0t",
+    "question": "List your preferred tools for product management.",
+    "type": "textarea",
+    "required": false,
+    "options": [],
+    "jobId": "e5f6g7h8-9i0j-1k2l-3m4n-5o6p7q8r9s0t"
+  }
+]

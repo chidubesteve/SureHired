@@ -1,0 +1,114 @@
+[
+  {
+    "id": "001-a1b2c3d4-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+    "linkedin": "https://linkedin.com/company/techtrend",
+    "github": "https://github.com/techtrend",
+
+    "companyId": "c47ac10b-58cc-4372-a567-0e02b2c3d480"
+  },
+  {
+    "id": "002-b2c3d4e5-6f7g-8h9i-0j1k-2l3m4n5o6p7q",
+    "linkedin": "https://linkedin.com/company/insightanalytics",
+    "companyId": "d58bd21c-69dd-5483-b678-1f13c3d4e591"
+  },
+  {
+    "id": "003-c3d4e5f6-7g8h-9i0j-1k2l-3m4n5o6p7q8r",
+    "linkedin": "https://linkedin.com/company/creativeflow",
+
+    "companyId": "e69ce32d-7aee-6594-c789-2g24d4e5f692"
+  },
+  {
+    "id": "004-d4e5f6g7-8h9i-0j1k-2l3m-4n5o6p7q8r9s",
+    "linkedin": "https://linkedin.com/company/cloudsync",
+    "github": "https://github.com/cloudsync",
+
+    "companyId": "f7adf43e-8bff-7605-d89a-3h35e5f6g793"
+  },
+  {
+    "id": "005-e5f6g7h8-9i0j-1k2l-3m4n-5o6p7q8r9s0t",
+    "linkedin": "https://linkedin.com/company/brightvision",
+    "twitter": "https://twitter.com/brightvision",
+    "companyId": "g8be54f9-9cgg-8716-e9ab-4i46f6g7h894"
+  },
+  {
+    "id": "006-f6g7h8i9-0j1k-2l3m-4n5o-6p7q8r9s0t1u",
+    "linkedin": "https://linkedin.com/company/innotech",
+    "github": "https://github.com/innotech",
+
+    "companyId": "h9cf65g0-adhh-9827-f9bc-5j57g7h8i995"
+  },
+  {
+    "id": "007-g7h8i9j0-1k2l-3m4n-5o6p-7q8r9s0t1u2v",
+    "linkedin": "https://linkedin.com/company/greenleafenergy",
+    "facebook": "https://facebook.com/greenleafenergy",
+    "companyId": "i0dg76h1-beii-0938-g9cd-6k68h8i9j096"
+  },
+  {
+    "id": "008-h8i9j0k1-2l3m-4n5o-6p7q-8r9s0t1u2v3w",
+    "linkedin": "https://linkedin.com/company/peakfitness",
+
+    "companyId": "j1eh87i2-cfjj-1049-h9de-7l79i9j0k197"
+  },
+  {
+    "id": "009-i9j0k1l2-3m4n-5o6p-7q8r-9s0t1u2v3w4x",
+    "linkedin": "https://linkedin.com/company/securenet",
+    "github": "https://github.com/securenet",
+
+    "companyId": "k2fi98j3-dgkk-2150-i9ef-8m80j0k1l298"
+  },
+  {
+    "id": "010-j0k1l2m3-4n5o-6p7q-8r9s-0t1u2v3w4x5y",
+    "linkedin": "https://linkedin.com/company/edubright",
+
+    "companyId": "l3gj09k4-ehll-3261-j9fg-9n91k1l2m399"
+  },
+  {
+    "id": "011-k1l2m3n4-5o6p-7q8r-9s0t-1u2v3w4x5y6z",
+    "linkedin": "https://linkedin.com/company/creativeworks",
+    "tiktok": "https://tiktok.com/@creativeworks",
+    "companyId": "m4hk10l5-fimm-4372-j9gh-0o12l2m3n4p5q"
+  },
+  {
+    "id": "012-l2m3n4o5-6p7q-8r9s-0t1u-2v3w4x5y6z7a",
+    "linkedin": "https://linkedin.com/company/datadriven",
+
+    "companyId": "n5il21m6-gjnn-5483-k9hi-1p23m3n4o5q6r"
+  },
+  {
+    "id": "013-m3n4o5p6-7q8r-9s0t-1u2v-3w4x5y6z7a8b",
+    "linkedin": "https://linkedin.com/company/groweasy",
+    "youtube": "https://youtube.com/@groweasy",
+    "companyId": "o6jm32n7-hkoo-6594-l9ij-2q34n4o5p6r7s"
+  },
+  {
+    "id": "014-n4o5p6q7-8r9s-0t1u-2v3w-4x5y6z7a8b9c",
+    "linkedin": "https://linkedin.com/company/cloudpeak",
+    "youtube": "https://youtube.com/@cloudpeak",
+    "twitter": "https://twitter.com/cloudpeak",
+    "companyId": "p7kn43o8-ilpp-7605-m9jk-3r45o5p6q7s8t"
+  },
+  {
+    "id": "015-o5p6q7r8-9s0t-1u2v-3w4x-5y6z7a8b9c0d",
+    "linkedin": "https://linkedin.com/company/aipioneers",
+
+    "companyId": "q8lo54p9-jmqq-8716-n9kl-4s56p6q7r8t9u"
+  },
+  {
+    "id": "016-p6q7r8s9-0t1u-2v3w-4x5y-6z7a8b9c0d1e",
+    "linkedin": "https://linkedin.com/company/webcrafters",
+    "instagram": "https://instagram.com/webcrafters",
+    "companyId": "r9mp65q0-knrr-9827-o9lm-5t67q7r8s9u0v"
+  },
+  {
+    "id": "017-q7r8s9t0-1u2v-3w4x-5y6z-7a8b9c0d1e2f",
+    "linkedin": "https://linkedin.com/company/datasync",
+
+    "companyId": "s0nq76r1-loss-0938-p9mn-6u78r8s9t0v1w"
+  },
+  {
+    "id": "018-r8s9t0u1-2v3w-4x5y-6z7a-8b9c0d1e2f3g",
+    "linkedin": "https://linkedin.com/company/brandboost",
+    "twitter": "https://twitter.com/brandboost",
+    "companyId": "t1or87s2-mptt-1049-q9no-7v89s9t0u1w2x"
+  }
+]
