@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-
-
+import { ReduxProvider } from "@/redux/provider";
 
 export const metadata: Metadata = {
   title: "SureHired | Get hired",
@@ -26,11 +25,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen flex flex-col">
-        <TooltipProvider>
-
-        {children}
-        </TooltipProvider>
-        <Toaster richColors/>
+        <ReduxProvider>
+          <TooltipProvider>{children}</TooltipProvider>
+          <Toaster richColors />
+        </ReduxProvider>
       </body>
     </html>
   );

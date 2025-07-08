@@ -7,13 +7,10 @@ import {
   Header,
   HeroSection,
 } from "@/components";
-import store from "@/redux/store";
-import { Provider } from "react-redux";
 
 export default function Home() {
   return (
     <>
-      <Provider store={store}>
         <Header />
         <main className="flex-1">
           <HeroSection />
@@ -22,7 +19,6 @@ export default function Home() {
           <CTA />
         </main>
         <Footer />
-      </Provider>
     </>
   );
 }
