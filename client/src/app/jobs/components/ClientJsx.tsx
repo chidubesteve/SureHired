@@ -7,6 +7,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { Skeleton } from "@/components/ui/skeleton";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { LuFilter, LuMapPin, LuSearch } from "react-icons/lu";
@@ -197,4 +198,77 @@ const ClientFilter = () => {
   );
 };
 
-export { ClientSearch, ClientFilter };
+const JobListSkeleton = () => {
+  return (
+    <div className="job-card group w-full max-w-5xl">
+      <div className="flex items-start justify-between">
+        <div className="flex items-start space-x-4 flex-1">
+          <Skeleton className="w-[40px] h-[40px] rounded-full flex-shrink-0" />
+          <div className="flex-1">
+            <div className="flex items-start justify-between mb-2">
+              <div className="flex-1">
+                <Skeleton className="h-6 w-[280px] mb-2" />
+                <Skeleton className="h-5 w-[180px]" />
+              </div>
+              <Skeleton className="w-8 h-8 rounded" />
+            </div>
+            <div className="flex flex-wrap items-center gap-4 mb-3">
+              <div className="flex items-center">
+                <Skeleton className="w-4 h-4 mr-1" />
+                <Skeleton className="h-4 w-[120px]" />
+              </div>
+              <div className="flex items-center">
+                <Skeleton className="w-4 h-4 mr-1" />
+                <Skeleton className="h-4 w-[140px]" />
+              </div>
+              <div className="flex items-center">
+                <Skeleton className="w-4 h-4 mr-1" />
+                <Skeleton className="h-4 w-[100px]" />
+              </div>
+            </div>
+            <div className="mb-4 space-y-2">
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-[85%]" />
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Skeleton className="h-6 w-16 rounded-full" />
+              <Skeleton className="h-6 w-20 rounded-full" />
+              <Skeleton className="h-6 w-14 rounded-full" />
+              <Skeleton className="h-6 w-18 rounded-full" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const JobListHeaderSkeleton = () => {
+  return (
+    <div className="mb-6 flex items-center justify-between">
+      <div>
+        <Skeleton className="h-8 w-[200px] mb-2" />
+        <Skeleton className="h-5 w-[120px]" />
+      </div>
+      <div className="flex items-center space-x-4">
+        <Skeleton className="h-5 w-[60px]" />
+        <Skeleton className="h-10 w-[180px] rounded-md" />
+      </div>
+    </div>
+  );
+};
+
+const PaginationSkeleton = () => {
+  return (
+    <div className="mt-8 flex justify-center">
+      <div className="flex items-center space-x-4">
+        <Skeleton className="h-10 w-20 rounded-md" />
+        <Skeleton className="h-6 w-[120px]" />
+        <Skeleton className="h-10 w-16 rounded-md" />
+      </div>
+    </div>
+  );
+};
+
+
+export { ClientSearch, ClientFilter, JobListSkeleton, JobListHeaderSkeleton, PaginationSkeleton };
