@@ -1,7 +1,12 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
-import { LuClock, LuDollarSign, LuMapPin, LuTrash2 } from "react-icons/lu";
+import {
+  LuClock,
+  LuMapPin,
+  LuTrash2,
+} from "react-icons/lu";
+import { LiaMoneyBillWaveAltSolid } from "react-icons/lia";
 import { Jobs } from "@/data/Job";
 import Link from "next/link";
 import Image from "next/image";
@@ -134,7 +139,7 @@ const UserAppliedJobs = ({ appliedJobs, userApplications, userId }: Props) => {
                       <LocationDisplay location={job.location} />
                     </div>
                     <div className="flex items-center">
-                      <LuDollarSign className="w-4 h-4 mr-1" />
+                      <LiaMoneyBillWaveAltSolid className="w-4 h-4 mr-1" />
                       {job.salary}
                     </div>
                     <div className="flex items-center">

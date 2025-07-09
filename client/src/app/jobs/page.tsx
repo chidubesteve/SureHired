@@ -13,7 +13,12 @@ import { formatPostedDate } from "@/utils/formatDate";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import { LuBookmark, LuClock, LuDollarSign, LuMapPin } from "react-icons/lu";
+import {
+  LuBookmark,
+  LuClock,
+  LuMapPin,
+} from "react-icons/lu";
+import { LiaMoneyBillWaveAltSolid } from "react-icons/lia";
 import {
   ClientFilter,
   ClientSearch,
@@ -155,7 +160,7 @@ const Page = () => {
                                   {formatPostedDate(job.postedDate)}
                                 </div>
                                 <div className="flex items-center">
-                                  <LuDollarSign className="w-4 h-4 mr-1" />
+                                  <LiaMoneyBillWaveAltSolid className="w-4 h-4 mr-1" />
                                   {formatSalaryRange(job.salary)}
                                 </div>
                               </div>

@@ -8,10 +8,10 @@ import {
   LuBriefcase,
   LuBuilding2,
   LuClock,
-  LuDollarSign,
   LuMapPin,
   LuUpload,
 } from "react-icons/lu";
+import { LiaMoneyBillWaveAltSolid } from "react-icons/lia";
 import {
   ApplicationFormType,
   createApplicationFormSchema,
@@ -337,7 +337,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
                   {job.type}
                 </div>
                 <div className="flex items-center text-neutral-600 text-sm">
-                  <LuDollarSign className="w-4 h-4 mr-2" />
+                  <LiaMoneyBillWaveAltSolid className="w-4 h-4 mr-2" />
                   {job.salary}
                 </div>
               </div>

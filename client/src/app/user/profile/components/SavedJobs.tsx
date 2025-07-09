@@ -5,7 +5,12 @@ import { formatPostedDate } from "@/utils/formatDate";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import { LuClock, LuDollarSign, LuMapPin, LuTrash2 } from "react-icons/lu";
+import {
+  LuClock,
+  LuMapPin,
+  LuTrash2,
+} from "react-icons/lu";
+import { LiaMoneyBillWaveAltSolid } from "react-icons/lia";
 
 type Props = {
   savedJobs: typeof Jobs;
@@ -59,7 +64,7 @@ const SavedJobs = ({ savedJobs }: Props) => {
                     {job.location}
                   </div>
                   <div className="flex items-center">
-                    <LuDollarSign className="w-4 h-4 mr-1" />
+                    <LiaMoneyBillWaveAltSolid className="w-4 h-4 mr-1" />
                     {job.salary}
                   </div>
                   <div className="flex items-center">

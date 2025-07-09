@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { ClientSaveButtonJsx } from "../BookmarkX";
-import { LuClock, LuDollarSign, LuMapPin } from "react-icons/lu";
+import { LuClock, LuMapPin } from "react-icons/lu";
 import { formatPostedDate } from "./../../utils/formatDate";
 import Link from "next/link";
 import { Button } from "../ui/button";
@@ -11,6 +11,7 @@ import { useGetFeaturedJobsQuery } from "@/redux/api";
 import FetchingError from "../DataFetching/FetchingError";
 import JobCardSkeleton from "./JobCardSkeleton";
 import { Skeleton } from "../ui/skeleton";
+import { LiaMoneyBillWaveAltSolid } from "react-icons/lia";
 
 const FeaturedJobs = () => {
   const { data, isLoading, isFetching, error } = useGetFeaturedJobsQuery();
@@ -73,7 +74,7 @@ const FeaturedJobs = () => {
                       {job.type} • {formatPostedDate(job.postedDate)}
                     </div>
                     <div className="flex items-center text-neutral-600 text-sm">
-                      <LuDollarSign className="w-4 h-4 mr-2" />
+                      <LiaMoneyBillWaveAltSolid className="w-4 h-4 mr-2" />
                       {job.salary}
                     </div>
                   </div>
