@@ -31,7 +31,6 @@ const JobDetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
   // static data for now
   const { data, isLoading, isFetching, error } = useGetJobByIdQuery({ id });
   const job = data?.data;
-  console.log("Job ID:", id, "Data:", data);
 
   if ((isLoading || isFetching) && !data) {
     return <JobDetailsPageSkeleton />;
