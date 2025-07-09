@@ -1,45 +1,51 @@
+"use client";
 import { Header } from "@/components";
 import BackToX from "@/components/BackToX";
 import { ClientSaveButtonJsx } from "@/components/BookmarkX";
-import { Jobs } from "@/data/Job";
 import Image from "next/image";
-import React from "react";
+import React, { use } from "react";
 import {
   ExpandDescription,
   GoToCompany,
   HandleApply,
+  JobDetailsPageSkeleton,
   ShareJob,
 } from "./ClientJsx";
 import {
   LuAward,
   LuBuilding2,
   LuClock,
-  LuDollarSign,
   LuMapPin,
   LuUsers,
   LuBriefcase,
 } from "react-icons/lu";
+import { LiaMoneyBillWaveAltSolid } from "react-icons/lia";
 import LocationDisplay from "@/components/showLocationTooltip";
 import { formatPostedDate } from "@/utils/formatDate";
 import { formatSalaryRange } from "@/utils/formatSalaryRange";
+import { useGetJobByIdQuery } from "@/redux/api";
 
-const page = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const { id } = await params;
+const JobDetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = use(params);
   // dynamic job id, use to fetch job details
   // static data for now
-  const job = Jobs.find((job) => job.id === id);
+  const { data, isLoading, isFetching, error } = useGetJobByIdQuery({ id });
+  const job = data?.data;
+  console.log("Job ID:", id, "Data:", data);
 
-  if (!job) {
+  if ((isLoading || isFetching) && !data) {
+    return <JobDetailsPageSkeleton />;
+  }
+
+  if (error || !job) {
     return (
       <div className="space-y-2 text-lg font-bold text-center flex flex-col items-center justify-center min-h-screen">
         <h2 className="text-3xl">404</h2>
         <LuBriefcase className="w-12 h-12" />
         <span>Job not found</span>
-      </div>
-    );
+      </div>    );
   }
 
-  console.log("Job ID:", id);
   return (
     <div className="min-h-screen bg-neutral-50">
       <Header />
@@ -81,7 +87,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-[2fr_1fr_1.5fr_1fr] gap-2 mb-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
                 <div className="flex items-center text-neutral-600">
                   <LuMapPin className="w-4 h-4 mr-2" />
                   <LocationDisplay location={job.location} />
@@ -91,7 +97,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
                   <span className="text-sm">{job.type}</span>
                 </div>
                 <div className="flex items-center text-neutral-600">
-                  <LuDollarSign className="w-4 h-4 mr-2" />
+                  <LiaMoneyBillWaveAltSolid className="w-4 h-4 mr-2" />
                   <span className="text-sm">
                     {formatSalaryRange(job.salary)}
                   </span>
@@ -99,7 +105,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 <div className="flex items-center text-neutral-600">
                   <LuUsers className="w-4 h-4 mr-2" />
                   <span className="text-sm">
-                    {job.applications.length} applicants
+                    {job.applications && job.applications.length} applicants
                   </span>
                 </div>
               </div>
@@ -164,10 +170,14 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
           <div className="lg:col-span-1">
             {/* Apply Section */}
             <div className="bg-white rounded-lg border border-neutral-200 p-6 mb-6 sticky top-24">
-              <HandleApply id={job.id} />
+              <HandleApply
+                applicationMethod={job.applicationMethod}
+                applicationUrl={job.applicationUrl}
+                id={job.id}
+              />
               <p className="text-sm text-neutral-500 text-center">
                 Posted {formatPostedDate(job.postedDate)} •{" "}
-                {job.applications.length} applicants
+                {job.applications && job.applications.length} applicants
               </p>
             </div>
 
@@ -184,38 +194,32 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 <div className="flex justify-between">
                   <span className="text-neutral-600">Industry:</span>
                   <span className="text-neutral-900 font-medium">
-                    {/* TODO: replace with actual industry */}
-                    {/* {job.companyInfo.industry} */}
-                    Technology
+                    {job.company.industry}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-neutral-600">Company size:</span>
                   <span className="text-neutral-900 font-medium">
-                    {/* {job.companyInfo.size} */}
-                    {/* TODO: replace with actual size */}
-                    200-500
+                    {job.company.size}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-neutral-600">Founded:</span>
                   <span className="text-neutral-900 font-medium">
-                    {/* {job.companyInfo.founded} */}
-                    {/* TODO: replace with actual founded */}
-                    2010
+                    {job.company.founded
+                      ? job.company.founded.toString()
+                      : "N/A"}
                   </span>
                 </div>
               </div>
 
               <p className="text-neutral-600 text-sm mb-4">
-                {/* {job.companyInfo.description} */}
-                {/* TODO: replace with actual description */}
-                {/* {job.company.description || "No description available."} */}
-                TechCorp is a leading technology company focused on building
-                innovative solutions that help businesses grow and scale.
+                {job.company.description
+                  ? job.company.description
+                  : "No description available."}
               </p>
 
-              <GoToCompany companyId={job.company.companyId} />
+              <GoToCompany companyId={job.company.id} />
             </div>
           </div>
         </div>
@@ -224,4 +228,4 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   );
 };
 
-export default page;
+export default JobDetailsPage;
