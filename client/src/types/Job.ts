@@ -18,8 +18,17 @@ export interface Job {
   company: {
     id: string;
     name: string;
-    logo?: string | null;
+    logo?: string;
+    size?: string;
+    description?: string;
+    industry?: string;
+    website?: string;
+    founded?: number;
   };
+  applications?: {
+    id: string;
+    userId: string;
+  }[];
 
   applicationQuestions?: {
     id: string;
@@ -39,4 +48,10 @@ export interface JobResponse {
     currentPage: number;
     limit: number;
   };
+}
+
+export interface SingleJobResponse {
+  success: boolean;
+  message: string;
+  data: Job;
 }
