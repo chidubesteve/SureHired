@@ -95,3 +95,67 @@ export const getAllJobs = async (
     });
   }
 };
+
+export const getJobById = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const jobId = req.params.id;
+  try {
+    const job = await prisma.job.findUnique({
+      where: { id: jobId },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        requirements: true,
+        benefits: true,
+        salary: true,
+        type: true,
+        location: true,
+        tags: true,
+        postedDate: true,
+        status: true,
+        applicationMethod: true,
+        applicationUrl: true,
+        updatedAt: true,
+        company: {
+          select: {
+            id: true, // For linking to /company/:id
+            name: true,
+            founded: true,
+            size: true,
+            industry: true,
+            description: true,
+            website: true,
+          },
+        },
+        applications: {
+          select: {
+            id: true,
+            userId: true,
+          },
+        },
+      },
+    });
+    if (!job) {
+      res.status(404).json({
+        success: false,
+        message: "Job not found",
+      });
+      return;
+    }
+    res.status(200).json({
+      success: true,
+      message: "Job fetched successfully",
+      data: job,
+    });
+  } catch (error) {
+    console.error("Error fetching job by ID:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error fetching job",
+      error: getErrorMessage(error),
+    });
+  }
+};
