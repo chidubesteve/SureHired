@@ -23,7 +23,7 @@ import { LiaMoneyBillWaveAltSolid } from "react-icons/lia";
 import LocationDisplay from "@/components/showLocationTooltip";
 import { formatPostedDate } from "@/utils/formatDate";
 import { formatSalaryRange } from "@/utils/formatSalaryRange";
-import { useGetJobByIdQuery } from "@/redux/api";
+import { useGetJobByIdQuery } from "@/redux/api/Jobs";
 
 const JobDetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
@@ -42,7 +42,8 @@ const JobDetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
         <h2 className="text-3xl">404</h2>
         <LuBriefcase className="w-12 h-12" />
         <span>Job not found</span>
-      </div>    );
+      </div>
+    );
   }
 
   return (
