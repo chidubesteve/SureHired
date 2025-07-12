@@ -13,11 +13,7 @@ import { formatPostedDate } from "@/utils/formatDate";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import {
-  LuBookmark,
-  LuClock,
-  LuMapPin,
-} from "react-icons/lu";
+import { LuBookmark, LuClock, LuMapPin } from "react-icons/lu";
 import { LiaMoneyBillWaveAltSolid } from "react-icons/lia";
 import {
   ClientFilter,
@@ -35,7 +31,7 @@ import {
 } from "@/components/ui/pagination";
 import LocationDisplay from "@/components/showLocationTooltip";
 import { formatSalaryRange } from "@/utils/formatSalaryRange";
-import { useGetAllJobsQuery } from "@/redux/api";
+import { useGetAllJobsQuery } from "@/redux/api/Jobs";
 import FetchingError from "@/components/DataFetching/FetchingError";
 
 const Page = () => {
