@@ -13,6 +13,7 @@ import {
 } from "react-icons/fa";
 import { GoLink } from "react-icons/go";
 import { FaXTwitter } from "react-icons/fa6";
+import { H2 } from "@/components/ui/header-with-anchor";
 
 const FollowCompanyButton = () => {
   const [isFollowing, setIsFollowing] = useState(false);
@@ -39,8 +40,7 @@ const FollowCompanyButton = () => {
 
 // demo open jobs data
 
-type props = {
-  jobs: {
+interface jobs{
     id: number;
     title: string;
     type: string;
@@ -48,16 +48,25 @@ type props = {
     salary: string;
     postedAt: string;
     // description: string;
-  }[];
 };
 
-const OpenJobsJsx = ({ jobs }: props) => {
+interface OpenJobsProps {
+  jobs: jobs[];
+  companyId?: string; 
+}
+
+const   OpenJobsJsx = ({ jobs }: OpenJobsProps) => {
   return (
     <>
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-semibold text-neutral-900">
+        <H2
+          id="open-positions"
+          anchor={"open-positions"}
+          anchorVisibility="hover"
+          className="!text-2xl font-semibold text-neutral-900"
+        >
           Open Positions
-        </h2>
+        </H2>
         <Link
           href="/jobs"
           className="text-brand-600 hover:text-brand-700 font-medium"
@@ -66,27 +75,36 @@ const OpenJobsJsx = ({ jobs }: props) => {
         </Link>
       </div>
       <div className="space-y-4">
-        {jobs.map((job) => (
-          <Link
-            key={job.id}
-            href={`/jobs/${job.id}`}
-            className="block p-4 border border-neutral-200 rounded-lg hover:border-brand-200 hover:bg-brand-50 transition-colors"
-          >
-            <div className="flex items-start justify-between">
-              <div>
-                <h3 className="font-medium text-neutral-900 mb-1">
-                  {job.title}
-                </h3>
-                <div className="flex items-center space-x-4 text-sm text-neutral-600">
-                  <span>{job.type}</span>
-                  <span>{job.location}</span>
-                  <span>{job.salary}</span>
+        {jobs.length > 0 ? (
+          jobs.map((job) => (
+            <Link
+              key={job.id}
+              href={`/jobs/${job.id}`}
+              className="block p-4 border border-neutral-200 rounded-lg hover:border-brand-200 hover:bg-brand-50 transition-colors"
+            >
+              <div className="flex items-start justify-between">
+                <div>
+                  <h3 className="font-medium text-neutral-900 mb-1">
+                    {job.title}
+                  </h3>
+                  <div className="flex items-center space-x-4 text-sm text-neutral-600">
+                    <span>{job.type}</span>
+                    <span>{job.location}</span>
+                    <span>{job.salary}</span>
+                  </div>
                 </div>
+                <span className="text-sm text-neutral-500">{job.postedAt}</span>
               </div>
-              <span className="text-sm text-neutral-500">{job.postedAt}</span>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          ))
+        ) : (
+          <div className="text-center py-8 text-neutral-500">
+            <p>No open positions at the moment.</p>
+            <p className="text-sm mt-1">
+              Check back later for new opportunities!
+            </p>
+          </div>
+        )}
       </div>
     </>
   );
