@@ -37,9 +37,9 @@ interface Filters {
 const Companies = () => {
   const searchParams = useSearchParams();
   const searchTermFromUrl = searchParams.get("search") || "";
-  const industriesFromUrl = searchParams.get("industry")?.split(",") || [];
-  const sizesFromUrl = searchParams.get("size")?.split(",") || [];
-  const workStylesFromUrl = searchParams.get("workStyle")?.split(",") || [];
+  const industriesFromUrl = searchParams.get("industry")?.split(",").filter(Boolean) || [];
+  const sizesFromUrl = searchParams.get("size")?.split(",").filter(Boolean) || [];
+  const workStylesFromUrl = searchParams.get("workStyle")?.split(",").filter(Boolean) || [];
   const pageFromUrl = parseInt(searchParams.get("page") || "1", 10);
 
   const [searchTerm, setSearchTerm] = useState(searchTermFromUrl);
