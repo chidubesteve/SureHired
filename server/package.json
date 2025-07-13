@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@auth/express": "^0.10.1",
     "@prisma/client": "^6.10.1",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
