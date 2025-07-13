@@ -14,6 +14,9 @@ import {
 import { GoLink } from "react-icons/go";
 import { FaXTwitter } from "react-icons/fa6";
 import { H2 } from "@/components/ui/header-with-anchor";
+import { formatPostedDate } from "@/utils/formatDate";
+import { formatSalaryRange } from "@/utils/formatSalaryRange";
+import LocationDisplay from "@/components/showLocationTooltip";
 
 const FollowCompanyButton = () => {
   const [isFollowing, setIsFollowing] = useState(false);
@@ -31,7 +34,11 @@ const FollowCompanyButton = () => {
       >
         {isFollowing ? "Following" : "Follow Company"}
       </Button>
-      <Button variant="outline" size="sm" onClick={() => window.open("https://example.com", "_blank")}>
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => window.open("https://example.com", "_blank")}
+      >
         <LuExternalLink className="w-4 h-4" />
       </Button>
     </div>
@@ -40,22 +47,22 @@ const FollowCompanyButton = () => {
 
 // demo open jobs data
 
-interface jobs{
-    id: number;
-    title: string;
-    type: string;
-    location: string;
-    salary: string;
-    postedAt: string;
-    // description: string;
-};
+interface jobs {
+  id: string;
+  title: string;
+  type: string;
+  location: string;
+  salary: string;
+  postedDate: string;
+  status: string; // e.g., "Open", "Closed"
+}
 
 interface OpenJobsProps {
   jobs: jobs[];
-  companyId?: string; 
+  companyId?: string;
 }
 
-const   OpenJobsJsx = ({ jobs }: OpenJobsProps) => {
+const OpenJobsJsx = ({ jobs }: OpenJobsProps) => {
   return (
     <>
       <div className="flex items-center justify-between mb-4">
@@ -87,13 +94,17 @@ const   OpenJobsJsx = ({ jobs }: OpenJobsProps) => {
                   <h3 className="font-medium text-neutral-900 mb-1">
                     {job.title}
                   </h3>
-                  <div className="flex items-center space-x-4 text-sm text-neutral-600">
+                  <div className="flex items-center space-x-3 text-sm text-neutral-600">
                     <span>{job.type}</span>
-                    <span>{job.location}</span>
-                    <span>{job.salary}</span>
+                    <span>
+                      <LocationDisplay location={Array.from(job.location)} />
+                    </span>
+                    <span>{formatSalaryRange(job.salary)}</span>
                   </div>
                 </div>
-                <span className="text-sm text-neutral-500">{job.postedAt}</span>
+                <span className="text-sm text-neutral-500">
+                  {formatPostedDate(job.postedDate)}
+                </span>
               </div>
             </Link>
           ))
@@ -150,7 +161,10 @@ const CompanySocialLinks = ({ socials }: Props) => {
           if (!icon) return null;
 
           return (
-            <div key={key} className="flex items-center justify-center w-10 h-10 bg-neutral-100 rounded-full hover:bg-neutral-200 transition-colors">
+            <div
+              key={key}
+              className="flex items-center justify-center w-10 h-10 bg-neutral-100 rounded-full hover:bg-neutral-200 transition-colors"
+            >
               <a
                 href={url}
                 target="_blank"

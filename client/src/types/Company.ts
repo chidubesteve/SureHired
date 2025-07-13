@@ -14,6 +14,9 @@ export interface Company {
     id: string;
     name: string;
     location: string;
+    isHeadquarters: boolean;
+    address: string;
+    companyId: string;
   }[];
   socials?: {
     linkedin?: string;
@@ -31,10 +34,14 @@ export interface Company {
     type: string;
     location: string;
     salary: string;
-    postedAt: string;
-    // description: string;
+    postedDate: string;
+    status: string;
   }[];
-  followers?: number;
+  followers?: {
+    userId: string;
+    companyId: string;
+  }[];
+  
   benefits?: string[];
   workStyle?: string; // Remote, Hybrid, Onsite
   tags: string[];

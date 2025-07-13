@@ -1,10 +1,10 @@
+"use client";
 import { Header } from "@/components";
 import BackToX from "@/components/BackToX";
 import { Badge } from "@/components/ui/badge";
-import { Companies } from "@/data/Company";
 import Image from "next/image";
-import { notFound } from "next/navigation";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { use } from "react";
 import {
   LuAward,
   LuBuilding2,
@@ -15,40 +15,48 @@ import {
   LuStar,
   LuUsers,
 } from "react-icons/lu";
-import { CompanySocialLinks, FollowCompanyButton, OpenJobsJsx } from "./ClientJsx";
+import { RiUserFollowFill } from "react-icons/ri";
+import {
+  CompanySocialLinks,
+  FollowCompanyButton,
+  OpenJobsJsx,
+} from "./ClientJsx";
+import { useGetCompanyByIdQuery } from "@/redux/api/company";
+import { Button } from "@/components/ui/button";
+import FetchingError from "@/components/DataFetching/FetchingError";
+import CompanyDetailSkeleton from "./CompanyDetailSkeleton";
 
-const page = async({ params }: { params: Promise<{ id: string }> }) => {
-  const { id } = await params;
-  const company = Companies.find((company) => company.id === id);
+const Page = ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = use(params);
+  const router = useRouter();
+  const { data, isFetching, isLoading, error } = useGetCompanyByIdQuery(id);
+  // Show skeleton during loading or fetching
+  if ((isLoading || isFetching) && !data) {
+    return <CompanyDetailSkeleton />;
+  }
+  const company = data?.data;
 
-  if (!company) return notFound();
+  if (!company) {
+    return (
+      <div className="text-center py-12">
+        <LuBuilding2 className="w-16 h-16 text-neutral-300 mx-auto mb-4" />
+        <h3 className="text-lg font-medium text-neutral-900 mb-2">
+          Company not found
+        </h3>
+        <Button
+          variant="link"
+          onClick={() => router.back()}
+          className="text-neutral-600"
+        >
+          Go Back
+        </Button>
+      </div>
+    );
+  }
 
-  const openJobs = [
-    {
-      id: 1,
-      title: "Senior Frontend Developer",
-      type: "Full-time",
-      location: "San Francisco, CA",
-      salary: "$120k - $160k",
-      postedAt: "2 days ago",
-    },
-    {
-      id: 2,
-      title: "Product Manager",
-      type: "Full-time",
-      location: "New York, NY",
-      salary: "$130k - $170k",
-      postedAt: "1 week ago",
-    },
-    {
-      id: 3,
-      title: "UX Designer",
-      type: "Full-time",
-      location: "Remote",
-      salary: "$100k - $140k",
-      postedAt: "3 days ago",
-    },
-  ];
+  if (error) return <FetchingError message="Failed to fetch company details" />;
+
+  const openJobs = company.jobs?.filter((job) => job.status !== "Closed") || [];
 
   return (
     <div className="min-h-screen bg-neutral-50">
@@ -99,8 +107,11 @@ const page = async({ params }: { params: Promise<{ id: string }> }) => {
               <FollowCompanyButton />
               <div className="flex items-center space-x-1">
                 <LuStar className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                <span className="font-medium">4.4</span>
-                <span className="text-neutral-600">(27 reviews)</span>
+                <span className="font-medium">4.4</span>&nbsp;|&nbsp;
+                <span className="text-neutral-600 flex items-center gap-1">
+                  <RiUserFollowFill /> {company.followers?.length ?? 0}{" "}
+                  Followers
+                </span>
               </div>
             </div>
           </div>
@@ -115,11 +126,12 @@ const page = async({ params }: { params: Promise<{ id: string }> }) => {
                 About {company.name}
               </h2>
               <div className="prose max-w-none">
-                {company.description.split("\n\n").map((paragraph, index) => (
-                  <p key={index} className="text-neutral-600 mb-4 last:mb-0">
-                    {paragraph}
-                  </p>
-                ))}
+                {company.description &&
+                  company.description.split("\n\n").map((paragraph, index) => (
+                    <p key={index} className="text-neutral-600 mb-4 last:mb-0">
+                      {paragraph}
+                    </p>
+                  ))}
               </div>
             </div>
 
@@ -137,11 +149,16 @@ const page = async({ params }: { params: Promise<{ id: string }> }) => {
                 Our Values
               </h2>
               <div className="flex flex-wrap gap-2">
-                {company.values.map((value, index) => (
-                  <Badge key={index} variant="secondary" className="px-3 py-1">
-                    {value}
-                  </Badge>
-                ))}
+                {company.values &&
+                  company.values.map((value, index) => (
+                    <Badge
+                      key={index}
+                      variant="secondary"
+                      className="px-3 py-1"
+                    >
+                      {value}
+                    </Badge>
+                  ))}
               </div>
             </div>
 
@@ -165,7 +182,9 @@ const page = async({ params }: { params: Promise<{ id: string }> }) => {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-neutral-600">Offices</span>
-                  <span className="font-medium">{company.offices.length}</span>
+                  <span className="font-medium">
+                    {company.offices && company.offices.length}
+                  </span>
                 </div>
                 <CompanySocialLinks socials={company.socials} />
               </div>
@@ -177,12 +196,15 @@ const page = async({ params }: { params: Promise<{ id: string }> }) => {
                 Benefits & Perks
               </h3>
               <ul className="space-y-2">
-                {company.benefits.map((benefit, index) => (
-                  <li key={index} className="flex items-start">
-                    <LuAward className="w-4 h-4 text-brand-500 mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-neutral-600 text-sm">{benefit}</span>
-                  </li>
-                ))}
+                {company.benefits &&
+                  company.benefits.map((benefit, index) => (
+                    <li key={index} className="flex items-start">
+                      <LuAward className="w-4 h-4 text-brand-500 mt-1 mr-3 flex-shrink-0" />
+                      <span className="text-neutral-600 text-sm">
+                        {benefit}
+                      </span>
+                    </li>
+                  ))}
               </ul>
             </div>
 
@@ -192,27 +214,33 @@ const page = async({ params }: { params: Promise<{ id: string }> }) => {
                 Office Locations
               </h3>
               <div className="space-y-3">
-                {company.offices.map((office, index) => (
-                  <div
-                    key={index}
-                    className="pb-3 last:pb-0 last:border-0 border-b border-neutral-100"
-                  >
-                    <div className="flex items-center space-x-2 mb-1">
-                      <LuBuilding2 className="w-4 h-4 text-neutral-400" />
-                      <span className="font-medium text-neutral-900">
-                        {office.location}
-                      </span>
-                      {office.isHeadquarters && (
-                        <Badge variant="secondary" className="text-xs">
-                          HQ
-                        </Badge>
-                      )}
+                {company.offices && company.offices.length > 0 ? (
+                  company.offices.map((office, index) => (
+                    <div
+                      key={index}
+                      className="pb-3 last:pb-0 last:border-0 border-b border-neutral-100"
+                    >
+                      <div className="flex items-center space-x-2 mb-1">
+                        <LuBuilding2 className="w-4 h-4 text-neutral-400" />
+                        <span className="font-medium text-neutral-900">
+                          {office.location}
+                        </span>
+                        {office.isHeadquarters && (
+                          <Badge variant="secondary" className="text-xs">
+                            HQ
+                          </Badge>
+                        )}
+                      </div>
+                      <p className="text-sm text-neutral-600 ml-6">
+                        {office.address}
+                      </p>
                     </div>
-                    <p className="text-sm text-neutral-600 ml-6">
-                      {office.address}
-                    </p>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <p className="text-neutral-500">
+                    No office locations available.
+                  </p>
+                )}
               </div>
             </div>
 
@@ -237,4 +265,4 @@ const page = async({ params }: { params: Promise<{ id: string }> }) => {
   );
 };
 
-export default page;
+export default Page;
