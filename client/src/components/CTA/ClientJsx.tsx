@@ -7,7 +7,7 @@ import { Button } from '../ui/button'
 const ClientJsx = () => {
   return (
     <>
-      <Link href={"/sign-up"}>
+      <Link href={"/auth/sign-up"}>
         <Button
           size={"lg"}
           className="bg-white text-brand-600 font-semibold hover:bg-neutral-50 hover:text-brand-700"
