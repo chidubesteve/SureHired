@@ -12,6 +12,7 @@ model User {
   firstName         String // Required for all users
   lastName          String // Required for all users
   email             String              @unique
+  password          String? // optional for Oauth users
   profilePicture    String?
   applications      Application[] // Only for candidates
   bookmarks         Bookmark[] // Only for candidates
@@ -45,25 +46,25 @@ model Job {
 }
 
 model Company {
-  id                String              @id @default(uuid())
-  name              String
-  logo              String?
-  industry          String
-  description       String
-  mission           String
-  website           String
-  hqLocation        String
-  size              String
-  founded           Int
-  workStyle         WorkStyles
-  tags              String[]
-  offices           Office[]
-  jobs              Job[]
-  socials           Socials?
-  benefits          String[]
-  values            String[]
-  employer          User?               @relation("EmployerCompany")
-  followers UserFollowCompany[]
+  id          String              @id @default(uuid())
+  name        String
+  logo        String?
+  industry    String
+  description String
+  mission     String
+  website     String
+  hqLocation  String
+  size        String
+  founded     Int
+  workStyle   WorkStyles
+  tags        String[]
+  offices     Office[]
+  jobs        Job[]
+  socials     Socials?
+  benefits    String[]
+  values      String[]
+  employer    User?               @relation("EmployerCompany")
+  followers   UserFollowCompany[]
 }
 
 model Application {
@@ -122,9 +123,9 @@ model ApplicationQuestion {
 }
 
 model UserFollowCompany {
-  id        String   @id @default(uuid())
-  userId    String
-  companyId String
+  id         String   @id @default(uuid())
+  userId     String
+  companyId  String
   followedAt DateTime @default(now())
 
   user    User    @relation(fields: [userId], references: [id])
