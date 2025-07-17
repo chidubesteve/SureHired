@@ -104,8 +104,7 @@ const Page = () => {
                   </div>
                 </div>
                 <div className="space-y-4 flex flex-col items-center">
-                  {data?.data &&
-                    data.data.length > 0 &&
+                  {data?.data && data.data.length > 0 ? (
                     data.data.map((job) => (
                       <div
                         key={job.id}
@@ -179,7 +178,12 @@ const Page = () => {
                           </div>
                         </div>
                       </div>
-                    ))}
+                    ))
+                  ) : (
+                    <p className="text-neutral-900 font-bold text-xl">
+                      No jobs found
+                    </p>
+                  )}
                 </div>
 
                 {/* Pagination */}
