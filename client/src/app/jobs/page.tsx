@@ -31,7 +31,7 @@ import {
 } from "@/components/ui/pagination";
 import LocationDisplay from "@/components/showLocationTooltip";
 import { formatSalaryRange } from "@/utils/formatSalaryRange";
-import { useGetAllJobsQuery } from "@/redux/api/Jobs";
+import { useGetAllJobsQuery } from "@/redux/services/Jobs";
 import FetchingError from "@/components/DataFetching/FetchingError";
 
 const Page = () => {

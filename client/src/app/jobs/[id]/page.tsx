@@ -23,7 +23,7 @@ import { LiaMoneyBillWaveAltSolid } from "react-icons/lia";
 import LocationDisplay from "@/components/showLocationTooltip";
 import { formatPostedDate } from "@/utils/formatDate";
 import { formatSalaryRange } from "@/utils/formatSalaryRange";
-import { useGetJobByIdQuery } from "@/redux/api/Jobs";
+import { useGetJobByIdQuery } from "@/redux/services/Jobs";
 
 const JobDetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);

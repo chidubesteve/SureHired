@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import {  jobsApi } from "./api/Jobs";
-import { companyApi } from "./api/company";
+import { jobsApi } from "./services/Jobs";
+import { companyApi } from "./services/company";
 
 const store = configureStore({
   reducer: {
@@ -9,7 +9,9 @@ const store = configureStore({
     [companyApi.reducerPath]: companyApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(jobsApi.middleware).concat(companyApi.middleware),
+    getDefaultMiddleware()
+      .concat(jobsApi.middleware)
+      .concat(companyApi.middleware),
 });
 
 setupListeners(store.dispatch);

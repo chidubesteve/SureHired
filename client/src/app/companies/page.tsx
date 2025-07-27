@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import FilterPanel from "./components/FilterPanelComponent";
 import Link from "next/link";
 import Image from "next/image";
-import { useGetAllCompaniesQuery } from "@/redux/api/company";
+import { useGetAllCompaniesQuery } from "@/redux/services/company";
 import debounce from "lodash.debounce";
 import {
   Pagination,
@@ -37,9 +37,12 @@ interface Filters {
 const Companies = () => {
   const searchParams = useSearchParams();
   const searchTermFromUrl = searchParams.get("search") || "";
-  const industriesFromUrl = searchParams.get("industry")?.split(",").filter(Boolean) || [];
-  const sizesFromUrl = searchParams.get("size")?.split(",").filter(Boolean) || [];
-  const workStylesFromUrl = searchParams.get("workStyle")?.split(",").filter(Boolean) || [];
+  const industriesFromUrl =
+    searchParams.get("industry")?.split(",").filter(Boolean) || [];
+  const sizesFromUrl =
+    searchParams.get("size")?.split(",").filter(Boolean) || [];
+  const workStylesFromUrl =
+    searchParams.get("workStyle")?.split(",").filter(Boolean) || [];
   const pageFromUrl = parseInt(searchParams.get("page") || "1", 10);
 
   const [searchTerm, setSearchTerm] = useState(searchTermFromUrl);
@@ -324,9 +327,7 @@ const Companies = () => {
             <PaginationContent className="flex justify-end mt-6">
               <PaginationItem>
                 <PaginationPrevious
-                  onClick={() =>
-                    handlePageChange( Math.max(currentPage - 1, 1))
-                  }
+                  onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
                   className={
                     currentPage === 1
                       ? "pointer-events-none opacity-50"
@@ -345,7 +346,10 @@ const Companies = () => {
                 <PaginationNext
                   onClick={() =>
                     handlePageChange(
-                      Math.min(currentPage + 1, data?.pagination?.totalPages || 1)
+                      Math.min(
+                        currentPage + 1,
+                        data?.pagination?.totalPages || 1
+                      )
                     )
                   }
                   className={

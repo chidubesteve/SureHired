@@ -21,7 +21,7 @@ import {
   FollowCompanyButton,
   OpenJobsJsx,
 } from "./ClientJsx";
-import { useGetCompanyByIdQuery } from "@/redux/api/company";
+import { useGetCompanyByIdQuery } from "@/redux/services/company";
 import { Button } from "@/components/ui/button";
 import FetchingError from "@/components/DataFetching/FetchingError";
 import CompanyDetailSkeleton from "./CompanyDetailSkeleton";

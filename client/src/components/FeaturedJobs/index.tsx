@@ -7,7 +7,7 @@ import { formatPostedDate } from "./../../utils/formatDate";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import LocationDisplay from "../showLocationTooltip";
-import { useGetFeaturedJobsQuery } from "@/redux/api/Jobs";
+import { useGetFeaturedJobsQuery } from "@/redux/services/Jobs";
 import FetchingError from "../DataFetching/FetchingError";
 import JobCardSkeleton from "./JobCardSkeleton";
 import { Skeleton } from "../ui/skeleton";
