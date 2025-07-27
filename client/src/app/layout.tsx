@@ -3,6 +3,9 @@ import "./globals.css";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ReduxProvider } from "@/redux/provider";
+import AuthContext from "./AuthContext";
+import { getCurrentUser } from "@/lib/actions/getUserSession";
+
 
 export const metadata: Metadata = {
   title: "SureHired | Get hired",
@@ -17,18 +20,23 @@ export const metadata: Metadata = {
   themeColor: "#ffffff",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getCurrentUser();
+  console.log("Session from layout: ", session)
   return (
+
     <html lang="en">
       <body className="min-h-screen flex flex-col">
-        <ReduxProvider>
-          <TooltipProvider>{children}</TooltipProvider>
-          <Toaster richColors />
-        </ReduxProvider>
+        <AuthContext session={session}>
+          <ReduxProvider>
+            <TooltipProvider>{children}</TooltipProvider>
+            <Toaster richColors />
+          </ReduxProvider>
+        </AuthContext>
       </body>
     </html>
   );
