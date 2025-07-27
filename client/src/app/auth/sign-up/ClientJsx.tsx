@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { signIn } from "next-auth/react";
 import Cookies from "js-cookie";
 import { useOAuthErrorToast } from "@/hooks/useOAuthErrorToast";
+import { useSignUpMutation } from "@/redux/services/auth";
 
 const ClientGoBackButtonJsx = () => {
   const router = useRouter();
@@ -36,7 +37,7 @@ const ClientFormJsx = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   useOAuthErrorToast(); // handles OAuth errors
-
+const [signUp, { error}] = useSignUpMutation();
   const {
     register,
     handleSubmit,
@@ -104,20 +105,7 @@ const ClientFormJsx = () => {
     // Handle submission here
     setSubmitted(true); // trigger submit message
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/sign-up`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-      const result = await res.json();
-      if (!res.ok) {
-        throw new Error(result.message || "Sign up failed");
-      }
+      const result = await signUp(data).unwrap();
       console.log("Result: ", result);
       toast.success("Registration Successful");
       // Auto sign-in after successful registration
@@ -140,6 +128,11 @@ const ClientFormJsx = () => {
         toast.info("Registration successful! Please sign in.");
         reset();
         router.push("/auth/sign-in");
+      }
+
+      if (error) {
+        console.error("Error during sign up api call:", error);
+        throw new Error("User registration failed!");
       }
     } catch (error) {
       console.error("Error during sign up:", error);
