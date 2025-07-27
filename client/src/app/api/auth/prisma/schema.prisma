@@ -1,0 +1,207 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String              @id @default(uuid())
+  firstName         String
+  lastName          String
+  email             String              @unique
+  profilePicture    String?
+  userType          UserTypes           @default(CANDIDATE)
+  companyId         String?             @unique
+  password          String?
+  emailVerified     DateTime?           @default(now())
+  accounts          Account[]
+  applications      Application[]
+  bookmarks         Bookmark[]
+  sessions          Session[]
+  company           Company?            @relation("EmployerCompany", fields: [companyId], references: [id])
+  followedCompanies UserFollowCompany[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Job {
+  id                   String                @id @default(uuid())
+  title                String                @db.VarChar(256)
+  description          String                @db.VarChar(4096)
+  salary               String
+  location             String[]
+  tags                 String[]
+  requirements         String[]
+  benefits             String[]
+  isFeatured           Boolean               @default(false)
+  postedDate           DateTime              @default(now())
+  status               JobLifeCycle          @default(Open)
+  updatedAt            DateTime              @updatedAt
+  applicationUrl       String?
+  companyId            String
+  type                 String
+  applicationMethod    ApplicationMethods    @default(In_app)
+  applications         Application[]
+  applicationQuestions ApplicationQuestion[]
+  bookmarks            Bookmark[]
+  company              Company               @relation(fields: [companyId], references: [id])
+}
+
+model Company {
+  id          String              @id @default(uuid())
+  name        String
+  logo        String?
+  industry    String
+  description String
+  mission     String
+  website     String
+  hqLocation  String
+  size        String
+  founded     Int
+  workStyle   WorkStyles
+  tags        String[]
+  benefits    String[]
+  values      String[]
+  jobs        Job[]
+  offices     Office[]
+  socials     Socials?
+  employer    User?               @relation("EmployerCompany")
+  followers   UserFollowCompany[]
+}
+
+model Application {
+  id        String            @id @default(uuid())
+  jobId     String
+  userId    String
+  status    ApplicationStatus @default(Applied)
+  appliedAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  job       Job               @relation(fields: [jobId], references: [id])
+  user      User              @relation(fields: [userId], references: [id])
+}
+
+model Bookmark {
+  id      String   @id @default(uuid())
+  userId  String
+  jobId   String
+  savedAt DateTime @default(now())
+  job     Job      @relation(fields: [jobId], references: [id])
+  user    User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, jobId])
+}
+
+model Office {
+  id             String   @id @default(uuid())
+  location       String
+  address        String
+  isHeadquarters Boolean
+  companyId      String?
+  Company        Company? @relation(fields: [companyId], references: [id])
+}
+
+model Socials {
+  id        String  @default(uuid())
+  linkedin  String?
+  github    String?
+  facebook  String?
+  youtube   String?
+  twitter   String?
+  instagram String?
+  tiktok    String?
+  other     String?
+  companyId String  @unique
+  company   Company @relation(fields: [companyId], references: [id])
+}
+
+model ApplicationQuestion {
+  id       String       @id @default(uuid())
+  question String
+  type     QuestionType
+  required Boolean
+  options  String[]
+  jobId    String
+  job      Job          @relation(fields: [jobId], references: [id])
+}
+
+model UserFollowCompany {
+  id         String   @id @default(uuid())
+  userId     String
+  companyId  String
+  followedAt DateTime @default(now())
+  company    Company  @relation(fields: [companyId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, companyId])
+}
+
+enum ApplicationStatus {
+  Applied
+  Interviewing
+  Rejected
+  Hired
+  Withdrawn
+}
+
+enum UserTypes {
+  CANDIDATE
+  EMPLOYER
+}
+
+enum ApplicationMethods {
+  In_app
+  External
+}
+
+enum JobLifeCycle {
+  Open
+  Closed
+}
+
+enum WorkStyles {
+  Remote
+  Hybrid
+  Onsite
+}
+
+enum QuestionType {
+  textarea
+  select
+  radio
+  checkbox
+}
