@@ -17,13 +17,20 @@ import formSchema, { FormSchemaType } from "./validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { FaGoogle, FaLinkedin } from "react-icons/fa";
+import { signIn } from "next-auth/react";
+import { toast } from "sonner";
+import { useOAuthErrorToast } from "@/hooks/useOAuthErrorToast";
+import { useRouter } from "next/navigation";
 
 const ClientJsx = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isOAuthLoading, setIsOAuthLoading] = useState(false);
+  const router = useRouter();
+  useOAuthErrorToast()
+
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors, isValid, isSubmitting },
   } = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
@@ -37,6 +44,25 @@ const ClientJsx = () => {
   const onSubmit = async (data: FormSchemaType) => {
     console.log("Form data:", data);
     // Handle submission here
+    try {
+      const result = await signIn("credentials", {
+        ...data,
+        redirect: false,
+        redirectTo: "/jobs",
+      });
+
+      if (!result?.ok || result?.error) {
+        console.error("Sign in error:", result?.error);
+        toast.error("Sign in failed. Please check your credentials.");
+      } else {
+        console.log("Sign in successful:", result);
+        toast.success("Sign in successful!");
+        router.push("/jobs")
+      }
+    } catch (error) {
+      console.error("Error during sign in:", error);
+      toast.error("An error occurred during sign in. Please try again.");
+    }
   };
   return (
     <Card className="shadow-lg border-0">
@@ -123,13 +149,29 @@ const ClientJsx = () => {
         </div>
 
         <div className="grid grid-cols-2 gap-3">
-          <Button variant="outline" type="button">
+          <Button
+            variant="outline"
+            type="button"
+            onClick={() => {
+              signIn("google");
+              setIsOAuthLoading(true);
+            }}
+            disabled={isSubmitting || isOAuthLoading}
+          >
             <FaGoogle className="w-4 h-4 mr-2" />
-            Google
+            {isOAuthLoading ? "Connecting..." : "Google"}
           </Button>
-          <Button variant="outline" type="button">
+          <Button
+            variant="outline"
+            type="button"
+            onClick={() => {
+              signIn("linkedin");
+              setIsOAuthLoading(true);
+            }}
+            disabled={isOAuthLoading || isSubmitting}
+          >
             <FaLinkedin className="w-4 h-4 mr-2" />
-            LinkedIn
+            {isOAuthLoading ? "Connecting..." : "LinkedIn"}
           </Button>
         </div>
 

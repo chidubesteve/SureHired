@@ -3,11 +3,15 @@ import { Button } from "@/components/ui/button";
 import { LuArrowLeft, LuEye, LuEyeOff } from "react-icons/lu";
 import { FaGoogle, FaLinkedin } from "react-icons/fa";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema, FormSchemaType } from "./validationSchema";
+import { toast } from "sonner";
+import { signIn } from "next-auth/react";
+import Cookies from "js-cookie";
+import { useOAuthErrorToast } from "@/hooks/useOAuthErrorToast";
 
 const ClientGoBackButtonJsx = () => {
   const router = useRouter();
@@ -24,11 +28,23 @@ const ClientGoBackButtonJsx = () => {
   );
 };
 
-
 const ClientFormJsx = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const { register, handleSubmit, watch, setValue, reset, formState: { errors, isValid, isSubmitting } } = useForm<FormSchemaType>({
+  const [isOAuthLoading, setIsOAuthLoading] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  useOAuthErrorToast(); // handles OAuth errors
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    reset,
+    formState: { errors, isValid, isSubmitting },
+  } = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     mode: "onChange",
     defaultValues: {
@@ -37,22 +53,104 @@ const ClientFormJsx = () => {
       email: "",
       password: "",
       company: "",
-      userType: "candidate",
+      userType: "CANDIDATE", // default user type
       agreeToTerms: false,
     },
   });
-
   const userType = watch("userType");
+
+  // to read userType from URL - necessary if page reloads or on initial load
+  useEffect(() => {
+    const userTypeParam = searchParams.get("userType") as
+      | "EMPLOYER"
+      | "CANDIDATE";
+    if (userTypeParam === "EMPLOYER") {
+      setValue("userType", "EMPLOYER");
+    } else {
+      setValue("userType", "CANDIDATE"); // fallback
+    }
+  }, [searchParams, setValue]);
+
+  const handleUserTypeChange = (type: "CANDIDATE" | "EMPLOYER") => {
+    setValue("userType", type); // update RHF state
+
+    const newParams = new URLSearchParams(searchParams.toString());
+    newParams.set("userType", type);
+    router.replace(`${pathname}?${newParams.toString()}`);
+  };
+
+  const handleOAuthSignIn = async (provider: "google" | "linkedin") => {
+    try {
+      setIsOAuthLoading(true);
+
+      const result = await signIn(provider, {
+        redirect: false,
+        redirectTo:
+          userType === "EMPLOYER" ? "/company/update-profile" : "/jobs",
+      });
+      if (result?.ok && result?.url) {
+        router.push(result.url);
+      }
+    } catch (error) {
+      console.error(`${provider} sign-in error:`, error);
+      toast.error("An unexpected error occurred. Please try again.");
+    } finally {
+      setIsOAuthLoading(false);
+    }
+  };
 
   const onSubmit = async (data: FormSchemaType) => {
     console.log("Form data:", data);
     // Handle submission here
     setSubmitted(true); // trigger submit message
-    // simulate api call
-    await new Promise((res) => setTimeout(res, 3000));
-    setSubmitted(false);
-    reset(); // This resets the form to defaultValues
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/sign-up`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const result = await res.json();
+      if (!res.ok) {
+        throw new Error(result.message || "Sign up failed");
+      }
+      console.log("Result: ", result);
+      toast.success("Registration Successful");
+      // Auto sign-in after successful registration
+      const signInResult = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        userType,
+        redirect: false,
+      });
+
+      if (signInResult?.ok) {
+        // Redirect based on userType
+        if (result?.data?.userType === "EMPLOYER") {
+          router.push("/company/update-profile");
+        } else {
+          router.push("/jobs");
+        }
+      } else {
+        // registration successful, but sign-in failed
+        toast.info("Registration successful! Please sign in.");
+        reset();
+        router.push("/auth/sign-in");
+      }
+    } catch (error) {
+      console.error("Error during sign up:", error);
+      toast.error(
+        error instanceof Error ? error.message : "User registration failed!"
+      );
+    } finally {
+      setSubmitted(false); // reset after submission
+    }
   };
+  Cookies.set("userType", userType);
 
   return (
     <>
@@ -61,9 +159,9 @@ const ClientFormJsx = () => {
         <div className="grid grid-cols-2 gap-1">
           <button
             type="button"
-            onClick={() => setValue("userType", "candidate")}
+            onClick={() => handleUserTypeChange("CANDIDATE")}
             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-              userType === "candidate"
+              userType === "CANDIDATE"
                 ? "bg-brand-600 text-white"
                 : "bg-white text-neutral-600 hover:text-neutral-900"
             }`}
@@ -72,14 +170,16 @@ const ClientFormJsx = () => {
           </button>
           <button
             type="button"
-            onClick={() => setValue("userType", "employer")}
+            onClick={() => {
+              handleUserTypeChange("EMPLOYER");
+            }}
             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-              userType === "employer"
+              userType === "EMPLOYER"
                 ? "bg-brand-600 text-white"
                 : "bg-white text-neutral-600 hover:text-neutral-900"
             }`}
           >
-            Employer
+            EMPLOYER
           </button>
         </div>
       </div>
@@ -140,7 +240,7 @@ const ClientFormJsx = () => {
           )}
         </div>
 
-        {userType === "employer" && (
+        {userType === "EMPLOYER" && (
           <div>
             <label
               htmlFor="company"
@@ -246,11 +346,21 @@ const ClientFormJsx = () => {
         </div>
 
         <div className="mt-6 grid grid-cols-2 gap-3">
-          <Button variant={"outline"} className="w-full">
-            <FaGoogle /> Google
+          <Button
+            variant={"outline"}
+            className="w-full"
+            onClick={() => handleOAuthSignIn("google")}
+            disabled={isOAuthLoading || isSubmitting}
+          >
+            <FaGoogle /> {isOAuthLoading ? "Connecting..." : "Google"}
           </Button>
-          <Button variant={"outline"} className="w-full">
-            <FaLinkedin /> LinkedIn
+          <Button
+            variant={"outline"}
+            className="w-full"
+            disabled={isOAuthLoading || isSubmitting}
+            onClick={() => handleOAuthSignIn("linkedin")}
+          >
+            <FaLinkedin /> {isOAuthLoading ? "Connecting..." : "LinkedIn"}
           </Button>
         </div>
       </div>
