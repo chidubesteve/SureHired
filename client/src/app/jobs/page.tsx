@@ -74,15 +74,15 @@ const Page = () => {
               <>
                 <div className="mb-6 flex items-center justify-between">
                   <div>
-                    <h1 className="text-2xl font-bold text-neutral-900">
+                    <h1 className="text-lg md:text-2xl font-bold text-neutral-900">
                       Job Opportunities
                     </h1>
                     <p className="text-neutral-600">
                       {data?.pagination?.totalJobs || 0} jobs found
                     </p>
                   </div>
-                  <div className="flex items-center space-x-4">
-                    <span className="text-neutral-600">Sort by:</span>
+                  <div className="flex items-center md:space-x-4">
+                    <span className="text-neutral-600 m-0">Sort by:</span>
                     <Select defaultValue="most_recent">
                       <SelectTrigger className="w-[180px] flex items-center space-x-1 text-sm font-medium text-neutral-700 hover:text-neutral-900">
                         <SelectValue />
