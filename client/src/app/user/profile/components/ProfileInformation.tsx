@@ -22,7 +22,7 @@ interface Props {
 export const NameProfileInfoSection = ({ user }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
 
-  const avatarUrl = `https://api.dicebear.com/9.x/adventurer/svg?seed=${user.firstName} || ${user.profilePicture}`;
+  const avatarUrl = `https://api.dicebear.com/9.x/adventurer/svg?seed=${user.firstName}`;
 
   const form = useForm<ProfileSchemaType>({
     resolver: zodResolver(ProfileSchema),
