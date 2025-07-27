@@ -20,7 +20,7 @@
     "tags": ["React", "Node.js", "TypeScript", "JavaScript"],
     "postedDate": "2025-06-20T10:00:00Z",
     "applicationMethod": "In_app",
-    "applicationUrl": null,
+    "applicationUrl": "",
     "isFeatured": true,
     "status": "Open"
   },
@@ -66,7 +66,7 @@
     "tags": ["Python", "SQL", "Tableau", "Data Analysis"],
     "postedDate": "2025-06-18T09:15:00Z",
     "applicationMethod": "In_app",
-    "applicationUrl": null,
+    "applicationUrl": "",
 
     "isFeatured": false,
     "status": "Open"
@@ -92,7 +92,7 @@
     "tags": ["Agile", "Product Management", "Leadership"],
     "postedDate": "2025-06-25T16:45:00Z",
     "applicationMethod": "In_app",
-    "applicationUrl": null,
+    "applicationUrl": "",
     "isFeatured": true,
     "status": "Open"
   },
@@ -138,7 +138,7 @@
     "tags": ["Python", "TensorFlow", "PyTorch", "Machine Learning"],
     "postedDate": "2025-06-23T11:20:00Z",
     "applicationMethod": "In_app",
-    "applicationUrl": null,
+    "applicationUrl": "",
 
     "isFeatured": true,
     "status": "Open"
@@ -164,7 +164,7 @@
     "tags": ["React", "JavaScript", "Tailwind CSS", "Frontend"],
     "postedDate": "2025-06-21T08:40:00Z",
     "applicationMethod": "In_app",
-    "applicationUrl": null,
+    "applicationUrl": "",
     "isFeatured": false,
     "status": "Open"
   },
@@ -210,7 +210,7 @@
     "tags": ["Cybersecurity", "SIEM", "Firewalls"],
     "postedDate": "2025-06-24T15:00:00Z",
     "applicationMethod": "In_app",
-    "applicationUrl": null,
+    "applicationUrl": "",
     "isFeatured": true,
     "status": "Open"
   },
@@ -231,7 +231,7 @@
     "tags": ["Marketing", "Google Analytics", "Social Media"],
     "postedDate": "2025-06-17T10:30:00Z",
     "applicationMethod": "In_app",
-    "applicationUrl": null,
+    "applicationUrl": "",
     "isFeatured": false,
     "status": "Open"
   },
@@ -252,7 +252,7 @@
     "tags": ["UI/UX", "Figma", "Design", "Adobe XD"],
     "postedDate": "2025-06-25T14:30:00Z",
     "applicationMethod": "In_app",
-    "applicationUrl": null,
+    "applicationUrl": "",
     "isFeatured": false,
     "status": "Open"
   },
@@ -298,7 +298,7 @@
     "tags": ["DevOps", "AWS", "Docker", "Kubernetes"],
     "postedDate": "2025-06-30T16:45:00Z",
     "applicationMethod": "In_app",
-    "applicationUrl": null,
+    "applicationUrl": "",
     "isFeatured": true,
     "status": "Open"
   },
@@ -340,7 +340,7 @@
     "tags": ["Product Management", "Agile", "Roadmapping", "Communication"],
     "postedDate": "2025-06-29T08:30:00Z",
     "applicationMethod": "In_app",
-    "applicationUrl": null,
+    "applicationUrl": "",
     "isFeatured": true,
     "status": "Open"
   }

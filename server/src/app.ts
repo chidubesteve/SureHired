@@ -5,6 +5,8 @@ import cors from "cors";
 import morgan from "morgan";
 import jobsRoutes from "./routes/JobRoutes";
 import companyRoutes from "./routes/CompanyRoutes";
+import userRoutes from "./routes/UserRoutes";
+
 // CONFIG
 dotenv.config();
 const app = express();
@@ -36,6 +38,7 @@ const port = Number(process.env.PORT) || 3000;
 // ROUTES
 app.use("/api", jobsRoutes);
 app.use("/api", companyRoutes);
+app.use("/api", userRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello, Welcome to SureHired JobBoard!");
