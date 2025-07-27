@@ -1,11 +1,10 @@
-"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { NAV_LINKS } from "@/config/nav-links";
 import ClientHeaderJsx from "./ClientHeaderJsx";
 
-const Header = () => {
+const Header =  () => {
   return (
     <header className="border-b border-neutral-200 sticky top-0 z-50 bg-card">
       <div className="max-w-7xl mx-auto px-4 flex sm:px-6 lg:px-8">
@@ -36,7 +35,7 @@ const Header = () => {
           </nav>
 
           {/* Interactive client-side logic */}
-          <ClientHeaderJsx />
+          <ClientHeaderJsx  />
         </div>
       </div>
     </header>
