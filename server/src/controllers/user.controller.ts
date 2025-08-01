@@ -1,88 +1,172 @@
 import { getErrorMessage } from "../utils/errorUtils";
-import { comparePassword, hashPassword } from "../utils/password";
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
+import { comparePassword, hashPassword } from "../utils/password";
 
 const prisma = new PrismaClient();
 
-// same thing as signup
-export const createUser = async (
-  req: Request,
-  res: Response,
-): Promise<void> => {
-  const { firstName, lastName, email, password, userType } = req.body;
-  if (!firstName || !lastName || !email || !userType) {
-    res.status(400).json({
-      success: false,
-      message: "Missing required fields",
-    });
-    return;
-  }
+export const getUserProfile = async (req: Request, res: Response) => {
+  const { id } = req.params;
   try {
-    // check if user already exists
-    const existingUser = await prisma.user.findUnique({
-      where: { email },
+    const user = await prisma.user.findUnique({
+      where: { id },
     });
-    if (existingUser) {
-      res.status(400).json({
-        success: false,
-        message: "User already exists",
-      });
+    if (!user) {
+      res.status(404).json({ success: false, message: "User not found" });
       return;
     }
-
-    // hash password
-    let hashedPassword: string | undefined;
-    // Only hash password if provided (for non-OAuth signups)
-    if (password) {
-      hashedPassword = await hashPassword(password);
-    }
-    const newUser = await prisma.user.create({
-      data: {
-        firstName,
-        lastName,
-        email,
-        password: hashedPassword,
-        userType: userType,
-      },
-    });
-    res.status(201).json({
-      success: true,
-      message: "User created successfully",
-      data: {
-        id: newUser.id,
-        firstName: newUser.firstName,
-        lastName: newUser.lastName,
-        email: newUser.email,
-        userType: newUser.userType,
-      },
-    });
+    res.status(200).json({ success: true, message: "User found", data: user });
   } catch (error) {
-    console.error("Error creating user:", error);
+    console.error("Error fetching user profile:", error);
     res.status(500).json({
       success: false,
-      message: "Error creating user",
+      message: "Error fetching user profile",
+      error: getErrorMessage(error),
+    });
+  }
+};  
+
+export const getUserApplications = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const page = parseInt(req.params.page) || 1;
+  const limit = parseInt(req.params.limit) || 3;
+  const skip = (page - 1) * limit;
+
+  try {
+    const [applications, total] = await Promise.all([
+      prisma.application.findMany({
+        where: { userId: id },
+        include: {
+          job: {
+            include: { company: true },
+          },
+        },
+        skip,
+        take: limit,
+        orderBy: { appliedAt: "desc" },
+      }),
+      prisma.application.count({
+        where: { userId: id },
+      }),
+    ]);
+    res.status(200).json({
+      success: true,
+      message: "Applications fetched successfully",
+      data: applications,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    });
+  } catch (error) {
+    console.error("Error fetching user applications:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error fetching user applications",
       error: getErrorMessage(error),
     });
   }
 };
 
-export const signInUser = async (
-  req: Request,
-  res: Response,
-): Promise<void> => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    res.status(400).json({
-      success: false,
-      message: "Email and password are required",
+export const getUserBookmarks = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const page = parseInt(req.params.page) || 1;
+  const limit = parseInt(req.params.limit) || 3;
+  const skip = (page - 1) * limit;
+  try {
+    const [bookmarks, total] = await Promise.all([
+      prisma.bookmark.findMany({
+        where: { userId: id },
+        include: {
+          job: {
+            include: { company: true },
+          },
+        },
+        skip,
+        take: limit,
+        orderBy: { savedAt: "desc" },
+      }),
+      prisma.bookmark.count({
+        where: { userId: id },
+      }),
+    ]);
+
+    res.status(200).json({
+      success: true,
+      message: "Bookmarks fetched successfully",
+      data: bookmarks,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
     });
-    return;
+  } catch (error) {
+    console.error("Error fetching user bookmarks:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error fetching user bookmarks",
+      error: getErrorMessage(error),
+    });
   }
+};
+
+export const getFollowedCompanies = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const page = parseInt(req.params.page) || 1;
+    const limit = parseInt(req.params.limit) || 3;
+    const skip = (page - 1) * limit;
+
+    const [followed, total] = await Promise.all([
+      prisma.userFollowCompany.findMany({
+        where: { userId: id },
+        include: {
+          company: true,
+        },
+        skip,
+        take: limit,
+        orderBy: { followedAt: "desc" },
+      }),
+      prisma.userFollowCompany.count({
+        where: { userId: id },
+      }),
+    ]);
+
+    res.status(200).json({
+      success: true,
+      message: "Followed companies fetched successfully",
+      data: followed,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    });
+  } catch (error) {
+    console.error("Error fetching followed companies:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error fetching followed companies",
+      error: getErrorMessage(error),
+    });
+  }
+};
+
+export const changePassword = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
+  const { userId, currentPassword, newPassword } = req.body;
+
+  if (!userId) {
+    return res.status(400).json({ success: false, message: "User ID missing" });
+  }
+
   try {
     const user = await prisma.user.findUnique({
-      where: { email },
+      where: { id: userId },
+      select: { password: true },
     });
+
     if (!user) {
       res.status(404).json({
         success: false,
@@ -91,27 +175,72 @@ export const signInUser = async (
       return;
     }
 
-    const isPasswordValid = await comparePassword(password, user.password!);
-    if (!isPasswordValid) {
-      res.status(401).json({
+    if (!user.password) {
+      res.status(400).json({
         success: false,
-        message: "Invalid password",
+        message: "User has no password, Might be OAuth user",
       });
       return;
     }
 
-    res.status(200).json({
+    const isMatch = await comparePassword(currentPassword, user.password);
+
+    if (!isMatch) {
+      res.status(401).json({
+        success: false,
+        message: "Incorrect current password",
+      });
+      return;
+    }
+
+    const hashedNewPassword = await hashPassword(newPassword);
+
+    await prisma.user.update({
+      where: { id: userId },
+      data: { password: hashedNewPassword },
+    });
+
+    return res.status(200).json({
       success: true,
-      message: "User signed in successfully",
-      data: user,
+      message: "Password updated successfully",
     });
   } catch (error) {
-    console.error("Error signing in user:", error);
+    console.error("Error updating password:", error);
     res.status(500).json({
       success: false,
-      message: "Error signing in user",
+      message: "Error updating password",
       error: getErrorMessage(error),
     });
   }
 };
 
+export const changeUserFullName = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
+  const { userId, firstName, lastName } = req.body;
+
+
+  if (!userId) {
+    return res.status(400).json({ success: false, message: "User ID missing" });
+  }
+
+  try {
+    await prisma.user.update({
+      where: { id: userId },
+      data: { firstName, lastName },
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "User full name updated successfully",
+    });
+  } catch (error) {
+    console.error("Error updating user full name:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error updating user full name",
+      error: getErrorMessage(error),
+    });
+  }
+};
