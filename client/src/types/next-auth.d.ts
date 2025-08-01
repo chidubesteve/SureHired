@@ -6,8 +6,8 @@ declare module "next-auth" {
       id: string;
       firstName?: string;
       lastName?: string;
+      email: string;
       userType?: string;
-      profilePicture?: string | null;
     } & DefaultSession["user"];
     expires: string;
   }
