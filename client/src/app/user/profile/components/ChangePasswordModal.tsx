@@ -19,14 +19,16 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { LuPenLine } from "react-icons/lu";
+import { useUpdateUserPasswordMutation } from "@/redux/services/user";
+import { signOut } from "next-auth/react";
 
 type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  email: string;
+  userId: string;
 };
 
-const ChangePasswordModal = ({ open, onOpenChange, email }: Props) => {
+const ChangePasswordModal = ({ open, onOpenChange, userId }: Props) => {
   const form = useForm<ChangePasswordSchemaType>({
     resolver: zodResolver(changePasswordSchema),
     defaultValues: {
@@ -35,7 +37,7 @@ const ChangePasswordModal = ({ open, onOpenChange, email }: Props) => {
       confirmNewPassword: "",
     },
   });
-
+  const [updatePassword] = useUpdateUserPasswordMutation();
   const {
     register,
     handleSubmit,
@@ -43,24 +45,24 @@ const ChangePasswordModal = ({ open, onOpenChange, email }: Props) => {
   } = form;
 
   const onSubmit = async (data: ChangePasswordSchemaType) => {
+    console.log("Form data:", data);
     try {
-      const response = await fetch("/api/user/change-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          currentPassword: data.currentPassword,
-          newPassword: data.newPassword,
-        }),
-      });
+      const res = await updatePassword({
+        userId,
+        currentPassword: data.currentPassword,
+        newPassword: data.newPassword,
+      }).unwrap();
 
-      if (!response.ok) throw new Error("Password update failed");
-
-      toast.success("Password updated successfully");
+      if (res.success) {
+        toast.success(res.message || "Password updated successfully");
+      } else {
+        toast.error(res.message || "Error updating password");
+      }
       onOpenChange(false);
       form.reset();
+
+      // logout user after successful password change
+      await signOut({ callbackUrl: "/auth/sign-in" });
     } catch (error) {
       console.error("Error changing password:", error);
       toast.error("Invalid current password or server error");
