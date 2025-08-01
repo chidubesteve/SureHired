@@ -104,6 +104,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
        // This strips the password out before it enters the session pipeline.
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { password, ...rest } = user;
+        console.log("rest", rest);
         return { ...rest, rememberMe: credentials.rememberMe === "true" };
       },
     }),
@@ -264,12 +265,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (user) {
       const publicUser = user as PublicUser;
     session.user = {
-      ...session.user,
       id: publicUser.id,
       firstName: publicUser.firstName,
       lastName: publicUser.lastName,
       email: publicUser.email,
       userType: publicUser.userType,
+      emailVerified: publicUser.emailVerified,
       }
     }
       return session;
