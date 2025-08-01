@@ -101,7 +101,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           console.error("No user data returned from API");
           return null;
         }
-        return { ...user, rememberMe: credentials.rememberMe === "true" };
+       // This strips the password out before it enters the session pipeline.
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password, ...rest } = user;
+        return { ...rest, rememberMe: credentials.rememberMe === "true" };
       },
     }),
     GoogleProvider({
@@ -259,15 +262,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       console.log("Token: ", token);
       console.log("User: ", user);
       if (user) {
-        session.user = {
-          ...session.user,
-          id: user.id,
-          firstName: (user as PublicUser).firstName,
-          lastName: (user as PublicUser).lastName,
-          userType: (user as PublicUser).userType,
-          profilePicture: (user as PublicUser).profilePicture,
-        };
+      const publicUser = user as PublicUser;
+    session.user = {
+      ...session.user,
+      id: publicUser.id,
+      firstName: publicUser.firstName,
+      lastName: publicUser.lastName,
+      email: publicUser.email,
+      userType: publicUser.userType,
       }
+    }
       return session;
     },
 
