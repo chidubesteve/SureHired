@@ -3,9 +3,10 @@ import express from "express";
 import helmet from "helmet";
 import cors from "cors";
 import morgan from "morgan";
-import jobsRoutes from "./routes/JobRoutes";
-import companyRoutes from "./routes/CompanyRoutes";
-import userRoutes from "./routes/UserRoutes";
+import jobsRoutes from "./routes/Job.routes";
+import companyRoutes from "./routes/Company.routes";
+import userRoutes from "./routes/User.routes";
+import authRoutes from "./routes/Auth.routes";
 
 // CONFIG
 dotenv.config();
@@ -38,7 +39,8 @@ const port = Number(process.env.PORT) || 3000;
 // ROUTES
 app.use("/api", jobsRoutes);
 app.use("/api", companyRoutes);
-app.use("/api", userRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello, Welcome to SureHired JobBoard!");
