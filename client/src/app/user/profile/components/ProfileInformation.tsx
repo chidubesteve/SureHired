@@ -1,8 +1,12 @@
 "use client";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
-import React, { useState } from "react";
-import { ProfileSchema, ProfileSchemaType } from "../validation/ProfileSchema";
+import { useState } from "react";
+import {
+  ProfileSchema,
+  type ProfileSchemaType,
+} from "../validation/ProfileSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@/components/ui/label";
@@ -10,52 +14,71 @@ import { Button } from "@/components/ui/button";
 import { LuSave, LuX, LuPenLine } from "react-icons/lu";
 import ChangePasswordModal from "./ChangePasswordModal";
 import { toast } from "sonner";
+import type { Session } from "next-auth";
+import {
+  useChangeUserFullNameMutation,
+  useGetUserProfileQuery,
+} from "@/redux/services/user";
+import FetchingError from "@/components/DataFetching/FetchingError";
 
 interface Props {
-  user: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    profilePicture?: string;
-  };
+  userProps: Session["user"];
 }
-export const NameProfileInfoSection = ({ user }: Props) => {
-  const [isEditing, setIsEditing] = useState(false);
 
-  const avatarUrl = `https://api.dicebear.com/9.x/adventurer/svg?seed=${user.firstName}`;
+// Skeleton component for the name section
+const NameSectionSkeleton = () => (
+  <div className="flex flex-col gap-2">
+    {/* Avatar skeleton */}
+    <Skeleton className="w-[72px] h-[72px] rounded-full mb-2" />
+
+    {/* Name field skeleton */}
+    <div>
+      <Skeleton className="h-4 w-16 mb-1" /> {/* Label */}
+      <div className="flex items-center justify-between mt-1 gap-2">
+        <Skeleton className="h-5 w-32" /> {/* Name text */}
+        <Skeleton className="h-8 w-8 rounded" /> {/* Edit button */}
+      </div>
+    </div>
+  </div>
+);
+
+export const NameProfileInfoSection = ({ userProps }: Props) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const { data: user, isLoading, error } = useGetUserProfileQuery(userProps.id);
+  const [changeUserFullName, { isLoading: isUpdating }] =
+    useChangeUserFullNameMutation();
 
   const form = useForm<ProfileSchemaType>({
     resolver: zodResolver(ProfileSchema),
     defaultValues: {
-      firstName: user.firstName,
-      lastName: user.lastName,
+      firstName: "",
+      lastName: "",
     },
   });
+
   const { register, handleSubmit, reset, formState } = form;
 
-  console.log("Form state:", formState);
-  const handleUpdateProfile = async (
-    updatedData: Partial<ProfileSchemaType>
-  ) => {
-    // try {
-    //   const res = await fetch("/api/user/profile", {
-    //     method: "PATCH",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(updatedData),
-    //   });
+  if (error) {
+    return <FetchingError message={"Error fetching user profile"} />;
+  }
 
-    //   if (!res.ok) {
-    //     throw new Error("Failed to update profile");
-    //   }
+  // Show skeleton while loading
+  if (isLoading) {
+    return <NameSectionSkeleton />;
+  }
 
-    //   const data = await res.json();
+  const avatarUrl =
+    user?.profilePicture ||
+    `https://api.dicebear.com/9.x/adventurer/svg?seed=${user?.firstName}`;
+
+  const handleUpdateProfile = async (updatedData: ProfileSchemaType) => {
     try {
-  
+      const res = await changeUserFullName({
+        userId: user!.id,
+        ...updatedData,
+      }).unwrap();
       console.log("Profile updated:", updatedData);
-      
-      toast.success("Profile updated successfully");
+      toast.success(res.message || "Profile updated successfully");
     } catch (error) {
       console.error("Update failed:", error);
       toast.error("Failed to update profile");
@@ -68,66 +91,72 @@ export const NameProfileInfoSection = ({ user }: Props) => {
   };
 
   const onSubmit = async (data: ProfileSchemaType) => {
-    console.log("Form data submitted:", data); // Log form data
     await handleUpdateProfile(data);
     setIsEditing(false);
   };
+
   return (
     <>
-      {" "}
       {/* profile picture and Name Field */}
       <div className="flex flex-col gap-2">
         <Image
-          src={avatarUrl}
-          alt={`${user.firstName}'s avatar`}
+          src={avatarUrl || "/placeholder.svg"}
+          alt={`${user?.firstName}'s avatar`}
           width={72}
           height={72}
           className="w-[72px] h-[72px] rounded-full bg-gray-200 mb-2"
         />
         {!isEditing ? (
-          <>
+          <div>
             <Label htmlFor="name">Full Name</Label>
             <div className="flex items-center justify-between mt-1 gap-2">
               <span className="text-neutral-900">
-                {user.firstName} {user.lastName}
+                {user?.firstName} {user?.lastName}
               </span>
               <Button
                 size="sm"
                 variant="ghost"
                 onClick={() => setIsEditing(true)}
                 title="Edit Name"
+                disabled={isUpdating}
               >
                 <LuPenLine className="w-4 h-4" />
               </Button>
             </div>
-          </>
+          </div>
         ) : (
-          <form onSubmit={handleSubmit(onSubmit)} className="flex-col  mt-3">
+          <form onSubmit={handleSubmit(onSubmit)} className="flex-col mt-3">
             <div className="flex space-x-2">
               <div>
                 <Label className="text-xs">First Name</Label>
-                <Input {...register("firstName")} />
+                <Input {...register("firstName")} disabled={isUpdating} />
               </div>
               <div>
                 <Label className="text-xs">Last Name</Label>
-                <Input {...register("lastName")} />
+                <Input {...register("lastName")} disabled={isUpdating} />
               </div>
             </div>
-
             <div className="flex gap-2 mt-2">
               <Button
                 type="submit"
                 size="sm"
-                disabled={!formState.isValid || formState.isSubmitting}
+                disabled={
+                  !formState.isValid || formState.isSubmitting || isUpdating
+                }
                 className="hover:cursor-pointer disabled:!cursor-not-allowed"
               >
-                <LuSave className="w-4 h-4" />
+                {isUpdating ? (
+                  <Skeleton className="w-4 h-4" />
+                ) : (
+                  <LuSave className="w-4 h-4" />
+                )}
               </Button>
               <Button
                 type="button"
                 variant="outline"
                 size="sm"
                 onClick={handleCancel}
+                disabled={isUpdating}
               >
                 <LuX className="w-4 h-4" />
               </Button>
@@ -140,11 +169,32 @@ export const NameProfileInfoSection = ({ user }: Props) => {
 };
 
 type PasswordProps = {
-  email: string;
+  userId: string;
+  isLoading?: boolean;
 };
 
-export const PasswordProfileInfoSection = ({ email }: PasswordProps) => {
+// Skeleton component for the password section
+const PasswordSectionSkeleton = () => (
+  <div>
+    <Skeleton className="h-4 w-16 mb-1" /> {/* Label */}
+    <div className="flex items-center justify-between mt-1 gap-2 text-center">
+      <Skeleton className="h-5 w-16" /> {/* Password dots */}
+      <Skeleton className="h-8 w-20 rounded" /> {/* Change password button */}
+    </div>
+  </div>
+);
+
+export const PasswordProfileInfoSection = ({
+  userId,
+  isLoading,
+}: PasswordProps) => {
   const [open, setOpen] = useState(false);
+
+  // Show skeleton while loading
+  if (isLoading) {
+    return <PasswordSectionSkeleton />;
+  }
+
   return (
     <>
       {/* Password Field */}
@@ -152,11 +202,10 @@ export const PasswordProfileInfoSection = ({ email }: PasswordProps) => {
         <Label htmlFor="password">Password</Label>
         <div className="flex items-center justify-between mt-1 gap-2 text-center">
           <span className="text-neutral-900">********</span>
-
           <ChangePasswordModal
             open={open}
             onOpenChange={setOpen}
-            email={email}
+            userId={userId}
           />
         </div>
       </div>
