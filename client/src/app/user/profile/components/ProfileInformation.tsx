@@ -44,9 +44,10 @@ const NameSectionSkeleton = () => (
 
 export const NameProfileInfoSection = ({ userProps }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
-  const { data: user, isLoading, error } = useGetUserProfileQuery(userProps.id);
+  const { data: userData, isLoading, error } = useGetUserProfileQuery(userProps.id);
   const [changeUserFullName, { isLoading: isUpdating }] =
     useChangeUserFullNameMutation();
+    const user = userData?.data;
 
   const form = useForm<ProfileSchemaType>({
     resolver: zodResolver(ProfileSchema),

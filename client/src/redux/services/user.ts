@@ -9,7 +9,6 @@ import {
 } from "@/types/UserRelated";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
@@ -22,19 +21,34 @@ export const userApi = createApi({
       providesTags: ["User"],
     }),
 
-    getUserJobApplications: builder.query<getUserApplicationsResponse, string>({
-      query: (userId) => `/${userId}/applications`,
+    getUserJobApplications: builder.query<
+      getUserApplicationsResponse,
+      { page: number; limit: number; userId: string }
+    >({
+      query: ({ userId, page, limit }) => ({
+        url: `/${userId}/applications`,
+        params: { page, limit },
+      }),
       providesTags: ["Applications"],
     }),
-    getUserBookmarks: builder.query<getUserBookmarksResponse, string>({
-      query: (userId) => `/${userId}/bookmarks`,
+    getUserBookmarks: builder.query<
+      getUserBookmarksResponse,
+      { page: number; limit: number; userId: string }
+    >({
+      query: ({ userId, page, limit }) => ({
+        url: `/${userId}/bookmarks`,
+        params: { page, limit },
+      }),
       providesTags: ["Bookmarks"],
     }),
     getUserFollowedCompanies: builder.query<
       getUserFollowedCompaniesResponse,
-      string
+      { page: number; limit: number; userId: string }
     >({
-      query: (userId) => `/${userId}/followed-companies`,
+      query: ({ userId, page, limit }) => ({
+        url: `/${userId}/followed-companies`,
+        params: { page, limit },
+      }),
       providesTags: ["FollowedCompanies"],
     }),
     updateUserPassword: builder.mutation<

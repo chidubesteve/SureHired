@@ -1,19 +1,11 @@
 import { Company } from "./Company";
 import { Job } from "./Job";
 
-export enum ApplicationStatus {
-  Applied = "Applied",
-  Interviewing = "Interviewing",
-  Rejected = "Rejected",
-  Hired = "Hired",
-  Withdrawn = "Withdrawn",
-}
-
 export interface Application {
   id: string;
   jobId: string;
   userId: string;
-  status: ApplicationStatus;
+  status: "Applied" | "Interviewing" | "Rejected" | "Hired" | "Withdrawn";
   appliedAt: string;
   updatedAt: string;
   job: Job; // populated from `include: { job: true }`
@@ -25,6 +17,7 @@ export interface Bookmark {
   jobId: string;
   savedAt: string;
   job: Job;
+  company: Company;
 }
 
 export interface FollowedCompany {
