@@ -14,6 +14,7 @@ import { Session } from "next-auth";
 import UserAppliedJobs from "./components/UserAppliedJobs";
 import FollowedCompanies from "./components/FollowedCompanies";
 import SavedJobs from "./components/SavedJobs";
+import { H2 } from "@/components/ui/header-with-anchor";
 
 interface UserProfileProps {
   userId: string;
@@ -67,7 +68,11 @@ const UserProfile = ({ userId, user }: UserProfileProps) => {
           {/* Applied Jobs */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl">Applied Jobs</CardTitle>
+              <CardTitle className="text-2xl">
+                <H2 id="applications" anchor="applications" anchorVisibility="hover" className="!text-2xl font-semibold text-neutral-900">
+                  Applied Jobs
+                </H2>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -89,15 +94,9 @@ const UserProfile = ({ userId, user }: UserProfileProps) => {
           {/* Saved Jobs */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl">
-                Saved Jobs
-              </CardTitle>
+              <CardTitle className="text-2xl">Saved Jobs</CardTitle>
             </CardHeader>
-            <CardContent>
-              {
-                <SavedJobs userId={userId} />
-              }
-            </CardContent>
+            <CardContent>{<SavedJobs userId={userId} />}</CardContent>
           </Card>
         </div>
       </div>
