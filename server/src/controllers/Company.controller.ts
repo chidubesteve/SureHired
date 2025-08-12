@@ -189,3 +189,96 @@ export const getAllCompanies = async (
     });
   }
 };
+
+
+export const createCompany = async (req: Request, res: Response) => {
+
+   const { userId } = req.params;
+
+   console.log("User ID from query:", userId);
+   console.log("req.query:", req.query);
+   console.log("req.params:", req.params);
+  // should i validate the sessionToken too
+
+    if (!userId) {
+       res.status(401).json({
+        success: false,
+        message: "User not authenticated",
+       });
+       return
+    }
+  try {
+    
+  const {
+    name,
+    industry,
+    description,
+    mission,
+    website,
+    hqLocation,
+    offices,
+    size,
+    founded,
+    workStyle,
+    tags,
+    benefits,
+    values,
+    socials,
+    } = req.body;
+    if(!name || !industry || !description || !mission || !website || !hqLocation || !size || !founded || !workStyle || !tags ){
+      res.status(400).json({
+        success: false,
+        message: "Missing required fields",
+      })
+      return
+    }
+
+    const newlyCreatedCompany = await prisma.company.create({
+      data: {
+        name,
+        industry,
+        description,
+        mission,
+        website,
+        hqLocation,
+        offices: offices && offices.length > 0 ? {
+          create: offices
+        }: undefined,
+        size,
+        founded,
+        workStyle,
+        tags,
+        benefits,
+        values,
+        socials: socials && Object.keys(socials).some((key) => socials[key]) ? {
+          create: socials
+        }: undefined,
+        employer: {
+          connect: {
+            id: userId
+          }
+        }
+      }
+    })
+
+    // assign the companyId to the user
+    await prisma.user.update({
+      where: { id: userId },
+      data: {
+        companyId: newlyCreatedCompany.id
+      }
+    })
+
+    res.status(201).json({
+      success: true,
+      message: "Company created successfully",
+    });
+  } catch (error) {
+    console.error("Error creating company:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error creating company",
+      error: getErrorMessage(error),
+    });
+  }
+}
