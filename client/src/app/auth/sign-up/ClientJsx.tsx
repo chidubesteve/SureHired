@@ -37,7 +37,7 @@ const ClientFormJsx = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   useOAuthErrorToast(); // handles OAuth errors
-const [signUp, { error}] = useSignUpMutation();
+  const [signUp, { error }] = useSignUpMutation();
   const {
     register,
     handleSubmit,
@@ -119,7 +119,10 @@ const [signUp, { error}] = useSignUpMutation();
       if (signInResult?.ok) {
         // Redirect based on userType
         if (result?.data?.userType === "EMPLOYER") {
-          router.push("/company/update-profile");
+          const companyQuery = data.company
+            ? `?company=${encodeURIComponent(data.company)}`
+            : "";
+          router.push(`/company/update-profile${companyQuery}`);
         } else {
           router.push("/jobs");
         }
