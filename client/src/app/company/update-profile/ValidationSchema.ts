@@ -2,13 +2,45 @@ import { z } from "zod";
 const currentYear = new Date().getFullYear();
 
 // Define a reusable URL validation schema - to allow empty strings as well
+
+const domainRegex =
+  /^https?:\/\/([a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}(\/.*)?$/;
+
 const optionalUrl = z
   .string()
   .trim()
-  .refine((val) => !val || val === "" || z.string().url().safeParse(val).success, {
+  .transform((val) => {
+    if (!val) return ""; // keep empty as-is
+    // if not protocol, prepend "https://"
+    if (!/^https?:\/\//i.test(val)) {
+      return `https://${val}`;
+    }
+    return val;
+  })
+  .refine((val) => !val || val === "" || domainRegex.test(val), {
     message: "Enter a valid URL",
   })
   .optional();
+
+
+const MAX_FILE_SIZE = 2 * 1024 * 1024; // 1 MB
+const ACCEPTED_FILE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",]
+
+const imageSchema = z
+  .instanceof(File, {
+    message: "File must be an image",
+  })
+  .refine((file) => {
+    return ACCEPTED_FILE_TYPES.includes(file.type);
+  }, "Invalid image type. Only JPEG, JPG, PNG, and WebP are allowed")
+  .refine(
+    (file) => file.size <= MAX_FILE_SIZE,
+    `File size must be less than ${MAX_FILE_SIZE / 1024 / 1024} MB`
+  );
 
 export const companySchema = z.object({
   name: z.string().min(1, "Company name is required"),
@@ -27,6 +59,7 @@ export const companySchema = z.object({
     ),
   hqLocation: z.string().min(1, "HQ Location is required"),
   website: z.string().url("Invalid website URL"),
+  logo: imageSchema.optional(),
   description: z.string().min(15, "Description is required"),
   mission: z.string().min(15, "Mission is required"),
   workStyle: z.enum(["Remote", "Hybrid", "Onsite"]),
