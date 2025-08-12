@@ -75,3 +75,46 @@ export interface SingleCompanyResponse {
   message: string;
   data: Company;
 }
+
+
+export interface createCompanyArgs {
+  userId: string;
+  data: {
+    name: string;
+    logo?: string;
+    description: string;
+    hqLocation: string;
+    industry: string;
+    size: string;
+    founded: number;
+    values?: string[];
+    website: string;
+    mission: string;
+    benefits?: string[];
+    workStyle?: string; // Remote, Hybrid, Onsite
+    tags: string[];
+    offices?: 
+      {
+        address: string;
+        isHeadquarters: boolean;
+        location: string;
+      }[]
+    ;
+    socials?: {
+      linkedin?: string;
+      github?: string;
+      twitter?: string;
+      facebook?: string;
+      instagram?: string;
+      youtube?: string;
+      tiktok?: string;
+      other?: string;
+    };
+  };
+}
+
+export interface createCompanyResponse {
+  success: boolean;
+  message: string;
+  error? : string
+}
