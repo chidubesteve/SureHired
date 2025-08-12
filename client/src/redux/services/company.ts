@@ -1,4 +1,10 @@
-import { GetCompaniesQueryArgs, GetCompaniesResponse, SingleCompanyResponse } from "@/types/Company";
+import {
+  createCompanyArgs,
+  createCompanyResponse,
+  GetCompaniesQueryArgs,
+  GetCompaniesResponse,
+  SingleCompanyResponse,
+} from "@/types/Company";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 type QueryValue = string | number | boolean | undefined;
@@ -48,7 +54,19 @@ export const companyApi = createApi({
       }),
       providesTags: (result, error, id) => [{ type: "Company", id }],
     }),
+    createCompany: builder.mutation<createCompanyResponse, createCompanyArgs>({
+      query: ({ userId, data }) => ({
+        url: `/company/create/${userId}`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Company"],
+    }),
   }),
 });
 
-export const { useGetAllCompaniesQuery, useGetCompanyByIdQuery } = companyApi;
+export const {
+  useGetAllCompaniesQuery,
+  useGetCompanyByIdQuery,
+  useCreateCompanyMutation,
+} = companyApi;
