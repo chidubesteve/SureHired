@@ -81,7 +81,7 @@ export interface createCompanyArgs {
   userId: string;
   data: {
     name: string;
-    logo?: string;
+    logo?: File;
     description: string;
     hqLocation: string;
     industry: string;
