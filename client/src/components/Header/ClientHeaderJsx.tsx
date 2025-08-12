@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -14,118 +14,75 @@ import {
 import { useSession, signOut } from "next-auth/react";
 import { UserType } from "@/types/User";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { useGetUserProfileQuery } from "@/redux/services/user";
 
-const getUserInitials = (firstName: string, lastName: string) => {
-  return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
-};
+const getUserInitials = (firstName: string, lastName: string) =>
+  `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
 
 const handleSignOut = async () => {
   await signOut({ callbackUrl: "/" });
 };
 
-const RenderUserDropdownItems = () => {
-  const { data: session } = useSession();
-  if (!session?.user) return null;
-
-  const userType = session.user.userType as UserType;
-
-  return (
-    <>
-      {userType === "CANDIDATE" ? (
-        <>
-          <DropdownMenuItem className="hover:!bg-primary hover:!text-card cursor-pointer">
-            <Link href="/user/profile" className="w-full">
-              Profile
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem className="hover:!bg-primary hover:!text-card cursor-pointer">
-            <Link href="/user/profile#applications" className="w-full">
-              Applications
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem
-            className="hover:!bg-destructive hover:!text-destructive-foreground cursor-pointer"
-            onClick={handleSignOut}
-          >
-            Sign Out
-          </DropdownMenuItem>
-        </>
-      ) : (
-        <>
-          <DropdownMenuItem className="hover:!bg-primary hover:!text-card cursor-pointer">
-            <Link href="/dashboard" className="w-full">
-              Dashboard
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem className="hover:!bg-primary hover:!text-card cursor-pointer">
-            <Link href="/company-profile" className="w-full">
-              Company Profile
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem className="hover:!bg-primary hover:!text-card cursor-pointer">
-            <Link href="/manage-jobs" className="w-full">
-              Manage Jobs
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem
-            className="hover:!bg-destructive hover:!text-destructive-foreground cursor-pointer"
-            onClick={handleSignOut}
-          >
-            Sign Out
-          </DropdownMenuItem>
-        </>
-      )}
-    </>
-  );
+// Centralized menu items based on user type
+const getUserMenuItems = (userType: UserType) => {
+  if (userType === "CANDIDATE") {
+    return [
+      { href: "/user/profile", label: "Profile" },
+      { href: "/user/profile#applications", label: "Applications" },
+    ];
+  }
+  return [
+    { href: "/company/dashboard", label: "Dashboard" },
+    { href: "/company/update-profile", label: "Company Profile" },
+    { href: "/company/dashboard?tab=manage-jobs", label: "Manage Jobs" },
+  ];
 };
 
 const ClientHeaderJsx = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data: session, status } = useSession();
+  const { data: userProfileData } = useGetUserProfileQuery(
+    session?.user?.id || ""
+  );
 
-
-  console.log("Session: ", session);
-    console.log("Session status: ", status);
+  const menuItems =
+    session?.user?.userType &&
+    getUserMenuItems(session.user.userType as UserType);
 
   return (
     <div className="flex items-center">
-      <div className="">
-        {!session?.user && (
-          <>
-            <div className="hidden lg:flex items-center gap-4">
-              <Link href="/auth/sign-in">
-                <Button variant="outline" className="">
-                  Sign in
-                </Button>
-              </Link>
-              <Link href="/auth/sign-up">
+      {/* Desktop Auth Buttons */}
+      {!session?.user && (
+        <>
+          <div className="hidden lg:flex items-center gap-4">
+            <Link href="/auth/sign-in">
+              <Button variant="outline">Sign in</Button>
+            </Link>
+            <Link href="/auth/sign-up">
+              <Button>Get Started</Button>
+            </Link>
+          </div>
+
+          <div className="hidden compact:block">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
                 <Button>Get Started</Button>
-              </Link>
-            </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-40 cursor-pointer font-medium space-y-1">
+                <DropdownMenuItem>
+                  <Link href="/auth/sign-in">Sign In</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/auth/sign-up">Get Started</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </>
+      )}
 
-            <div className="hidden compact:block">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button>Get Started</Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-40 cursor-pointer font-medium space-y-1">
-                  <DropdownMenuItem className="hover:!bg-primary hover:!text-card">
-                    <Link href={"/auth/sign-in"}>Sign In</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="hover:!bg-primary hover:!text-card">
-                    <Link href={"/auth/sign-up"}>Get Started</Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          </>
-        )}
-      </div>
-
-      {/* User Profile Button - Show when authenticated */}
-      {session && session.user && (
+      {/* Desktop User Menu */}
+      {session?.user && (
         <div className="hidden md:block">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -136,7 +93,7 @@ const ClientHeaderJsx = () => {
                 <Avatar className="h-8 w-8">
                   <AvatarImage
                     src={
-                      session.user.profilePicture ??
+                      userProfileData?.data.profilePicture ??
                       `https://api.dicebear.com/9.x/adventurer/svg?seed=${session.user.firstName}`
                     }
                     alt={`${session.user.firstName} ${session.user.lastName}`}
@@ -157,13 +114,29 @@ const ClientHeaderJsx = () => {
               className="w-48 cursor-pointer font-medium"
               align="end"
             >
-              <RenderUserDropdownItems />
+              {(Array.isArray(menuItems) ? menuItems : []).map((item) => (
+                <DropdownMenuItem
+                  key={item.href}
+                  className="hover:!bg-primary hover:!text-card cursor-pointer"
+                >
+                  <Link href={item.href} className="w-full">
+                    {item.label}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                className="hover:!bg-destructive hover:!text-destructive-foreground cursor-pointer"
+                onClick={handleSignOut}
+              >
+                Sign Out
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
       )}
 
-      {/* Mobile Menu Button */}
+      {/* Mobile Menu Toggle */}
       <button
         className="md:hidden p-2 cursor-pointer rounded hover:bg-gray-100"
         onClick={() => setIsMenuOpen((prev) => !prev)}
@@ -185,14 +158,13 @@ const ClientHeaderJsx = () => {
                 key={link.href}
                 className="text-neutral-500 font-medium hover:text-foreground"
               >
-                <Link href={link.href} className="cursor-pointer">
-                  {link.label}
-                </Link>
+                <Link href={link.href}>{link.label}</Link>
               </li>
             ))}
           </ul>
           <hr className="border-neutral-200" />
-          {/* Mobile Auth Section */}
+
+          {/* Mobile Auth / User Menu */}
           {!session?.user ? (
             <div className="pt-4 flex w-full justify-around items-center">
               <Link href="/auth/sign-in">
@@ -211,12 +183,12 @@ const ClientHeaderJsx = () => {
             </div>
           ) : (
             <div className="pt-4">
-              {/* Mobile User Profile */}
+              {/* User Info */}
               <div className="flex items-center gap-2.5 p-3 bg-accent rounded-lg mb-4">
                 <Avatar className="h-10 w-10">
                   <AvatarImage
                     src={
-                      session.user.profilePicture ??
+                      userProfileData?.data.profilePicture ??
                       `https://api.dicebear.com/9.x/adventurer/svg?seed=${session.user.firstName}`
                     }
                     alt={`${session.user.firstName} ${session.user.lastName}`}
@@ -237,43 +209,17 @@ const ClientHeaderJsx = () => {
                   </p>
                 </div>
               </div>
-              {/* Mobile User Menu Items */}
-              <div className="flex flex-col space-y-2">
-                {session.user.userType === "CANDIDATE" && (
-                  <>
-                    <Link href="/user/profile">
-                      <Button variant="ghost" className="w-full justify-start">
-                        Profile
-                      </Button>
-                    </Link>
-                    <Link href="/user/profile#applications">
-                      <Button variant="ghost" className="w-full justify-start">
-                        Applications
-                      </Button>
-                    </Link>
-                  </>
-                )}
 
-                {session.user.userType === "EMPLOYER" && (
-                  <>
-                    <Link href="/company/dashboard">
-                      <Button variant="ghost" className="w-full justify-start">
-                        Dashboard
-                      </Button>
-                    </Link>
-                    <Link href="/company/update-profile">
-                      <Button variant="ghost" className="w-full justify-start">
-                        Company Profile
-                      </Button>
-                    </Link>
-                    <Link href="/company/dashboard?tab=manage-jobs">
-                      <Button variant="ghost" className="w-full justify-start">
-                        Manage Jobs
-                      </Button>
-                    </Link>
-                  </>
-                )}
-
+              {/* User Menu */}
+                <div className="flex flex-col space-y-2">
+                  {/* this is for typescript to know that menuItems is an array */}
+                {(Array.isArray(menuItems) ? menuItems : []).map((item) => (
+                  <Link key={item.href} href={item.href}>
+                    <Button variant="ghost" className="w-full justify-start">
+                      {item.label}
+                    </Button>
+                  </Link>
+                ))}
                 <Button
                   variant="destructive"
                   className="w-full justify-start mt-2"
@@ -282,7 +228,6 @@ const ClientHeaderJsx = () => {
                   Sign Out
                 </Button>
               </div>
-
             </div>
           )}
         </div>
