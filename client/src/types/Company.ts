@@ -1,7 +1,7 @@
 export interface Company {
   id: string;
   name: string;
-  logo?: string;
+  logo?: File;
   description?: string;
   hqLocation: string;
   industry: string;
@@ -43,7 +43,7 @@ export interface Company {
   }[];
   
   benefits?: string[];
-  workStyle?: string; // Remote, Hybrid, Onsite
+  workStyle?: "Remote" | "Hybrid" | "Onsite"; // Remote, Hybrid, Onsite
   tags: string[];
   _count: {
     jobs: number; // Prisma returns number of matching jobs

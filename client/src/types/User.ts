@@ -1,7 +1,6 @@
 export type UserType = "CANDIDATE" | "EMPLOYER";
 
 export interface PublicUser {
-  data: {
     id: string;
     firstName: string;
     lastName: string;
@@ -11,5 +10,10 @@ export interface PublicUser {
     emailVerified: Date;
     rememberMe?: boolean;
     companyId?: string; // Optional, only for EMPLOYER type
-  };
+}
+
+export interface PublicUserResponse {
+    data: PublicUser;
+    success: boolean;
+    message: string;
 }
