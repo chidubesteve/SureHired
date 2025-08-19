@@ -5,8 +5,6 @@ export const JOB_TYPES = [
     "Part-time",
     "Contract",
     "Internship",
-    "Temporary",
-    "Volunteer",
 ];
 export const INDUSTRIES = [
     "Technology",
