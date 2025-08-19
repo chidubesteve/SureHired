@@ -101,7 +101,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           console.error("No user data returned from API");
           return null;
         }
-       // This strips the password out before it enters the session pipeline.
+        // This strips the password out before it enters the session pipeline.
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { password, ...rest } = user;
         console.log("rest", rest);
@@ -262,17 +262,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       console.log("Session: ", session);
       console.log("Token: ", token);
       console.log("User: ", user);
+
       if (user) {
-      const publicUser = user as PublicUser;
-    session.user = {
-      id: publicUser.id,
-      firstName: publicUser.firstName,
-      lastName: publicUser.lastName,
-      email: publicUser.email,
-      userType: publicUser.userType,
-      emailVerified: publicUser.emailVerified,
+        const publicUser = user as PublicUser;
+        session.user = {
+          id: publicUser.id,
+          email: publicUser.email,
+          emailVerified: publicUser.emailVerified,
+          userType: publicUser.userType,
+        };
       }
-    }
       return session;
     },
 
