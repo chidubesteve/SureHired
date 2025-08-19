@@ -1,7 +1,7 @@
 /**
  * this slice is to fetch and update user data
  */
-import { PublicUser } from "@/types/User";
+import { PublicUserResponse } from "@/types/User";
 import {
   getUserApplicationsResponse,
   getUserBookmarksResponse,
@@ -16,7 +16,7 @@ export const userApi = createApi({
   }),
   tagTypes: ["Applications", "Bookmarks", "FollowedCompanies", "User"],
   endpoints: (builder) => ({
-    getUserProfile: builder.query<PublicUser, string>({
+    getUserProfile: builder.query<PublicUserResponse, string>({
       query: (userId) => `/${userId}/profile`,
       providesTags: ["User"],
     }),
