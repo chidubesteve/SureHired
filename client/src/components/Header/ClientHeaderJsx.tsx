@@ -17,7 +17,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { useGetUserProfileQuery } from "@/redux/services/user";
 
 const getUserInitials = (firstName: string, lastName: string) =>
-  `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
+  `${firstName?.charAt(0)}${lastName?.charAt(0)}`.toUpperCase();
 
 const handleSignOut = async () => {
   await signOut({ callbackUrl: "/" });
@@ -33,7 +33,7 @@ const getUserMenuItems = (userType: UserType) => {
   }
   return [
     { href: "/company/dashboard", label: "Dashboard" },
-    { href: "/company/update-profile", label: "Company Profile" },
+    { href: "/company/update-profile", label: "Update Profile" },
     { href: "/company/dashboard?tab=manage-jobs", label: "Manage Jobs" },
   ];
 };
@@ -44,6 +44,7 @@ const ClientHeaderJsx = () => {
   const { data: userProfileData } = useGetUserProfileQuery(
     session?.user?.id || ""
   );
+  console.log("User Profile Data:", userProfileData);
 
   const menuItems =
     session?.user?.userType &&
@@ -82,7 +83,7 @@ const ClientHeaderJsx = () => {
       )}
 
       {/* Desktop User Menu */}
-      {session?.user && (
+      {session?.user && userProfileData && (
         <div className="hidden md:block">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -94,19 +95,19 @@ const ClientHeaderJsx = () => {
                   <AvatarImage
                     src={
                       userProfileData?.data.profilePicture ??
-                      `https://api.dicebear.com/9.x/adventurer/svg?seed=${session.user.firstName}`
+                      `https://api.dicebear.com/9.x/adventurer/svg?seed=${userProfileData?.data.firstName}`
                     }
-                    alt={`${session.user.firstName} ${session.user.lastName}`}
+                    alt={`${userProfileData.data.firstName} ${userProfileData.data.lastName}`}
                   />
                   <AvatarFallback className="bg-primary text-primary-foreground text-sm">
                     {getUserInitials(
-                      session.user.firstName!,
-                      session.user.lastName!
+                      userProfileData.data.firstName!,
+                      userProfileData.data.lastName!
                     )}
                   </AvatarFallback>
                 </Avatar>
                 <span className="font-medium text-md truncate">
-                  {session.user.firstName}
+                  {userProfileData.data?.firstName}
                 </span>
               </Button>
             </DropdownMenuTrigger>
@@ -184,50 +185,56 @@ const ClientHeaderJsx = () => {
           ) : (
             <div className="pt-4">
               {/* User Info */}
-              <div className="flex items-center gap-2.5 p-3 bg-accent rounded-lg mb-4">
-                <Avatar className="h-10 w-10">
-                  <AvatarImage
-                    src={
-                      userProfileData?.data.profilePicture ??
-                      `https://api.dicebear.com/9.x/adventurer/svg?seed=${session.user.firstName}`
-                    }
-                    alt={`${session.user.firstName} ${session.user.lastName}`}
-                  />
-                  <AvatarFallback className="bg-primary text-primary-foreground">
-                    {getUserInitials(
-                      session.user.firstName!,
-                      session.user.lastName!
-                    )}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="flex-1">
-                  <p className="font-medium text-md">
-                    {session.user.firstName} {session.user.lastName}
-                  </p>
-                  <p className="text-xs text-muted-foreground capitalize">
-                    {session.user.userType}
-                  </p>
-                </div>
-              </div>
+              {userProfileData && (
+                <>
+                  <div className="flex items-center gap-2.5 p-3 bg-accent rounded-lg mb-4">
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage
+                        src={
+                          userProfileData.data?.profilePicture ??
+                          `https://api.dicebear.com/9.x/adventurer/svg?seed=${userProfileData.data.firstName}`
+                        }
+                        alt={`${userProfileData.data.firstName} ${userProfileData.data.lastName}`}
+                      />
+                      <AvatarFallback className="bg-primary text-primary-foreground">
+                        {getUserInitials(
+                          userProfileData.data.firstName!,
+                          userProfileData.data.lastName!
+                        )}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <p className="font-medium text-md">
+                        {userProfileData.data.firstName} {userProfileData.data.lastName}
+                      </p>
+                      <p className="text-xs text-muted-foreground capitalize">
+                        {session.user.userType}
+                      </p>
+                    </div>
+                  </div>
 
-              {/* User Menu */}
-                <div className="flex flex-col space-y-2">
-                  {/* this is for typescript to know that menuItems is an array */}
-                {(Array.isArray(menuItems) ? menuItems : []).map((item) => (
-                  <Link key={item.href} href={item.href}>
-                    <Button variant="ghost" className="w-full justify-start">
-                      {item.label}
+                  <div className="flex flex-col space-y-2">
+                    {/* this is for typescript to know that menuItems is an array */}
+                    {(Array.isArray(menuItems) ? menuItems : []).map((item) => (
+                      <Link key={item.href} href={item.href}>
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-start"
+                        >
+                          {item.label}
+                        </Button>
+                      </Link>
+                    ))}
+                    <Button
+                      variant="destructive"
+                      className="w-full justify-start mt-2"
+                      onClick={handleSignOut}
+                    >
+                      Sign Out
                     </Button>
-                  </Link>
-                ))}
-                <Button
-                  variant="destructive"
-                  className="w-full justify-start mt-2"
-                  onClick={handleSignOut}
-                >
-                  Sign Out
-                </Button>
-              </div>
+                  </div>
+                </>
+                )}
             </div>
           )}
         </div>
