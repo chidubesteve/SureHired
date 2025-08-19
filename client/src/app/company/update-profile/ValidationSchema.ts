@@ -22,13 +22,13 @@ const optionalUrl = z
   })
   .optional();
 
-
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 1 MB
 const ACCEPTED_FILE_TYPES = [
   "image/jpeg",
   "image/jpg",
   "image/png",
-  "image/webp",]
+  "image/webp",
+];
 
 const imageSchema = z
   .instanceof(File, {
@@ -45,7 +45,19 @@ const imageSchema = z
 export const companySchema = z.object({
   name: z.string().min(1, "Company name is required"),
   industry: z.string().min(1, "Industry is required"),
-  size: z.string().min(1, "Company size is required"),
+  size: z.enum(
+    [
+      "1-10 employees",
+      "11-50 employees",
+      "51-200 employees",
+      "200-500 employees",
+      "500+ employees",
+    ],
+    {
+      required_error: "Company size is required",
+    }
+  ),
+
   founded: z
     .number({
       required_error: "Founded year is required",
