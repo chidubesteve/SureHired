@@ -23,11 +23,11 @@ import { CompanySchemaType } from "../ValidationSchema";
 
 interface WorkCultureTagsProps {
   form: UseFormReturn<CompanySchemaType>;
+  workStyle?: "Remote" | "Onsite" | "Hybrid"
 }
 
-const WorkCultureTags = ({ form }: WorkCultureTagsProps) => {
+const WorkCultureTags = ({ form, workStyle }: WorkCultureTagsProps) => {
   const [newTag, setNewTag] = useState("");
-
   const {
     formState: { errors },
     control,
@@ -67,8 +67,9 @@ const WorkCultureTags = ({ form }: WorkCultureTagsProps) => {
           <Controller
             name="workStyle"
             control={control}
+            defaultValue={workStyle}
             render={({ field }) => (
-              <Select onValueChange={field.onChange} value={field.value}>
+              <Select onValueChange={field.onChange} defaultValue={field.value} value={workStyle}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>

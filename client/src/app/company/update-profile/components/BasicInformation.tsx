@@ -24,12 +24,14 @@ import {
 } from "@/components/ui/shadcn-io/dropzone";
 import Image from "next/image";
 import { CompanySchemaType } from "../ValidationSchema";
+import { companySize } from "../page";
 
 interface BasicInformationProps {
   form: UseFormReturn<CompanySchemaType>;
+  size?: companySize;
 }
 
-const BasicInformation = ({ form }: BasicInformationProps) => {
+const BasicInformation = ({ form, size }: BasicInformationProps) => {
   const [files, setFiles] = useState<File[] | undefined>();
   const [filePreview, setFilePreview] = useState<string | undefined>();
 
@@ -43,6 +45,8 @@ const BasicInformation = ({ form }: BasicInformationProps) => {
     setFiles(files);
 
     if (files.length > 0) {
+      form.setValue("logo", files[0], {
+        shouldValidate: true,});
       const reader = new FileReader();
       reader.onload = (e) => {
         if (typeof e.target?.result === "string") {
@@ -80,12 +84,17 @@ const BasicInformation = ({ form }: BasicInformationProps) => {
           <div>
             <Label htmlFor="size">Company Size *</Label>
             <Controller
-              name="size"
               control={control}
+              name="size"
+              defaultValue={size}
               render={({ field }) => (
-                <Select onValueChange={field.onChange} value={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  value={size}
+                >
                   <SelectTrigger>
-                    <SelectValue />
+                    <SelectValue placeholder="Select company size" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="1-10 employees">
@@ -151,7 +160,6 @@ const BasicInformation = ({ form }: BasicInformationProps) => {
               maxSize={1024 * 1024 * 2} // 2MB
               onError={console.error}
               src={files}
-              {...register("logo")}
               className="border-dashed border-2 border-neutral-300 rounded-lg p-4 relative"
             >
               <DropzoneEmptyState>
@@ -160,7 +168,7 @@ const BasicInformation = ({ form }: BasicInformationProps) => {
                   Drag & drop your logo here or click to upload
                 </p>
                 <p className="text-center italic text-xs text-neutral-500">
-                  Supported formats: PNG, JPG, JPEG, WEBP (max 1MB)
+                  Supported formats: PNG, JPG, JPEG, WEBP (max 2MB)
                 </p>
               </DropzoneEmptyState>
               <DropzoneContent>
