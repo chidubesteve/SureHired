@@ -62,6 +62,17 @@ export const companyApi = createApi({
       }),
       invalidatesTags: ["Company"],
     }),
+    updateCompany: builder.mutation<
+      SingleCompanyResponse,
+      { id: string; data: Partial<createCompanyArgs> }
+    >({
+      query: ({ id, data }) => ({
+        url: `/company/update/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: (result, error, { id }) => [{ type: "Company", id }],
+    }),
   }),
 });
 
@@ -69,4 +80,5 @@ export const {
   useGetAllCompaniesQuery,
   useGetCompanyByIdQuery,
   useCreateCompanyMutation,
+  useUpdateCompanyMutation,
 } = companyApi;
