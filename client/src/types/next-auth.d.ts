@@ -4,10 +4,9 @@ declare module "next-auth" {
   interface Session {
     user: {
       id: string;
-      firstName?: string;
-      lastName?: string;
       email: string;
-      userType?: string;
+      userType: string;
+      emailVerified: Date;
     } & DefaultSession["user"];
     expires: string;
   }
