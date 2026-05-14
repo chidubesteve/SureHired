@@ -30,7 +30,7 @@ const ACCEPTED_FILE_TYPES = [
   "image/webp",
 ];
 
-const imageSchema = z
+const fileSchema = z
   .instanceof(File, {
     message: "File must be an image",
   })
@@ -40,7 +40,9 @@ const imageSchema = z
   .refine(
     (file) => file.size <= MAX_FILE_SIZE,
     `File size must be less than ${MAX_FILE_SIZE / 1024 / 1024} MB`
-  );
+);
+  
+export const imageSchema = z.union([fileSchema, z.string().url()])
 
 export const companySchema = z.object({
   name: z.string().min(1, "Company name is required"),

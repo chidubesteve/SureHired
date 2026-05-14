@@ -45,17 +45,14 @@ const ValuesAndBenefits = ({ form }: ValuesAndBenefitsProps) => {
     setValue("values", updatedValues);
   };
 
-  const addBenefit = () => {
-    if (
-      newBenefit.trim() &&
-      benefits &&
-      !benefits.includes(newBenefit.trim())
-    ) {
-      const updatedBenefits = [...benefits, newBenefit.trim()];
-      setValue("benefits", updatedBenefits);
-      setNewBenefit("");
-    }
-  };
+ const addBenefit = () => {
+
+   if (newBenefit.trim() && benefits && !benefits.includes(newBenefit.trim())) {
+     const updatedBenefits = [...benefits, newBenefit.trim()];
+     setValue("benefits", updatedBenefits);
+     setNewBenefit("");
+   }
+ };
 
   const removeBenefit = (benefitToRemove: string) => {
     const updatedBenefits =
@@ -93,9 +90,12 @@ const ValuesAndBenefits = ({ form }: ValuesAndBenefitsProps) => {
               value={newValue}
               onChange={(e) => setNewValue(e.target.value)}
               placeholder="Add company value..."
-              onKeyUp={(e) =>
-                e.key === "Enter" && (e.preventDefault(), addValue())
-              }
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  addValue();
+                }
+              }}
             />
             <Button type="button" onClick={addValue} size="sm">
               <Plus className="w-4 h-4" />
@@ -129,9 +129,13 @@ const ValuesAndBenefits = ({ form }: ValuesAndBenefitsProps) => {
               value={newBenefit}
               onChange={(e) => setNewBenefit(e.target.value)}
               placeholder="Add employee benefit..."
-              onKeyUp={(e) =>
-                e.key === "Enter" && (e.preventDefault(), addBenefit())
-              }
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  addBenefit();
+                }
+              }}
             />
             <Button type="button" onClick={addBenefit} size="sm">
               <Plus className="w-4 h-4" />

@@ -27,7 +27,8 @@ export const uploadLogo = multer({
         fileSize: 2 * 1024 * 1024, // Limit file size to 2MB
     },
     fileFilter: (_, file, cb) => { 
-        const allowed = ['.png', '.jpg', '.jpeg', '.webp'];
+        file.mimetype
+        const allowed = ['png', 'jpg', 'jpeg', 'webp'];
         if(!allowed.includes(file.mimetype.split('/')[1])) {
             return cb(new Error('Invalid file type. Only PNG, JPG, JPEG, and WEBP are allowed.'));
         }

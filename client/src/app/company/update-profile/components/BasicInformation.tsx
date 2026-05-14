@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {  useState } from "react";
 import { UseFormReturn, Controller } from "react-hook-form";
 import {
   Card,
@@ -29,11 +29,17 @@ import { companySize } from "../page";
 interface BasicInformationProps {
   form: UseFormReturn<CompanySchemaType>;
   size?: companySize;
+  logoPreview: string | undefined; // Optional prop to handle file preview
+  setLogoPreview: (preview: string | undefined) => void; // Function to update logo preview in parent
 }
 
-const BasicInformation = ({ form, size }: BasicInformationProps) => {
+const BasicInformation = ({
+  form,
+  size,
+  logoPreview,
+  setLogoPreview,
+}: BasicInformationProps) => {
   const [files, setFiles] = useState<File[] | undefined>();
-  const [filePreview, setFilePreview] = useState<string | undefined>();
 
   const {
     register,
@@ -41,21 +47,28 @@ const BasicInformation = ({ form, size }: BasicInformationProps) => {
     control,
   } = form;
 
-  const handleDrop = (files: File[]) => {
-    setFiles(files);
 
-    if (files.length > 0) {
-      form.setValue("logo", files[0], {
-        shouldValidate: true,});
+  const handleDrop = (droppedFiles: File[]) => {
+    
+    if (droppedFiles.length > 0) {
+      setFiles(droppedFiles);
+      form.setValue("logo", droppedFiles[0], {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
       const reader = new FileReader();
       reader.onload = (e) => {
         if (typeof e.target?.result === "string") {
-          setFilePreview(e.target?.result);
+          setLogoPreview(e.target?.result);
         }
       };
-      reader.readAsDataURL(files[0]);
+      reader.readAsDataURL(droppedFiles[0]);
     }
   };
+
+  const hasPreview = !!logoPreview; // whether we have anything to preview ( newly dropped or from DB)
+
+
 
   return (
     <Card>
@@ -86,12 +99,11 @@ const BasicInformation = ({ form, size }: BasicInformationProps) => {
             <Controller
               control={control}
               name="size"
-              defaultValue={size}
               render={({ field }) => (
                 <Select
                   onValueChange={field.onChange}
-                  defaultValue={field.value}
-                  value={size}
+                  defaultValue={size}
+                  // value={field.value}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select company size" />
@@ -154,6 +166,11 @@ const BasicInformation = ({ form, size }: BasicInformationProps) => {
           </div>
           <div className="md:col-span-2 space-y-1">
             <Label htmlFor="logo">Company Logo (optional)</Label>
+            {hasPreview && !files && (
+              <p className="text-xs text-gray-500">
+                Current logo will be kept unless you upload a new one
+              </p>
+            )}
             <Dropzone
               accept={{ "image/*": [".png", ".jpg", ".jpeg", ".webp"] }}
               onDrop={handleDrop}
@@ -163,24 +180,42 @@ const BasicInformation = ({ form, size }: BasicInformationProps) => {
               className="border-dashed border-2 border-neutral-300 rounded-lg p-4 relative"
             >
               <DropzoneEmptyState>
-                <LuUpload className="!w-8 !h-8 text-gray-600" />
-                <p className="text-center text-neutral-500">
-                  Drag & drop your logo here or click to upload
-                </p>
-                <p className="text-center italic text-xs text-neutral-500">
-                  Supported formats: PNG, JPG, JPEG, WEBP (max 2MB)
-                </p>
-              </DropzoneEmptyState>
-              <DropzoneContent>
-                {filePreview && (
-                  <div className="h-[102px] w-full">
+                {hasPreview ? (
+                  <div>
                     <Image
-                      alt="Preview"
+                      alt="current company Logo"
+                      src={logoPreview}
+                      className="absolute top-0 left-0 h-full w-full object-contain"
                       width={102}
                       height={102}
-                      placeholder="data:image/..."
+                    />
+                    <p className="text-center test-xs text-neutral-500 mt-2">
+                      click or drag to replace
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <LuUpload className="!w-8 !h-8 text-gray-600" />
+                    <p className="text-center text-neutral-500">
+                      Drag & drop your logo here or click to upload
+                    </p>
+                    <p className="text-center italic text-xs text-neutral-500">
+                      Supported formats: PNG, JPG, JPEG, WEBP (max 2MB)
+                    </p>
+                  </>
+                )}
+              </DropzoneEmptyState>
+              {/* This renders after a new file is uploaded */}
+              <DropzoneContent>
+                {logoPreview && (
+                  <div className="h-[102px] w-full  ">
+                    <Image
+                      alt="Company Logo preview"
                       className="absolute top-0 left-0 h-full w-full object-cover"
-                      src={filePreview}
+                      width={102}
+                      height={102}
+                      src={logoPreview.toString()}
+                      // placeholder="blur"
                     />
                   </div>
                 )}

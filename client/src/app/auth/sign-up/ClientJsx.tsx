@@ -13,6 +13,7 @@ import { signIn } from "next-auth/react";
 import Cookies from "js-cookie";
 import { useOAuthErrorToast } from "@/hooks/useOAuthErrorToast";
 import { useSignUpMutation } from "@/redux/services/auth";
+import getErrorMessage from "@/utils/getErrorMessage";
 
 const ClientGoBackButtonJsx = () => {
   const router = useRouter();
@@ -135,13 +136,13 @@ const ClientFormJsx = () => {
 
       if (error) {
         console.error("Error during sign up api call:", error);
-        throw new Error("User registration failed!");
+        throw error;
       }
     } catch (error) {
       console.error("Error during sign up:", error);
-      toast.error(
-        error instanceof Error ? error.message : "User registration failed!"
-      );
+      const errorMessage = getErrorMessage(error);
+      console.log("Extracted error message:", errorMessage);
+      toast.error(errorMessage);
     } finally {
       setSubmitted(false); // reset after submission
     }

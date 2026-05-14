@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -24,12 +24,19 @@ import SocialMedia from "./components/SocialMedia";
 import { useGetUserProfileQuery } from "@/redux/services/user";
 import { createCompanyArgs } from "@/types/Company";
 import Loading from "./loading";
+import getErrorMessage from "@/utils/getErrorMessage";
 
-export type companySize = "1-10 employees" | "11-50 employees" | "51-200 employees" | "200-500 employees" | "500+ employees"
+export type companySize =
+  | "1-10 employees"
+  | "11-50 employees"
+  | "51-200 employees"
+  | "200-500 employees"
+  | "500+ employees";
 
 const CompanyProfileUpdate = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [logoPreview, setLogoPreview] = useState<string | undefined>();
   const initialCompanyName = searchParams.get("company") || "";
   const { data: session } = useSession();
   const signedInUserId = session && session.user && session.user.id;
@@ -41,6 +48,7 @@ const CompanyProfileUpdate = () => {
     }
   );
   const companyId = user && user.data.companyId;
+  console.log("User Profile Data:", user);
   console.log("Company ID from user profile:", companyId);
   /* If companyId exists → Update Mode (fetch company data and prefill form).
 
@@ -62,7 +70,7 @@ If companyId is null → Create Mode (empty form, except maybe initialCompanyNam
 
   const form = useForm({
     resolver: zodResolver(companySchema),
-    mode: "onChange",
+    mode: "onSubmit",
     defaultValues: {
       name: initialCompanyName || "",
       industry: "",
@@ -93,12 +101,12 @@ If companyId is null → Create Mode (empty form, except maybe initialCompanyNam
 
   const {
     handleSubmit,
-    formState: { isValid, isSubmitting },
+    formState: { isValid, isSubmitting, errors },
     setValue,
     getValues,
   } = form;
-    console.log("is form valid", isValid);
-
+  console.log("is form valid", isValid);
+  console.log("Form errors:", errors);
 
   useEffect(() => {
     if (initialCompanyName) {
@@ -111,15 +119,24 @@ If companyId is null → Create Mode (empty form, except maybe initialCompanyNam
       form.reset({
         ...data.data,
         size: data?.data.size as companySize, // Ensure size is typed correctly
+        workStyle: data?.data.workStyle || "Remote",
+        logo: undefined, // Reset logo to undefined for new upload
       });
+      form.trigger(); // Trigger validation
+      setLogoPreview(data?.data.logo as string | undefined); // Set file preview if logo exists
       console.log("Reset form with data:", data.data);
-      console.log("Form state after reset (size):", getValues("size")); // Debug
     }
   }, [data, form, getValues]);
 
   const onSubmit = async (data: CompanySchemaType) => {
     try {
       let res;
+      // if updating, and the logo hasn't changed (URL still the same), don't include it in the update going to the server
+      //TODO: in prod, change http to https
+      if (companyId && logoPreview === data.logo && logoPreview?.startsWith("http")) {
+        delete data.logo;
+        console.log("Logo unchanged, not including in update:", data);
+      }
       if (companyId) {
         // Update existing company
         res = await updateCompany({
@@ -142,40 +159,34 @@ If companyId is null → Create Mode (empty form, except maybe initialCompanyNam
       router.push("/company/dashboard");
     } catch (err) {
       console.error("Error creating company:", err);
-      toast.error(
-        err instanceof Error ? err.message : "Failed to create company"
-      );
+      const errorMessage = getErrorMessage(err);
+      console.log("Extracted error message:", errorMessage);
+      toast.error(errorMessage);
     }
   };
 
   if (error) {
-    toast.error(
-      error instanceof Error ? error.message : "Sorry!, couldn't create company"
-    );
+    const errorMessage = getErrorMessage(error);
+    console.log("Extracted error message:", errorMessage);
+    toast.error(errorMessage);
   }
 
   if (userError) {
-    toast.error(
-      userError instanceof Error
-        ? userError.message
-        : "Failed to fetch user profile"
-    );
+    const errorMessage = getErrorMessage(userError);
+    console.log("Extracted error message:", errorMessage);
+    toast.error(errorMessage);
   }
 
   if (companyError) {
-    toast.error(
-      companyError instanceof Error
-        ? companyError.message
-        : "Failed to fetch company"
-    );
+    const errorMessage = getErrorMessage(companyError);
+    console.log("Extracted error message:", errorMessage);
+    toast.error(errorMessage);
   }
 
   if (updateError) {
-    toast.error(
-      updateError instanceof Error
-        ? updateError.message
-        : "Failed to update company"
-    );
+    const errorMessage = getErrorMessage(updateError);
+    console.log("Extracted error message:", errorMessage);
+    toast.error(errorMessage);
   }
 
   if (isLoading || isFetching) {
@@ -204,7 +215,12 @@ If companyId is null → Create Mode (empty form, except maybe initialCompanyNam
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <BasicInformation form={form} size={companySize} />
+        <BasicInformation
+          form={form}
+          size={companySize}
+          logoPreview={logoPreview}
+          setLogoPreview={setLogoPreview}
+        />
         <DescriptionMission form={form} />
         <WorkCultureTags form={form} workStyle={workStyle} />
         <ValuesAndBenefits form={form} />

@@ -7,11 +7,22 @@ import jobsRoutes from "./routes/Job.routes";
 import companyRoutes from "./routes/Company.routes";
 import userRoutes from "./routes/User.routes";
 import authRoutes from "./routes/Auth.routes";
+import path from "path";
 
 // CONFIG
 dotenv.config();
 const app = express();
 app.use(express.json());
+// expose /uploads folder as static
+const uploadsPath = path.join(__dirname, "uploads");
+app.use("/uploads", (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL);
+  res.header("Access-Control-Allow-Methods", "GET");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
+app.use("/uploads", express.static(uploadsPath));
 app.use(
   cors({
     origin: (origin, callback) => {

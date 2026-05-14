@@ -23,7 +23,7 @@ import { CompanySchemaType } from "../ValidationSchema";
 
 interface WorkCultureTagsProps {
   form: UseFormReturn<CompanySchemaType>;
-  workStyle?: "Remote" | "Onsite" | "Hybrid"
+  workStyle?: "Remote" | "Onsite" | "Hybrid";
 }
 
 const WorkCultureTags = ({ form, workStyle }: WorkCultureTagsProps) => {
@@ -39,6 +39,7 @@ const WorkCultureTags = ({ form, workStyle }: WorkCultureTagsProps) => {
   const tags = watch("tags");
 
   const addTag = async () => {
+
     if (newTag.trim() && tags.length < 3 && !tags.includes(newTag.trim())) {
       const updatedTags = [...tags, newTag.trim()];
       setValue("tags", updatedTags);
@@ -67,9 +68,8 @@ const WorkCultureTags = ({ form, workStyle }: WorkCultureTagsProps) => {
           <Controller
             name="workStyle"
             control={control}
-            defaultValue={workStyle}
             render={({ field }) => (
-              <Select onValueChange={field.onChange} defaultValue={field.value} value={workStyle}>
+              <Select onValueChange={field.onChange} defaultValue={workStyle}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -106,9 +106,12 @@ const WorkCultureTags = ({ form, workStyle }: WorkCultureTagsProps) => {
                 value={newTag}
                 onChange={(e) => setNewTag(e.target.value)}
                 placeholder="Add industry tag..."
-                onKeyUp={(e) =>
-                  e.key === "Enter" && (e.preventDefault(), addTag())
-                }
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault(); // block parent form submit
+                    addTag();
+                  }
+                }}
               />
               <Button type="button" onClick={addTag} size="sm">
                 <Plus className="w-4 h-4" />

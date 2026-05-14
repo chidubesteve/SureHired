@@ -55,22 +55,71 @@ export const companyApi = createApi({
       providesTags: (result, error, id) => [{ type: "Company", id }],
     }),
     createCompany: builder.mutation<createCompanyResponse, createCompanyArgs>({
-      query: ({ userId, data }) => ({
-        url: `/company/create/${userId}`,
-        method: "POST",
-        body: data,
-      }),
+      query: ({ userId, data }) => {
+        const formData = new FormData();
+        // Append text fields to the FormData object
+        Object.entries(data).forEach(([key, value]) => {
+          if (key !== "logo") {
+            if (typeof value === "number") {
+              formData.append(key, value.toString());
+            } else if (Array.isArray(value)) {
+              formData.append(key, JSON.stringify(value));
+            } else if (typeof value === "object" && value !== null) {
+              formData.append(key, JSON.stringify(value));
+            } else if (typeof value === "string") {
+              formData.append(key, value);
+            }
+          }
+        });
+        // Append the logo file if it exists
+        if (data.logo) {
+          formData.append("logo", data.logo);
+        }
+        return {
+          url: `/company/create/${userId}`,
+          method: "POST",
+          body: formData,
+        };
+      },
       invalidatesTags: ["Company"],
     }),
     updateCompany: builder.mutation<
       SingleCompanyResponse,
       { id: string; data: Partial<createCompanyArgs> }
     >({
-      query: ({ id, data }) => ({
-        url: `/company/update/${id}`,
-        method: "PUT",
-        body: data,
-      }),
+      query: ({ id, data }) => {
+        const formData = new FormData();
+
+        // Append text fields to the FormData object
+        Object.entries(data).forEach(([key, value]) => {
+          if (value !== undefined) {
+            if (key === "logo") {
+              //append the file
+              if (value instanceof File) {
+                formData.append("logo", value);
+                console.log("Appending logo file to FormData:", value);
+              } else {
+                console.log("Logo is not a File instance, skipping append:", value);
+              }
+            } else if (key !== "logo") {
+              if (typeof value === "number") {
+                formData.append(key, value);
+              } else if (Array.isArray(value)) {
+                formData.append(key, JSON.stringify(value));
+              } else if (typeof value === "object" && value !== null) {
+                formData.append(key, JSON.stringify(value)); 
+              } else if (typeof value === "string") {
+                formData.append(key, value);
+              }
+            }
+          }
+        });
+        return {
+          url: `/company/update/${id}`,
+          method: "PUT",
+          body: formData,
+        };
+      },
       invalidatesTags: (result, error, { id }) => [{ type: "Company", id }],
     }),
   }),

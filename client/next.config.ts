@@ -6,8 +6,15 @@ const nextConfig: NextConfig = {
   },
   images: {
     dangerouslyAllowSVG: true,
-    remotePatterns: [{ protocol: "https", hostname: "api.dicebear.com" }],
-  },
+    remotePatterns: [
+      { protocol: "https", hostname: "api.dicebear.com" },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "8000",
+        pathname: "/uploads/**",
+      },
+    ],  },
 };
 
 export default nextConfig;

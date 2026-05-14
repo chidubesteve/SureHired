@@ -1,9 +1,8 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
-
 First, run the development server:
-
+and the image that is passed is in the url format, i have tried everything ``
 ```bash
 npm run dev
 # or

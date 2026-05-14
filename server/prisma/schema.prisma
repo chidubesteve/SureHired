@@ -136,7 +136,7 @@ model Office {
 }
 
 model Socials {
-  id        String  @default(uuid())
+  id        String  @id @default(uuid())
   linkedin  String?
   github    String?
   facebook  String?

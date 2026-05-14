@@ -22,9 +22,11 @@ export const INDUSTRIES = [
     "Entertainment",
     "Government",
     "Non-profit",
+    "Fashion",
     "Construction",
     "Agriculture",
     "SaaS",
+    "Food & Beverage",
     "E-commerce",
     "Biotechnology",
 ];
