@@ -15,6 +15,7 @@ import UserAppliedJobs from "./components/UserAppliedJobs";
 import FollowedCompanies from "./components/FollowedCompanies";
 import SavedJobs from "./components/SavedJobs";
 import { H2 } from "@/components/ui/header-with-anchor";
+import { useGetUserProfileQuery } from "@/redux/services/user";
 
 interface UserProfileProps {
   userId: string;
@@ -22,13 +23,15 @@ interface UserProfileProps {
 }
 
 const UserProfile = ({ userId, user }: UserProfileProps) => {
+  const { data: profileData } = useGetUserProfileQuery(userId);
+  const firstName = profileData?.data?.firstName;
 
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-neutral-900 mb-2">
-          Welcome, {user.firstName}!
+          Welcome, {firstName}!
         </h1>
         <p className="text-neutral-600">
           Manage your profile and track your job applications
