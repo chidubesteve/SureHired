@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ReduxProvider } from "@/redux/provider";
@@ -35,6 +36,7 @@ export default async function RootLayout({
           <ReduxProvider>
             <TooltipProvider>{children}</TooltipProvider>
             <Toaster richColors />
+            <Analytics />
           </ReduxProvider>
         </AuthContext>
       </body>
